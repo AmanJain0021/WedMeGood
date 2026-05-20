@@ -1,6 +1,6 @@
-# UtsavChakra Backend API
+# Utsavo Backend API
 
-Backend API for UtsavChakra Wedding Planning Platform
+Backend API for Utsavo Wedding Planning Platform
 
 ## 🚀 Quick Start
 
@@ -183,7 +183,7 @@ Key environment variables:
 |----------|-------------|---------|
 | NODE_ENV | Environment | development |
 | PORT | Server port | 5000 |
-| MONGODB_URI | MongoDB connection | mongodb://localhost:27017/utsav-chakra |
+| MONGODB_URI | MongoDB connection | mongodb://localhost:27017/utsavo-chakra |
 | JWT_SECRET | JWT secret key | - |
 | JWT_EXPIRE | JWT expiration | 7d |
 | EMAIL_USER | Email username | - |
@@ -198,7 +198,7 @@ Key environment variables:
 2. Build the application
 3. Start with PM2 or similar:
 ```bash
-pm2 start server.js --name "utsav-chakra-api"
+pm2 start server.js --name "utsavo-chakra-api"
 ```
 
 ### Docker Support (Coming Soon)
@@ -222,7 +222,7 @@ This project is licensed under the MIT License.
 ## 🆘 Support
 
 For support and questions:
-- Email: support@utsavchakra.com
+- Email: support@utsavo.com
 - Documentation: [Link to docs]
 - Issues: [Link to GitHub issues]
 

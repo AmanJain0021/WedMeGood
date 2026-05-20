@@ -123,7 +123,7 @@ const VendorQuotes = () => {
     switch (status) {
       case 'Sent': return { bg: '#F0F9FF', text: '#0284C7', border: '#E0F2FE' };
       case 'Accepted': return { bg: '#F0FDF4', text: '#16A34A', border: '#DCFCE7' };
-      case 'Rejected': return { bg: '#FFF1F2', text: '#E11D48', border: '#FFE4E6' };
+      case 'Rejected': return { bg: '#f3e8ff', text: '#E11D48', border: '#ede9fe' };
       default: return { bg: '#F8FAFC', text: '#64748B', border: '#F1F5F9' };
     }
   };
@@ -323,7 +323,7 @@ const VendorQuotes = () => {
                 {selectedLeadId && leads.find(l => l._id === selectedLeadId) && (
                     <div className="p-5 bg-rose-50/30 rounded-2xl border border-rose-100 animate-in fade-in slide-in-from-top-2">
                         <div className="flex items-center gap-2 mb-2">
-                            <Icon name="calendar" size="xs" color="#ed648f" />
+                            <Icon name="calendar" size="xs" color="#7c3aed" />
                             <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">Target Event Date</span>
                         </div>
                         <p className="text-xs font-bold text-slate-600">

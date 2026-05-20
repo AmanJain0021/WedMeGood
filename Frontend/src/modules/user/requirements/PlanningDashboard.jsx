@@ -336,7 +336,7 @@ const PlanningDashboard = () => {
           <Icon name="chevronDown" size="sm" className="rotate-90" />
         </button>
         <div className="flex flex-col items-center">
-           <img src="/assets/vendor/logo_theme.png" alt="UtsavChakra Logo" className="h-16 object-contain" />
+           <img src="/assets/vendor/logo_theme.png" alt="Utsavo Logo" className="h-16 object-contain" />
         </div>
         <div className="w-9 h-9 bg-white shadow-sm rounded-xl flex items-center justify-center border border-gray-100 text-[#3D2B2B]">
            <Icon name="users" size="sm" />
@@ -405,7 +405,7 @@ const PlanningDashboard = () => {
            </div>
 
            <p className="text-[#3D2B2B]/70 text-[11px] leading-relaxed font-medium italic" style={{ fontFamily: '"Outfit", sans-serif' }}>
-             At UtsavChakra, we create events where elegance meets emotion. Every story is unique, and we transform yours into a beautifully curated celebration filled with meaning and warmth. We blend refined design, thoughtful details, and seamless coordination to make your day truly unforgettable.
+             At Utsavo, we create events where elegance meets emotion. Every story is unique, and we transform yours into a beautifully curated celebration filled with meaning and warmth. We blend refined design, thoughtful details, and seamless coordination to make your day truly unforgettable.
            </p>
 
            {/* SMALL DECORATIVE STRIP */}

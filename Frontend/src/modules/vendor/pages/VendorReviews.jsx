@@ -80,10 +80,10 @@ const VendorReviews = () => {
       {/* Header */}
       <div className="vendor-surface rounded-xl p-4 sm:p-6 relative overflow-hidden bg-[#FDF2F8] border border-rose-100 shadow-sm">
         <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full opacity-15" style={{
-          background: 'radial-gradient(circle, #ed648f, transparent 70%)'
+          background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
         }}></div>
         <div className="relative z-10">
-          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ed648f]">Social Proof</p>
+          <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#7c3aed]">Social Proof</p>
           <h2 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">Client Feedback</h2>
           <p className="text-xs font-bold text-slate-500 mt-1">Engage with your clients and build your reputation.</p>
         </div>
@@ -91,7 +91,7 @@ const VendorReviews = () => {
 
       {/* Stats Row */}
       <div className="grid gap-3 sm:grid-cols-3">
-        <div className="vendor-surface rounded-2xl p-5 border border-rose-100 shadow-sm transition-all hover:scale-[1.02]" style={{ backgroundColor: '#FFF1F2' }}>
+        <div className="vendor-surface rounded-2xl p-5 border border-rose-100 shadow-sm transition-all hover:scale-[1.02]" style={{ backgroundColor: '#f3e8ff' }}>
            <div className="flex items-start justify-between mb-4">
               <div className="h-9 w-9 rounded-xl bg-white/60 flex items-center justify-center text-rose-500 shadow-sm">
                  <Icon name="star" size="sm" />
@@ -124,7 +124,7 @@ const VendorReviews = () => {
       {/* Reviews List */}
       <div className="grid gap-3">
         <div className="flex items-center gap-2 mb-2 px-1">
-           <div className="h-2 w-2 rounded-full bg-[#ed648f]"></div>
+           <div className="h-2 w-2 rounded-full bg-[#7c3aed]"></div>
            <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Testimonials</h3>
         </div>
         
@@ -135,7 +135,7 @@ const VendorReviews = () => {
           </div>
         ) : (
           reviews.map((review, index) => {
-             const pastels = ['#FFF1F2', '#F0F9FF', '#F5F3FF', '#FFFBEB'];
+             const pastels = ['#f3e8ff', '#F0F9FF', '#F5F3FF', '#FFFBEB'];
              const bg = pastels[index % pastels.length];
              
              return (
@@ -149,7 +149,7 @@ const VendorReviews = () => {
                            <h4 className="text-sm font-black text-slate-900 leading-none">{review.userId?.name || 'Customer'}</h4>
                            <div className="flex gap-0.5 mt-1">
                               {[...Array(5)].map((_, i) => (
-                                <Icon key={i} name="star" size="xs" color={i < review.rating ? '#ed648f' : '#cbd5e1'} />
+                                <Icon key={i} name="star" size="xs" color={i < review.rating ? '#7c3aed' : '#cbd5e1'} />
                               ))}
                            </div>
                         </div>

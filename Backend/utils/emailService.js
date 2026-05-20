@@ -12,14 +12,14 @@ const transporter = nodemailer.createTransport({
 // Email templates
 const emailTemplates = {
   verification: (name, otp) => ({
-    subject: 'Verify your email - UtsavChakra',
+    subject: 'Verify your email - Utsavo',
     html: `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Email Verification - UtsavChakra</title>
+        <title>Email Verification - Utsavo</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -80,13 +80,13 @@ const emailTemplates = {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">✨ UtsavChakra</div>
+            <div class="logo">✨ Utsavo</div>
             <h2>Welcome to Your Wedding Planning Journey!</h2>
           </div>
           
           <p>Hi ${name},</p>
           
-          <p>Thank you for signing up with UtsavChakra! To get started with your wedding planning, please verify your email address using the OTP below:</p>
+          <p>Thank you for signing up with Utsavo! To get started with your wedding planning, please verify your email address using the OTP below:</p>
           
           <div class="otp-box">
             <p>Your verification code is:</p>
@@ -97,8 +97,8 @@ const emailTemplates = {
           <p>If you didn't create an account with us, please ignore this email.</p>
           
           <div class="footer">
-            <p>Need help? Contact us at support@utsavchakra.com</p>
-            <p>© 2024 UtsavChakra. All rights reserved.</p>
+            <p>Need help? Contact us at support@utsavo.com</p>
+            <p>© 2024 Utsavo. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -107,14 +107,14 @@ const emailTemplates = {
   }),
 
   welcome: (name) => ({
-    subject: 'Welcome to UtsavChakra - Start Your Wedding Planning Journey!',
+    subject: 'Welcome to Utsavo - Start Your Wedding Planning Journey!',
     html: `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to UtsavChakra</title>
+        <title>Welcome to Utsavo</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -177,15 +177,15 @@ const emailTemplates = {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">✨ UtsavChakra</div>
+            <div class="logo">✨ Utsavo</div>
             <h1>Welcome to Your Dream Wedding!</h1>
           </div>
           
           <p>Hi ${name},</p>
           
-          <p>Congratulations! 🎉 Your email has been verified and you're now ready to embark on an incredible wedding planning journey with UtsavChakra.</p>
+          <p>Congratulations! 🎉 Your email has been verified and you're now ready to embark on an incredible wedding planning journey with Utsavo.</p>
           
-          <h3>What can you do with UtsavChakra?</h3>
+          <h3>What can you do with Utsavo?</h3>
           
           <div class="feature-grid">
             <div class="feature">
@@ -220,7 +220,7 @@ const emailTemplates = {
           
           <div class="footer">
             <p>Happy Planning! 💐</p>
-            <p>© 2024 UtsavChakra. All rights reserved.</p>
+            <p>© 2024 Utsavo. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -229,14 +229,14 @@ const emailTemplates = {
   }),
 
   passwordReset: (name, resetToken) => ({
-    subject: 'Reset Your Password - UtsavChakra',
+    subject: 'Reset Your Password - Utsavo',
     html: `
       <!DOCTYPE html>
       <html>
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Password Reset - UtsavChakra</title>
+        <title>Password Reset - Utsavo</title>
         <style>
           body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -290,13 +290,13 @@ const emailTemplates = {
       <body>
         <div class="container">
           <div class="header">
-            <div class="logo">✨ UtsavChakra</div>
+            <div class="logo">✨ Utsavo</div>
             <h2>Password Reset Request</h2>
           </div>
           
           <p>Hi ${name},</p>
           
-          <p>We received a request to reset your password for your UtsavChakra account. If you didn't make this request, you can safely ignore this email.</p>
+          <p>We received a request to reset your password for your Utsavo account. If you didn't make this request, you can safely ignore this email.</p>
           
           <div class="warning-box">
             <strong>⚠️ Security Notice:</strong> This password reset link will expire in 1 hour for your security.
@@ -316,7 +316,7 @@ const emailTemplates = {
           <p>If you have any questions or concerns, please don't hesitate to contact our support team.</p>
           
           <div class="footer">
-            <p>© 2024 UtsavChakra. All rights reserved.</p>
+            <p>© 2024 Utsavo. All rights reserved.</p>
           </div>
         </div>
       </body>

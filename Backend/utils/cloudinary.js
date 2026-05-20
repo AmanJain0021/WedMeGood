@@ -19,7 +19,7 @@ try {
     storage = new CloudinaryStorage({
         cloudinary: cloudinary,
         params: {
-            folder: 'utsavchakra/portfolio',
+            folder: 'utsavo/portfolio',
             allowed_formats: ['jpg', 'png', 'jpeg', 'webp', 'mp4'],
             resource_type: 'auto'
         }

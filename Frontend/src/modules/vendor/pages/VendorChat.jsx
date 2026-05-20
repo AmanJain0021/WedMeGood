@@ -77,7 +77,7 @@ const VendorChat = () => {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-[400px] space-y-4">
-        <div className="animate-spin h-8 w-8 border-4 border-[#9D174D] border-t-transparent rounded-full"></div>
+        <div className="animate-spin h-8 w-8 border-4 border-[#7c3aed] border-t-transparent rounded-full"></div>
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Loading Chats...</p>
       </div>
     );
@@ -107,10 +107,10 @@ const VendorChat = () => {
               <div 
                 key={chat._id}
                 onClick={() => setActiveChat(chat)}
-                className={`vendor-surface rounded-xl p-3 cursor-pointer transition-all border group ${activeChat?._id === chat._id ? 'bg-[#9D174D] border-[#9D174D] shadow-lg' : 'bg-white border-slate-50 hover:bg-slate-50'}`}
+                className={`vendor-surface rounded-xl p-3 cursor-pointer transition-all border group ${activeChat?._id === chat._id ? 'bg-[#7c3aed] border-[#7c3aed] shadow-lg' : 'bg-white border-slate-50 hover:bg-slate-50'}`}
               >
                  <div className="flex items-center gap-3">
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center text-[11px] font-black relative shrink-0 overflow-hidden ${activeChat?._id === chat._id ? 'bg-white/20 text-white' : 'bg-slate-100 text-[#9D174D]'}`}>
+                    <div className={`h-10 w-10 rounded-full flex items-center justify-center text-[11px] font-black relative shrink-0 overflow-hidden ${activeChat?._id === chat._id ? 'bg-white/20 text-white' : 'bg-slate-100 text-[#7c3aed]'}`}>
                        {chat.otherParticipant?.image ? (
                           <img src={chat.otherParticipant.image} alt="" className="h-full w-full object-cover" />
                        ) : (
@@ -142,7 +142,7 @@ const VendorChat = () => {
                      <button onClick={() => setActiveChat(null)} className="lg:hidden h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400">
                         <Icon name="chevron-down" className="rotate-90" size="xs" />
                      </button>
-                     <div className="h-9 w-9 rounded-full bg-slate-50 flex items-center justify-center text-[#9D174D] font-black text-[11px] border border-white overflow-hidden">
+                     <div className="h-9 w-9 rounded-full bg-slate-50 flex items-center justify-center text-[#7c3aed] font-black text-[11px] border border-white overflow-hidden">
                         {activeChat.otherParticipant?.image ? (
                            <img src={activeChat.otherParticipant.image} alt="" className="h-full w-full object-cover" />
                         ) : (
@@ -155,8 +155,8 @@ const VendorChat = () => {
                      </div>
                   </div>
                   <div className="flex gap-1">
-                     <button className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#9D174D] transition-all"><Icon name="phone" size="xs" /></button>
-                     <button className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#9D174D] transition-all"><Icon name="edit" size="xs" /></button>
+                     <button className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#7c3aed] transition-all"><Icon name="phone" size="xs" /></button>
+                     <button className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#7c3aed] transition-all"><Icon name="edit" size="xs" /></button>
                   </div>
                </div>
 
@@ -167,7 +167,7 @@ const VendorChat = () => {
                         <div key={msg._id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
                            <div className={`max-w-[85%] group relative ${isMe ? 'items-end' : 'items-start'}`}>
                               <div className={`px-3 py-2 rounded-xl text-[11px] font-bold shadow-sm ${isMe 
-                                 ? 'bg-[#9D174D] text-white rounded-tr-none' 
+                                 ? 'bg-[#7c3aed] text-white rounded-tr-none' 
                                  : 'bg-slate-50 text-slate-700 rounded-tl-none border border-slate-100'}`}
                               >
                                  {msg.text}
@@ -183,7 +183,7 @@ const VendorChat = () => {
                </div>
 
                <form onSubmit={handleSendMessage} className="vendor-surface rounded-xl p-1.5 bg-white border border-slate-100 shadow-xl flex items-center gap-2">
-                  <button type="button" className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#9D174D] transition-all">
+                  <button type="button" className="h-8 w-8 rounded-lg bg-slate-50 flex items-center justify-center text-slate-400 hover:text-[#7c3aed] transition-all">
                      <Icon name="plus" size="xs" />
                   </button>
                   <input 
@@ -196,7 +196,7 @@ const VendorChat = () => {
                   <button 
                     type="submit"
                     className="h-9 w-9 rounded-lg flex items-center justify-center text-white shadow-lg active:scale-90 transition-all shrink-0"
-                    style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}
+                    style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
                   >
                      <Icon name="send" size="xs" />
                   </button>

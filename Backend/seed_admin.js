@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const seedAdmin = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/utsav-chakra');
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/utsavo-chakra');
         console.log('✅ MongoDB Connected');
 
         const adminEmail = 'a@gmail.com';

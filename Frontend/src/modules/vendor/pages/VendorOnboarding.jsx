@@ -265,7 +265,7 @@ const VendorOnboarding = () => {
             key: import.meta.env.VITE_RAZORPAY_KEY_ID,
             amount: res.order.amount,
             currency: res.order.currency,
-            name: 'UtsavChakra',
+            name: 'Utsavo',
             description: `Subscription: ${res.plan.name}`,
             order_id: res.order.id,
             handler: async (response) => {
@@ -294,7 +294,7 @@ const VendorOnboarding = () => {
               email: vendorState.vendor?.email || vendorState.registration?.email,
               contact: vendorState.vendor?.phone || vendorState.registration?.phone
             },
-            theme: { color: '#ed648f' },
+            theme: { color: '#7c3aed' },
             modal: {
               ondismiss: () => showToast('Payment cancelled', 'info')
             }
@@ -335,22 +335,22 @@ const VendorOnboarding = () => {
 
   return (
     <div className="max-w-5xl mx-auto pb-4 px-1 sm:px-2 relative z-10">
-      <div className="rounded-3xl p-4 sm:p-6 min-h-[60vh] sm:min-h-0 flex flex-col shadow-[0_20px_60px_rgba(237,100,143,0.15)] relative overflow-hidden transition-all duration-700" style={{
+      <div className="rounded-3xl p-4 sm:p-6 min-h-[60vh] sm:min-h-0 flex flex-col shadow-[0_20px_60px_rgba(124, 58, 237,0.15)] relative overflow-hidden transition-all duration-700" style={{
         background: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        border: '1px solid rgba(237, 100, 143, 0.1)'
+        border: '1px solid rgba(124, 58, 237, 0.1)'
       }}>
         {/* Top gradient accent */}
         <div className="absolute top-0 left-0 right-0 h-2 rounded-t-[2.5rem]" style={{
-          background: 'linear-gradient(90deg, #ed648f, #f182a5, #f4a0bb, #ed648f)',
+          background: 'linear-gradient(90deg, #7c3aed, #f182a5, #f4a0bb, #7c3aed)',
           backgroundSize: '200% 100%',
           animation: 'gradient-shift 4s ease infinite'
         }}></div>
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] drop-shadow-sm" style={{ color: '#ed648f' }}>Vendor Onboarding</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] drop-shadow-sm" style={{ color: '#7c3aed' }}>Vendor Onboarding</p>
             <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-0.5 drop-shadow-md">Complete your profile</h2>
             <p className="text-xs sm:text-sm font-semibold mt-0.5" style={{ color: '#1e293b' }}>Finish setup to boost visibility and unlock leads.</p>
           </div>
@@ -369,9 +369,9 @@ const VendorOnboarding = () => {
                 onClick={(e) => handleStepClick(e, index, step.id)}
                 className="h-8 w-8 sm:h-10 sm:w-10 shrink-0 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold transition-all shadow-md z-10"
                 style={index === currentStepIndex
-                  ? { background: 'linear-gradient(135deg, #ed648f, #ed648f)', color: 'white', border: '2px solid white', boxShadow: '0 4px 15px rgba(159, 18, 57, 0.4)', transform: 'scale(1.15)' }
+                  ? { background: 'linear-gradient(135deg, #7c3aed, #7c3aed)', color: 'white', border: '2px solid white', boxShadow: '0 4px 15px rgba(159, 18, 57, 0.4)', transform: 'scale(1.15)' }
                   : index < currentStepIndex
-                    ? { background: 'white', color: '#ed648f', border: '2px solid #ed648f' }
+                    ? { background: 'white', color: '#7c3aed', border: '2px solid #7c3aed' }
                     : { background: 'rgba(255, 255, 255, 0.9)', color: '#64748b', border: '2px dashed #cbd5e1' }
                 }
               >
@@ -379,7 +379,7 @@ const VendorOnboarding = () => {
               </NavLink>
               {index < steps.length - 1 && (
                 <div className="h-0.5 rounded w-full flex-1 shrink mx-1.5 sm:mx-3 transition-all shadow-inner" style={{
-                  background: index < currentStepIndex ? 'linear-gradient(90deg, #ed648f, #ed648f)' : 'rgba(255, 255, 255, 0.5)'
+                  background: index < currentStepIndex ? 'linear-gradient(90deg, #7c3aed, #7c3aed)' : 'rgba(255, 255, 255, 0.5)'
                 }}></div>
               )}
             </div>
@@ -391,7 +391,7 @@ const VendorOnboarding = () => {
           <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
             {steps[currentStepIndex]?.label}
           </h2>
-          <div className="h-1 w-12 rounded-full mt-2" style={{ background: '#ed648f' }}></div>
+          <div className="h-1 w-12 rounded-full mt-2" style={{ background: '#7c3aed' }}></div>
         </div>
 
         <div className="mt-3 flex-1">
@@ -400,13 +400,13 @@ const VendorOnboarding = () => {
               {/* 1. Description */}
               <div className="space-y-1.5 animate-in fade-in slide-in-from-bottom-2 duration-500">
                 <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
-                  Business description <span style={{ color: '#ed648f' }}>*</span>
+                  Business description <span style={{ color: '#7c3aed' }}>*</span>
                 </label>
                 <textarea
                   autoFocus
                   className="w-full rounded-2xl px-5 py-4 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20 resize-none"
                   style={{
-                    border: '1px solid rgba(237, 100, 143, 0.15)',
+                    border: '1px solid rgba(124, 58, 237, 0.15)',
                     background: 'rgba(255, 255, 255, 0.95)',
                     minHeight: '120px'
                   }}
@@ -428,12 +428,12 @@ const VendorOnboarding = () => {
                 <div className="grid gap-4 sm:grid-cols-2 animate-in fade-in slide-in-from-bottom-3 duration-500">
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
-                      Years of experience <span style={{ color: '#ed648f' }}>*</span>
+                      Years of experience <span style={{ color: '#7c3aed' }}>*</span>
                     </label>
                     <input
                       className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                       style={{
-                        border: '1px solid rgba(237, 100, 143, 0.15)',
+                        border: '1px solid rgba(124, 58, 237, 0.15)',
                         background: 'rgba(255, 255, 255, 0.95)'
                       }}
                       value={vendorState.businessDetails.years}
@@ -448,12 +448,12 @@ const VendorOnboarding = () => {
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
-                      Team size <span style={{ color: '#ed648f' }}>*</span>
+                      Team size <span style={{ color: '#7c3aed' }}>*</span>
                     </label>
                     <input
                       className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                       style={{
-                        border: '1px solid rgba(237, 100, 143, 0.15)',
+                        border: '1px solid rgba(124, 58, 237, 0.15)',
                         background: 'rgba(255, 255, 255, 0.95)'
                       }}
                       value={vendorState.businessDetails.teamSize}
@@ -474,12 +474,12 @@ const VendorOnboarding = () => {
                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
-                      Languages spoken <span style={{ color: '#ed648f' }}>*</span>
+                      Languages spoken <span style={{ color: '#7c3aed' }}>*</span>
                     </label>
                     <input
                       className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                       style={{
-                        border: '1px solid rgba(237, 100, 143, 0.15)',
+                        border: '1px solid rgba(124, 58, 237, 0.15)',
                         background: 'rgba(255, 255, 255, 0.95)'
                       }}
                       value={vendorState.businessDetails.languages.join(', ')}
@@ -497,12 +497,12 @@ const VendorOnboarding = () => {
                   </div>
                   <div className="space-y-1.5">
                     <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
-                      Service cities <span style={{ color: '#ed648f' }}>*</span>
+                      Service cities <span style={{ color: '#7c3aed' }}>*</span>
                     </label>
                     <input
                       className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                       style={{
-                        border: '1px solid rgba(237, 100, 143, 0.15)',
+                        border: '1px solid rgba(124, 58, 237, 0.15)',
                         background: 'rgba(255, 255, 255, 0.95)'
                       }}
                       value={vendorState.businessDetails.serviceCities.join(', ')}
@@ -525,7 +525,7 @@ const VendorOnboarding = () => {
 
           {stepId === 'services' && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#F4DFDF]">
+              <div className="flex items-center justify-between bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#ede9fe]">
                 <div className="flex-1">
                   <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide drop-shadow-sm">Manage Services</p>
                   <p className="text-[10px] sm:text-sm font-bold mt-1" style={{ color: '#475569' }}>Add your business offerings.</p>
@@ -549,7 +549,7 @@ const VendorOnboarding = () => {
                     backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)), url("/assets/vendor/download (2).jpeg")',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
-                    border: '1px solid rgba(237, 100, 143, 0.2)',
+                    border: '1px solid rgba(124, 58, 237, 0.2)',
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)'
                   }}>
                     {/* Glassmorphic inner container for content */}
@@ -577,7 +577,7 @@ const VendorOnboarding = () => {
                           <input
                             className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                             style={{
-                              border: '1px solid rgba(237, 100, 143, 0.2)',
+                              border: '1px solid rgba(124, 58, 237, 0.2)',
                               background: 'rgba(255, 255, 255, 0.95)'
                             }}
                             placeholder="e.g. Royal Stage Decor"
@@ -594,32 +594,32 @@ const VendorOnboarding = () => {
                             <div
                               className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold border transition-all cursor-pointer flex items-center justify-between gap-2 shadow-sm"
                               style={{
-                                borderColor: 'rgba(237, 100, 143, 0.2)',
+                                borderColor: 'rgba(124, 58, 237, 0.2)',
                                 background: 'rgba(255, 255, 255, 0.95)',
-                                color: '#ed648f'
+                                color: '#7c3aed'
                               }}
                               onClick={() => setOpenDropdown(!openDropdown)}
                             >
                               {newService.category || 'Select Category'}
-                              <Icon name="chevronDown" size="xs" color="#ed648f" className={`transition-transform duration-300 ${openDropdown ? 'rotate-180' : ''}`} />
+                              <Icon name="chevronDown" size="xs" color="#7c3aed" className={`transition-transform duration-300 ${openDropdown ? 'rotate-180' : ''}`} />
                             </div>
 
                             {/* Custom Dropdown Menu */}
                             {openDropdown && (
                               <>
                                 <div className="fixed inset-0 z-[90]" onClick={() => setOpenDropdown(false)}></div>
-                                <div className="absolute left-0 top-full mt-1.5 w-full bg-white rounded-xl shadow-2xl border border-[#ed648f20] transition-all z-[100] overflow-hidden backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
+                                <div className="absolute left-0 top-full mt-1.5 w-full bg-white rounded-xl shadow-2xl border border-[#7c3aed20] transition-all z-[100] overflow-hidden backdrop-blur-xl animate-in fade-in zoom-in-95 duration-200">
                                   {['Decoration', 'Photography', 'Catering', 'Venue'].map((cat) => (
                                     <div
                                       key={cat}
-                                      className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors flex items-center gap-3 ${newService.category === cat ? 'bg-[#ed648f10] text-[#ed648f]' : 'text-slate-600 hover:bg-[#ed648f08] hover:text-[#ed648f]'
+                                      className={`px-4 py-2.5 text-sm font-bold cursor-pointer transition-colors flex items-center gap-3 ${newService.category === cat ? 'bg-[#7c3aed10] text-[#7c3aed]' : 'text-slate-600 hover:bg-[#7c3aed08] hover:text-[#7c3aed]'
                                         }`}
                                       onClick={() => {
                                         setNewService({ ...newService, category: cat });
                                         setOpenDropdown(false);
                                       }}
                                     >
-                                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${newService.category === cat ? 'bg-[#ed648f] scale-100' : 'bg-transparent scale-0'}`}></div>
+                                      <div className={`w-1.5 h-1.5 rounded-full transition-all ${newService.category === cat ? 'bg-[#7c3aed] scale-100' : 'bg-transparent scale-0'}`}></div>
                                       {cat}
                                     </div>
                                   ))}
@@ -636,7 +636,7 @@ const VendorOnboarding = () => {
                           type="number"
                           className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
                           style={{
-                            border: '1px solid rgba(237, 100, 143, 0.2)',
+                            border: '1px solid rgba(124, 58, 237, 0.2)',
                             background: 'rgba(255, 255, 255, 0.95)'
                           }}
                           placeholder="e.g. 50000"
@@ -654,7 +654,7 @@ const VendorOnboarding = () => {
                               placeholder={`Service Feature ${idx + 1}`}
                               className="w-full rounded-2xl px-5 py-3 text-sm font-semibold transition-all outline-none focus:ring-2 focus:ring-rose-500/20"
                               style={{
-                                border: '1px solid rgba(237, 100, 143, 0.15)',
+                                border: '1px solid rgba(124, 58, 237, 0.15)',
                                 background: 'rgba(255, 255, 255, 0.95)'
                               }}
                               value={inc}
@@ -670,7 +670,7 @@ const VendorOnboarding = () => {
 
                       <button
                         className="vendor-cta w-full rounded-2xl py-5 font-bold text-lg mt-6 active:scale-95 transition-all shadow-xl"
-                        style={{ background: 'linear-gradient(135deg, #ed648f, #ed648f)' }}
+                        style={{ background: 'linear-gradient(135deg, #7c3aed, #7c3aed)' }}
                         onClick={handleSaveService}
                       >
                         ✨ Save Service
@@ -686,23 +686,23 @@ const VendorOnboarding = () => {
                   background: 'rgba(255, 255, 255, 0.95)'
                 }}>
                   <div className="text-3xl mb-3">✨</div>
-                  <p className="text-xs sm:text-sm font-bold" style={{ color: '#ed648f' }}>No services added yet. Click &quot;Add service&quot; to get started.</p>
+                  <p className="text-xs sm:text-sm font-bold" style={{ color: '#7c3aed' }}>No services added yet. Click &quot;Add service&quot; to get started.</p>
                 </div>
               ) : (
                 <div className="grid gap-3 md:grid-cols-2">
                   {vendorState.services.map((service) => (
                     <div key={service.id} className="rounded-3xl p-6 relative group transition-all hover:scale-[1.02]" style={{
                       background: 'rgba(255, 255, 255, 0.9)',
-                      border: '1px solid rgba(237, 100, 143, 0.1)',
-                      boxShadow: '0 4px 20px rgba(210, 138, 140, 0.05)'
+                      border: '1px solid rgba(124, 58, 237, 0.1)',
+                      boxShadow: '0 4px 20px rgba(124, 58, 237, 0.05)'
                     }}>
                       <button
                         onClick={() => updateVendorState({ services: vendorState.services.filter(s => s.id !== service.id) })}
                         className="absolute -top-3 -right-3 h-8 w-8 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:scale-110"
                         style={{
-                          background: 'linear-gradient(135deg, #FAF2F2, #F4DFDF)',
-                          border: '1px solid rgba(237, 100, 143, 0.2)',
-                          color: '#ed648f'
+                          background: 'linear-gradient(135deg, #f5f3ff, #ede9fe)',
+                          border: '1px solid rgba(124, 58, 237, 0.2)',
+                          color: '#7c3aed'
                         }}
                       >
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -712,17 +712,17 @@ const VendorOnboarding = () => {
                       <div className="flex items-center justify-between">
                         <h4 className="font-bold text-slate-900 text-lg">{service.name}</h4>
                         <span className="rounded-full px-3.5 py-1.5 text-[10px] font-bold uppercase tracking-wider" style={{
-                          background: 'linear-gradient(135deg, #FAF2F2, #F4DFDF)', color: '#ed648f'
+                          background: 'linear-gradient(135deg, #f5f3ff, #ede9fe)', color: '#7c3aed'
                         }}>{service.category}</span>
                       </div>
-                      <p className="mt-3 text-sm font-bold" style={{ color: '#ed648f' }}>Base price: ₹{service.basePrice.toLocaleString()}</p>
+                      <p className="mt-3 text-sm font-bold" style={{ color: '#7c3aed' }}>Base price: ₹{service.basePrice.toLocaleString()}</p>
                       <div className="mt-4 text-[10px] font-bold uppercase tracking-wider" style={{ color: '#334155' }}>Packages: <span style={{ color: '#64748b' }}>{service.packages.map((pkg) => pkg.name).join(', ')}</span></div>
                       {service.inclusions && service.inclusions.length > 0 && (
                         <div className="mt-4 flex flex-wrap gap-2">
                           {service.inclusions.map((inc, i) => (
                             <span key={i} className="px-3 py-1 rounded-full text-[10px] font-bold" style={{
                               background: 'rgba(253, 242, 248, 0.5)',
-                              border: '1px solid rgba(210, 138, 140, 0.08)',
+                              border: '1px solid rgba(124, 58, 237, 0.08)',
                               color: '#64748b'
                             }}>{inc}</span>
                           ))}
@@ -739,12 +739,12 @@ const VendorOnboarding = () => {
             <div className="grid gap-3 lg:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>
-                  Price range <span style={{ color: '#ed648f' }}>*</span>
+                  Price range <span style={{ color: '#7c3aed' }}>*</span>
                 </label>
                 <input
                   className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all"
                   style={{
-                    border: '1px solid rgba(237, 100, 143, 0.15)',
+                    border: '1px solid rgba(124, 58, 237, 0.15)',
                     background: 'rgba(255, 255, 255, 0.9)'
                   }}
                   value={vendorState.pricing.range}
@@ -757,7 +757,7 @@ const VendorOnboarding = () => {
                 <textarea
                   className="h-32 w-full rounded-2xl px-5 py-4 text-sm font-semibold transition-all resize-none"
                   style={{
-                    border: '1px solid rgba(237, 100, 143, 0.15)',
+                    border: '1px solid rgba(124, 58, 237, 0.15)',
                     background: 'rgba(255, 255, 255, 0.9)'
                   }}
                   value={vendorState.pricing.notes}
@@ -770,7 +770,7 @@ const VendorOnboarding = () => {
 
           {stepId === 'portfolio' && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#F4DFDF]">
+              <div className="flex items-center justify-between bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#ede9fe]">
                 <div>
                   <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide drop-shadow-sm">Manage Portfolio</p>
                   <p className="text-[10px] sm:text-xs font-bold mt-1" style={{ color: '#475569' }}>Upload your work samples.</p>
@@ -781,13 +781,13 @@ const VendorOnboarding = () => {
                 <div className="space-y-3">
                   <div className="rounded-[2.5rem] border border-white/40 p-5 sm:p-8 shadow-xl overflow-hidden relative" style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.8), rgba(244,223,223,0.5))' }}>
                     <div className="absolute inset-0 backdrop-blur-sm -z-10"></div>
-                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#ed648f' }}>Add new showcase</p>
+                    <p className="text-[11px] font-bold uppercase tracking-[0.2em] mb-3" style={{ color: '#7c3aed' }}>Add new showcase</p>
                     <div className="space-y-3">
                       <div className="space-y-1">
                         <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Project Title</label>
                         <input
                           className="w-full rounded-2xl px-5 py-2 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/10"
-                          style={{ border: '1px solid rgba(237, 100, 143, 0.2)', background: 'rgba(255, 255, 255, 0.95)' }}
+                          style={{ border: '1px solid rgba(124, 58, 237, 0.2)', background: 'rgba(255, 255, 255, 0.95)' }}
                           placeholder="e.g. Royal Palace Wedding"
                           value={newItem.title}
                           onKeyDown={(e) => {
@@ -801,7 +801,7 @@ const VendorOnboarding = () => {
                         <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Category Tag</label>
                         <input
                           className="w-full rounded-2xl px-5 py-2 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/10"
-                          style={{ border: '1px solid rgba(237, 100, 143, 0.2)', background: 'rgba(255, 255, 255, 0.95)' }}
+                          style={{ border: '1px solid rgba(124, 58, 237, 0.2)', background: 'rgba(255, 255, 255, 0.95)' }}
                           placeholder="e.g. Reception, Ceremony"
                           value={newItem.tag}
                           onKeyDown={(e) => {
@@ -836,15 +836,15 @@ const VendorOnboarding = () => {
                       background: 'rgba(255, 255, 255, 0.95)'
                     }}>
                       <div className="text-4xl mb-3">📷</div>
-                      <p className="text-xs font-bold uppercase tracking-wider" style={{ color: '#ed648f' }}>Your portfolio is empty</p>
+                      <p className="text-xs font-bold uppercase tracking-wider" style={{ color: '#7c3aed' }}>Your portfolio is empty</p>
                     </div>
                   ) : (
                     vendorState.portfolio.map((item) => (
-                      <div key={item.id} className="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-[#FAF2F2]">
+                      <div key={item.id} className="group relative rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-[#f5f3ff]">
                         <img src={item.url} alt={item.title} className="h-40 w-full object-cover transition-transform duration-700 group-hover:scale-110" />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4">
                           <p className="text-sm font-bold text-white truncate">{item.title}</p>
-                          <p className="text-[10px] text-[#E6B3B4] font-bold mt-0.5 tracking-wider uppercase">{item.tag}</p>
+                          <p className="text-[10px] text-[#ddd6fe] font-bold mt-0.5 tracking-wider uppercase">{item.tag}</p>
                         </div>
                       </div>
                     ))
@@ -856,7 +856,7 @@ const VendorOnboarding = () => {
 
           {stepId === 'documents' && (
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#F4DFDF]">
+              <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#ede9fe]">
                 <div>
                   <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide drop-shadow-sm">Required Uploads</p>
                   <p className="text-[10px] sm:text-xs font-bold mt-1" style={{ color: '#475569' }}>Identity and business verification.</p>
@@ -865,12 +865,12 @@ const VendorOnboarding = () => {
               {['idProof', 'gst', 'contract'].map((docKey) => (
                 <div key={docKey} className="flex items-center justify-between rounded-3xl p-6 transition-all hover:scale-[1.02]" style={{
                   background: 'rgba(255, 255, 255, 0.7)',
-                  border: '1px solid rgba(237, 100, 143, 0.1)',
-                  boxShadow: '0 4px 20px rgba(210, 138, 140, 0.05)'
+                  border: '1px solid rgba(124, 58, 237, 0.1)',
+                  boxShadow: '0 4px 20px rgba(124, 58, 237, 0.05)'
                 }}>
                   <div>
                     <div className="flex items-center gap-3 mb-1">
-                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style={{ background: 'linear-gradient(135deg, #ed648f, #ed648f)' }}>
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold text-white" style={{ background: 'linear-gradient(135deg, #7c3aed, #7c3aed)' }}>
                         {docKey === 'idProof' ? '1' : docKey === 'gst' ? '2' : '3'}
                       </div>
                       <p className="text-sm font-bold text-slate-900">
@@ -890,8 +890,8 @@ const VendorOnboarding = () => {
                     type="button"
                     className="rounded-2xl px-5 py-3 text-xs font-bold transition-all active:scale-95 whitespace-nowrap"
                     style={vendorState.documents[docKey]
-                      ? { background: 'linear-gradient(135deg, #ed648f, #ed648f)', color: 'white', boxShadow: '0 4px 15px rgba(210, 138, 140, 0.3)' }
-                      : { background: 'linear-gradient(135deg, #FAF2F2, #F4DFDF)', color: '#ed648f', border: '1px solid rgba(237, 100, 143, 0.15)' }}
+                      ? { background: 'linear-gradient(135deg, #7c3aed, #7c3aed)', color: 'white', boxShadow: '0 4px 15px rgba(124, 58, 237, 0.3)' }
+                      : { background: 'linear-gradient(135deg, #f5f3ff, #ede9fe)', color: '#7c3aed', border: '1px solid rgba(124, 58, 237, 0.15)' }}
                     onClick={() => handleDocClick(docKey)}
                   >
                     {vendorState.documents[docKey] ? '✓ Uploaded' : 'Upload File'}
@@ -903,17 +903,17 @@ const VendorOnboarding = () => {
 
           {stepId === 'bank' && (
             <div className="grid gap-3 lg:grid-cols-2">
-              <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/85 backdrop-blur-md shadow-sm p-6 rounded-3xl border border-[#F4DFDF]">
+              <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/85 backdrop-blur-md shadow-sm p-6 rounded-3xl border border-[#ede9fe]">
                 <div>
                   <p className="text-sm font-bold text-slate-900 uppercase tracking-wide drop-shadow-sm">Payment Information</p>
                   <p className="text-xs sm:text-sm font-bold mt-1" style={{ color: '#334155' }}>Provide your banking information for secure payments.</p>
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>Account name <span style={{ color: '#ed648f' }}>*</span></label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>Account name <span style={{ color: '#7c3aed' }}>*</span></label>
                 <input
                   className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all"
-                  style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
+                  style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
                   value={vendorState.bank.accountName}
                   placeholder="Name as per bank records"
                   onChange={(event) => updateVendorState({
@@ -925,10 +925,10 @@ const VendorOnboarding = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>Account number <span style={{ color: '#ed648f' }}>*</span></label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>Account number <span style={{ color: '#7c3aed' }}>*</span></label>
                 <input
                   className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all"
-                  style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
+                  style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
                   value={vendorState.bank.accountNumber}
                   placeholder="Enter 12-16 digit account number"
                   onChange={(event) => updateVendorState({ bank: { ...vendorState.bank, accountNumber: event.target.value.replace(/[^0-9]/g, '') } })}
@@ -938,10 +938,10 @@ const VendorOnboarding = () => {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>IFSC Code <span style={{ color: '#ed648f' }}>*</span></label>
+                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>IFSC Code <span style={{ color: '#7c3aed' }}>*</span></label>
                 <input
                   className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all"
-                  style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
+                  style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
                   value={vendorState.bank.ifsc}
                   placeholder="e.g. SBIN0001234"
                   onChange={(event) => updateVendorState({ bank: { ...vendorState.bank, ifsc: event.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '') } })}
@@ -951,7 +951,7 @@ const VendorOnboarding = () => {
                 <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#334155' }}>UPI ID</label>
                 <input
                   className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all"
-                  style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
+                  style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.9)' }}
                   value={vendorState.bank.upiId}
                   placeholder="e.g. name@upi"
                   onChange={(event) => updateVendorState({ bank: { ...vendorState.bank, upiId: event.target.value.toLowerCase().replace(/[^a-z0-9.@-]/g, '') } })}
@@ -977,16 +977,16 @@ const VendorOnboarding = () => {
                     }}
                     className={`group relative p-8 rounded-[2.5rem] border-2 transition-all duration-500 cursor-pointer overflow-hidden flex flex-col ${
                       selectedPlanId === plan._id 
-                      ? 'border-[#ed648f] bg-white shadow-[0_20px_50px_rgba(237,100,143,0.2)]' 
-                      : 'border-slate-200 bg-white/70 hover:border-[#ed648f]/40 hover:shadow-xl'
+                      ? 'border-[#7c3aed] bg-white shadow-[0_20px_50px_rgba(124, 58, 237,0.2)]' 
+                      : 'border-slate-200 bg-white/70 hover:border-[#7c3aed]/40 hover:shadow-xl'
                     }`}
                   >
                     {/* Decorative Background Element */}
-                    <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full transition-all duration-700 ${selectedPlanId === plan._id ? 'bg-[#ed648f]/10 scale-150' : 'bg-slate-50 group-hover:bg-[#ed648f]/5 group-hover:scale-110'}`}></div>
+                    <div className={`absolute -top-12 -right-12 w-32 h-32 rounded-full transition-all duration-700 ${selectedPlanId === plan._id ? 'bg-[#7c3aed]/10 scale-150' : 'bg-slate-50 group-hover:bg-[#7c3aed]/5 group-hover:scale-110'}`}></div>
 
                     {selectedPlanId === plan._id && (
                       <div className="absolute top-6 right-6">
-                        <div className="h-7 w-7 rounded-full bg-[#ed648f] text-white flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
+                        <div className="h-7 w-7 rounded-full bg-[#7c3aed] text-white flex items-center justify-center shadow-lg animate-in zoom-in duration-300">
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                           </svg>
@@ -996,7 +996,7 @@ const VendorOnboarding = () => {
 
                     <div className="relative z-10 flex-1 flex flex-col">
                       <div className="mb-8">
-                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full ${selectedPlanId === plan._id ? 'bg-[#ed648f] text-white' : 'bg-slate-100 text-slate-500'}`}>
+                        <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full ${selectedPlanId === plan._id ? 'bg-[#7c3aed] text-white' : 'bg-slate-100 text-slate-500'}`}>
                           {plan.name}
                         </span>
                         <div className="flex items-baseline gap-1 mt-6">
@@ -1021,7 +1021,7 @@ const VendorOnboarding = () => {
                       <button 
                         className={`w-full mt-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all duration-300 transform active:scale-95 ${
                           selectedPlanId === plan._id 
-                          ? 'bg-[#ed648f] text-white shadow-[0_10px_25px_rgba(237,100,143,0.3)]' 
+                          ? 'bg-[#7c3aed] text-white shadow-[0_10px_25px_rgba(124, 58, 237,0.3)]' 
                           : 'bg-slate-900 text-white hover:bg-slate-800'
                         }`}
                       >
@@ -1039,8 +1039,8 @@ const VendorOnboarding = () => {
           )}
         </div>
 
-        <div className="mt-10 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-6" style={{ borderColor: 'rgba(237, 100, 143, 0.1)' }}>
-          <div className="flex items-center gap-2 text-[#ed648f]">
+        <div className="mt-10 pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-6" style={{ borderColor: 'rgba(124, 58, 237, 0.1)' }}>
+          <div className="flex items-center gap-2 text-[#7c3aed]">
             <svg className="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
             </svg>
@@ -1048,10 +1048,10 @@ const VendorOnboarding = () => {
           </div>
           <button
             type="button"
-            className="w-full sm:w-auto rounded-2xl px-16 py-4 text-sm font-black uppercase tracking-[0.15em] text-white shadow-2xl transition-all active:scale-95 hover:shadow-[#ed648f]/40 hover:-translate-y-0.5"
+            className="w-full sm:w-auto rounded-2xl px-16 py-4 text-sm font-black uppercase tracking-[0.15em] text-white shadow-2xl transition-all active:scale-95 hover:shadow-[#7c3aed]/40 hover:-translate-y-0.5"
             style={{ 
-              background: 'linear-gradient(135deg, #ed648f 0%, #d84d77 100%)',
-              boxShadow: '0 12px 35px -8px rgba(237, 100, 143, 0.4)'
+              background: 'linear-gradient(135deg, #7c3aed 0%, #d84d77 100%)',
+              boxShadow: '0 12px 35px -8px rgba(124, 58, 237, 0.4)'
             }}
             onClick={handleNext}
           >
@@ -1066,9 +1066,9 @@ const VendorOnboarding = () => {
               style={{
                 background: toast.type === 'error'
                   ? 'linear-gradient(135deg, #ef4444, #b91c1c)'
-                  : 'linear-gradient(135deg, #ed648f, #ed648f, #a855f7)',
+                  : 'linear-gradient(135deg, #7c3aed, #7c3aed, #a855f7)',
                 color: 'white',
-                boxShadow: '0 20px 40px -10px rgba(237, 100, 143, 0.4)'
+                boxShadow: '0 20px 40px -10px rgba(124, 58, 237, 0.4)'
               }}>
               {toast.type === 'loading' ? (
                 <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

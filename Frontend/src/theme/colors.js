@@ -2,24 +2,24 @@
 export const themeConfig = {
   // Core color palette
   colors: {
-    // Primary brand colors (Pink/Rose)
+    // Primary brand colors (Purple/Violet)
     primary: {
-      50: '#fdf3f3',
-      100: '#fbe9e9',
-      200: '#f7d5d5',
-      300: '#efb4b4',
-      400: '#e18989',
-      500: '#d16262', // Main Designer Pink
-      600: '#be4d4d',
-      700: '#9f3d3d',
-      800: '#833434',
-      900: '#6f2f2f',
-      950: '#3b1515',
+      50: '#f5f3ff',
+      100: '#ede9fe',
+      200: '#ddd6fe',
+      300: '#c7d2fe',
+      400: '#a78bfa',
+      500: '#7c3aed', // Main Designer Purple
+      600: '#6d28d9',
+      700: '#5b21b6',
+      800: '#4c1d95',
+      900: '#3b0764',
+      950: '#2e1065',
     },
     lilac: {
-      light: '#BE9B9B', // Dusty Rose from image
-      dark: '#5D3E3E',  // Plum Brown from image
-      floral: '#E2D1D1',
+      light: '#a78bfa', // Light violet
+      dark: '#4c1d95',  // Dark violet
+      floral: '#ddd6fe',
     },
     
     // Secondary colors (Amber/Gold)
@@ -81,11 +81,11 @@ export const themeConfig = {
       primary: '#ffffff',
       secondary: '#f9fafb',
       tertiary: '#f3f4f6',
-      accent: '#fdf2f8',
+      accent: '#f5f3ff',
       gradient: {
-        primary: 'linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%)',
-        hero: 'linear-gradient(135deg, #f43f5e 0%, #fb7185 100%)',
-        card: 'linear-gradient(135deg, #ffffff 0%, #fff1f2 100%)',
+        primary: 'linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%)',
+        hero: 'linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%)',
+        card: 'linear-gradient(135deg, #ffffff 0%, #f5f3ff 100%)',
       },
     },
     
@@ -96,17 +96,17 @@ export const themeConfig = {
       tertiary: '#9ca3af',
       inverse: '#ffffff',
       muted: '#d1d5db',
-      accent: '#ec4899',
-      link: '#ec4899',
-      linkHover: '#db2777',
+      accent: '#7c3aed',
+      link: '#7c3aed',
+      linkHover: '#6d28d9',
     },
     
     // Border colors
     border: {
       primary: '#e5e7eb',
       secondary: '#d1d5db',
-      accent: '#fbcfe8',
-      focus: '#ec4899',
+      accent: '#ddd6fe',
+      focus: '#7c3aed',
       error: '#ef4444',
     },
     
@@ -114,7 +114,7 @@ export const themeConfig = {
     interactive: {
       hover: '#f9fafb',
       active: '#f3f4f6',
-      focus: '#fdf2f8',
+      focus: '#f5f3ff',
       disabled: '#f3f4f6',
     },
     
@@ -128,10 +128,10 @@ export const themeConfig = {
     
     button: {
       primary: {
-        background: '#ec4899',
-        backgroundHover: '#db2777',
+        background: '#7c3aed',
+        backgroundHover: '#6d28d9',
         text: '#ffffff',
-        border: '#ec4899',
+        border: '#7c3aed',
       },
       secondary: {
         background: '#f59e0b',
@@ -141,15 +141,15 @@ export const themeConfig = {
       },
       outline: {
         background: 'transparent',
-        backgroundHover: '#fdf2f8',
-        text: '#ec4899',
-        border: '#fbcfe8',
-        borderHover: '#ec4899',
+        backgroundHover: '#f5f3ff',
+        text: '#7c3aed',
+        border: '#ddd6fe',
+        borderHover: '#7c3aed',
       },
       ghost: {
         background: 'transparent',
-        backgroundHover: '#fdf2f8',
-        text: '#ec4899',
+        backgroundHover: '#f5f3ff',
+        text: '#7c3aed',
         border: 'transparent',
       },
     },
@@ -157,7 +157,7 @@ export const themeConfig = {
     input: {
       background: '#ffffff',
       border: '#d1d5db',
-      borderFocus: '#ec4899',
+      borderFocus: '#7c3aed',
       text: '#111827',
       placeholder: '#9ca3af',
     },
@@ -166,8 +166,8 @@ export const themeConfig = {
       background: '#ffffff',
       border: '#e5e7eb',
       text: '#4b5563',
-      textActive: '#ec4899',
-      backgroundActive: '#fdf2f8',
+      textActive: '#7c3aed',
+      backgroundActive: '#f5f3ff',
       backgroundHover: '#f9fafb',
     },
   },
@@ -191,10 +191,10 @@ export const themes = {
         primary: '#111827',
         secondary: '#1f2937',
         tertiary: '#374151',
-        accent: '#500724',
+        accent: '#2e1065',
         gradient: {
-          primary: 'linear-gradient(135deg, #500724 0%, #451a03 100%)',
-          hero: 'linear-gradient(135deg, #be185d 0%, #b45309 100%)',
+          primary: 'linear-gradient(135deg, #2e1065 0%, #1e1b4b 100%)',
+          hero: 'linear-gradient(135deg, #7c3aed 0%, #3b82f6 100%)',
           card: 'linear-gradient(135deg, #1f2937 0%, #374151 100%)',
         },
       },
@@ -204,9 +204,9 @@ export const themes = {
         tertiary: '#9ca3af',
         inverse: '#111827',
         muted: '#6b7280',
-        accent: '#f9a8d4',
-        link: '#f9a8d4',
-        linkHover: '#fce7f3',
+        accent: '#c084fc',
+        link: '#c084fc',
+        linkHover: '#ede9fe',
       },
       card: {
         background: '#1f2937',
@@ -218,8 +218,8 @@ export const themes = {
         background: '#1f2937',
         border: '#374151',
         text: '#d1d5db',
-        textActive: '#f9a8d4',
-        backgroundActive: '#500724',
+        textActive: '#c084fc',
+        backgroundActive: '#2e1065',
         backgroundHover: '#374151',
       },
     },

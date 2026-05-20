@@ -4,7 +4,7 @@ const supportConfigSchema = new mongoose.Schema({
     supportEmail: {
         type: String,
         required: true,
-        default: 'support@utsavchakra.com'
+        default: 'support@utsavo.com'
     },
     supportPhone: {
         type: String,
@@ -13,7 +13,7 @@ const supportConfigSchema = new mongoose.Schema({
     },
     officeAddress: {
         type: String,
-        default: '123, Utsav Plaza, Mumbai, India'
+        default: '123, Utsavo Plaza, Mumbai, India'
     },
     workingHours: {
         type: String,

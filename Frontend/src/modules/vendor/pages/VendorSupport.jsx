@@ -36,7 +36,7 @@ const VendorSupport = () => {
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
-                <div className="animate-spin h-8 w-8 border-4 border-[#9D174D] border-t-transparent rounded-full"></div>
+                <div className="animate-spin h-8 w-8 border-4 border-[#7c3aed] border-t-transparent rounded-full"></div>
             </div>
         );
     }
@@ -51,7 +51,7 @@ const VendorSupport = () => {
                             <Icon name="help" size="sm" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-black text-[#9D174D] uppercase tracking-[0.25em]">Partner Support</p>
+                            <p className="text-[10px] font-black text-[#7c3aed] uppercase tracking-[0.25em]">Partner Support</p>
                             <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-none mt-1">Help Desk</h1>
                         </div>
                     </div>
@@ -59,13 +59,13 @@ const VendorSupport = () => {
                 </div>
                 
                 <div className="relative group min-w-[280px]">
-                    <Icon name="search" size="xs" color="#94a3b8" className="absolute left-4 top-1/2 -translate-y-1/2 group-focus-within:text-[#9D174D] transition-colors" />
+                    <Icon name="search" size="xs" color="#94a3b8" className="absolute left-4 top-1/2 -translate-y-1/2 group-focus-within:text-[#7c3aed] transition-colors" />
                     <input 
                         type="text"
                         placeholder="Search the intelligence registry..."
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
-                        className="w-full pl-11 pr-4 py-3 bg-white border-2 border-slate-100 rounded-2xl text-xs font-black focus:border-[#9D174D]/20 focus:ring-4 focus:ring-[#9D174D]/5 outline-none transition-all placeholder:text-slate-300"
+                        className="w-full pl-11 pr-4 py-3 bg-white border-2 border-slate-100 rounded-2xl text-xs font-black focus:border-[#7c3aed]/20 focus:ring-4 focus:ring-[#7c3aed]/5 outline-none transition-all placeholder:text-slate-300"
                     />
                 </div>
             </div>
@@ -83,7 +83,7 @@ const VendorSupport = () => {
                         </div>
                         <div className="min-w-0">
                             <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">{item.label}</p>
-                            <p className="text-[13px] font-black text-slate-900 truncate mt-1">{item.val || 'support@utsavchakra.com'}</p>
+                            <p className="text-[13px] font-black text-slate-900 truncate mt-1">{item.val || 'support@utsavo.com'}</p>
                         </div>
                     </div>
                 ))}
@@ -96,12 +96,12 @@ const VendorSupport = () => {
                         <Icon name="location" size="sm" className="text-white" />
                     </div>
                     <div>
-                        <p className="text-[10px] font-black text-[#9D174D] uppercase tracking-[0.2em]">Operational Base</p>
-                        <p className="text-sm font-black text-slate-700 mt-1.5 leading-relaxed">{config?.officeAddress || 'UtsavChakra Intelligence Plaza, Mumbai'}</p>
+                        <p className="text-[10px] font-black text-[#7c3aed] uppercase tracking-[0.2em]">Operational Base</p>
+                        <p className="text-sm font-black text-slate-700 mt-1.5 leading-relaxed">{config?.officeAddress || 'Utsavo Intelligence Plaza, Mumbai'}</p>
                     </div>
                 </div>
                 <div className="flex gap-3 w-full md:w-auto">
-                    <a href={`mailto:${config?.supportEmail}`} className="flex-1 md:flex-none px-8 py-4 bg-[#9D174D] hover:bg-[#831843] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all text-center shadow-lg shadow-rose-100 active:scale-95">Send Transmission</a>
+                    <a href={`mailto:${config?.supportEmail}`} className="flex-1 md:flex-none px-8 py-4 bg-[#7c3aed] hover:bg-[#5b21b6] text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all text-center shadow-lg shadow-rose-100 active:scale-95">Send Transmission</a>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@ const VendorSupport = () => {
                             >
                                 <div className="flex items-center gap-5">
                                     <div className={`h-8 w-8 rounded-xl flex items-center justify-center text-[10px] font-black transition-colors ${
-                                        activeFaq === idx ? 'bg-[#9D174D] text-white' : 'bg-slate-50 text-slate-400'
+                                        activeFaq === idx ? 'bg-[#7c3aed] text-white' : 'bg-slate-50 text-slate-400'
                                     }`}>
                                         {idx + 1}
                                     </div>
@@ -135,7 +135,7 @@ const VendorSupport = () => {
                                 <Icon 
                                     name="chevronDown" 
                                     size="xs" 
-                                    className={`transition-transform duration-500 ${activeFaq === idx ? 'rotate-180 text-[#9D174D]' : 'text-slate-300'}`} 
+                                    className={`transition-transform duration-500 ${activeFaq === idx ? 'rotate-180 text-[#7c3aed]' : 'text-slate-300'}`} 
                                 />
                             </button>
                             
@@ -148,7 +148,7 @@ const VendorSupport = () => {
                                         </p>
                                     </div>
                                     <div className="mt-4 flex items-center gap-3">
-                                        <span className="px-3 py-1 bg-rose-50 text-[9px] font-black uppercase text-[#9D174D] rounded-full tracking-widest">{faq.category}</span>
+                                        <span className="px-3 py-1 bg-rose-50 text-[9px] font-black uppercase text-[#7c3aed] rounded-full tracking-widest">{faq.category}</span>
                                         <span className="text-[10px] text-slate-200">•</span>
                                         <span className="text-[9px] font-black text-slate-300 uppercase tracking-widest">Protocol Verified</span>
                                     </div>
@@ -169,7 +169,7 @@ const VendorSupport = () => {
                 <div className="flex gap-2">
                     {[1, 2, 3].map(i => <div key={i} className="h-1 w-8 bg-slate-200 rounded-full" />)}
                 </div>
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">UtsavChakra Support Core v2.0</p>
+                <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.4em]">Utsavo Support Core v2.0</p>
             </div>
         </div>
     );

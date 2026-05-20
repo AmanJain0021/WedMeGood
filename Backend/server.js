@@ -50,7 +50,7 @@ app.set('io', io);
 // Database connection
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/utsav-chakra');
+    const conn = await mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/utsavo-chakra');
     console.log(`✅ MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error('❌ Database connection error:', error);
@@ -73,7 +73,7 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
     'http://localhost:3000',
     'http://localhost:8080',
     'https://uc-wed.vercel.app',
-    'https://utsavchakra-wine.vercel.app',
+    'https://utsavo-wine.vercel.app',
     'https://wed-me-good-lake.vercel.app'
   ];
 

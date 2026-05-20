@@ -140,7 +140,7 @@ const Cart = () => {
 
   const handleWhatsAppContact = (item) => {
     const message = encodeURIComponent(
-      `Hi! I found your ${item.category.toLowerCase()} service "${item.name}" on UtsavChakra and I'm interested in booking it for my wedding. Could you please share more details about availability and pricing?`
+      `Hi! I found your ${item.category.toLowerCase()} service "${item.name}" on Utsavo and I'm interested in booking it for my wedding. Could you please share more details about availability and pricing?`
     );
     const whatsappUrl = `https://wa.me/${item.whatsappNumber.replace(/[^0-9]/g, '')}?text=${message}`;
     window.open(whatsappUrl, '_blank');

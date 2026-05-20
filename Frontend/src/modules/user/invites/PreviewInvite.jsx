@@ -37,7 +37,7 @@ const PreviewInvite = () => {
     enableMap: true,
     views: 234,
     rsvps: 156,
-    shareUrl: 'https://utsavchakra.com/invite/priya-rahul-2026'
+    shareUrl: 'https://utsavo.com/invite/priya-rahul-2026'
   };
 
   const stats = [

@@ -59,7 +59,7 @@ const HamburgerMenu = ({ isOpen, onClose }) => {
         <div className="bg-gradient-to-br from-[#9D174D] via-[#BE185D] to-[#9D174D] px-6 pt-8 pb-6 rounded-b-[2rem] shadow-sm flex items-center justify-between border-b border-white/10">
            <div>
               <h2 className="text-xl font-bold text-white" style={{ fontFamily: '"Playfair Display", serif' }}>Menu</h2>
-              <p className="text-[8px] font-black uppercase tracking-widest text-white/60">The Utsav Collection</p>
+              <p className="text-[8px] font-black uppercase tracking-widest text-white/60">The Utsavo Collection</p>
            </div>
            <button 
              onClick={onClose}

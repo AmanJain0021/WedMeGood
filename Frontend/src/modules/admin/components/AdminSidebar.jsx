@@ -83,7 +83,7 @@ const AdminSidebar = ({ onClose }) => {
                         <Icon name="sparkles" size="xs" color="white" />
                     </div>
                     <div className="flex flex-col">
-                        <h1 className="text-[14px] font-black text-white tracking-widest leading-none uppercase">Utsav<span className="text-primary-400">Chakra</span></h1>
+                        <h1 className="text-[14px] font-black text-white tracking-widest leading-none uppercase">Utsavo<span className="text-primary-400">Chakra</span></h1>
                     </div>
                 </div>
             </div>

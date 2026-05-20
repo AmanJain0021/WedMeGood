@@ -48,11 +48,11 @@ const VendorPricing = () => {
       {/* Header Card - Solid Pastel Rose */}
       <div className="vendor-surface rounded-xl p-3 sm:p-5 relative overflow-hidden bg-[#FDF2F8] border border-rose-100">
         <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full opacity-15" style={{
-          background: 'radial-gradient(circle, #D28A8C, transparent 70%)'
+          background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
         }}></div>
         <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 relative z-10">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#ed648f]">Financials</p>
+            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#7c3aed]">Financials</p>
             <h2 className="text-lg sm:text-xl font-black text-slate-900 mt-0.5">Pricing Strategy</h2>
             <p className="text-[11px] sm:text-xs font-bold text-slate-500 mt-0.5">Define your service value and market rates.</p>
           </div>
@@ -108,7 +108,7 @@ const VendorPricing = () => {
         </div>
 
         {/* Detailed Packages Card - Solid Rose Pastel */}
-        <div className="vendor-surface rounded-2xl p-5 relative overflow-hidden transition-all hover:shadow-md border border-rose-100" style={{ backgroundColor: '#FFF1F2' }}>
+        <div className="vendor-surface rounded-2xl p-5 relative overflow-hidden transition-all hover:shadow-md border border-rose-100" style={{ backgroundColor: '#f3e8ff' }}>
            <div className="flex items-center justify-between mb-6">
               <div className="h-8 w-8 rounded-lg bg-white/60 flex items-center justify-center text-rose-500 shadow-sm">
                 <Icon name="plan" size="sm" />

@@ -4,16 +4,16 @@ import { useVendorState } from '../useVendorState';
 import { vendorApi } from '../vendorApi';
 import Icon from '../../../components/ui/Icon';
 
-const statusOptions = ['New', 'Contacted', 'Quoted', 'Confirmed', 'Not converted'];
+const statusOptions = ['New', 'Contacted', 'Quote Sent', 'Booked', 'Rejected'];
 
 const VendorLeads = () => {
   const { refreshData, vendorState } = useVendorState();
   const navigate = useNavigate();
   const [leads, setLeads] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [openDropdown, setOpenDropdown] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
+  const [selectedLead, setSelectedLead] = useState(null);
 
   const fetchLeads = async () => {
     try {
@@ -40,7 +40,9 @@ const VendorLeads = () => {
       const res = await vendorApi.updateLeadStatus(leadId, status, token);
       if (res.success) {
         setLeads(prev => prev.map(l => (l._id === leadId ? { ...l, status: res.data.status } : l)));
-        setOpenDropdown(null);
+        if (selectedLead && selectedLead._id === leadId) {
+          setSelectedLead(prev => ({ ...prev, status: res.data.status }));
+        }
         refreshData(); 
       }
     } catch (err) {
@@ -53,11 +55,17 @@ const VendorLeads = () => {
       const searchLower = searchQuery.toLowerCase();
       const matchesSearch = 
         (l.customerName || '').toLowerCase().includes(searchLower) || 
-        (l.customerPhone || l.phone || '').includes(searchQuery) ||
+        (l.phone || '').includes(searchQuery) ||
         (l.eventLocation || '').toLowerCase().includes(searchLower) ||
         (l.category || '').toLowerCase().includes(searchLower);
       
-      const matchesStatus = statusFilter === 'All' || l.status === statusFilter;
+      const matchesStatus = statusFilter === 'All' || 
+                            l.status === statusFilter ||
+                            (statusFilter === 'Quoted' && (l.status === 'Quote Sent' || l.status === 'Quoted')) ||
+                            (statusFilter === 'Confirmed' && (l.status === 'Booked' || l.status === 'Confirmed')) ||
+                            (statusFilter === 'Lost' && (l.status === 'Rejected' || l.status === 'Not converted' || l.status === 'Lost')) ||
+                            (statusFilter === 'New' && l.status === 'New') ||
+                            (statusFilter === 'Contacted' && l.status === 'Contacted');
       return matchesSearch && matchesStatus;
     });
   }, [leads, searchQuery, statusFilter]);
@@ -66,9 +74,9 @@ const VendorLeads = () => {
     return {
       new: leads.filter(l => l.status === 'New').length,
       contacted: leads.filter(l => l.status === 'Contacted').length,
-      confirmed: leads.filter(l => l.status === 'Confirmed').length,
-      quotations: leads.filter(l => l.status === 'Quoted').length,
-      lost: leads.filter(l => l.status === 'Not converted').length,
+      confirmed: leads.filter(l => l.status === 'Booked' || l.status === 'Confirmed').length,
+      quotations: leads.filter(l => l.status === 'Quote Sent' || l.status === 'Quoted').length,
+      lost: leads.filter(l => l.status === 'Rejected' || l.status === 'Not converted' || l.status === 'Lost').length,
       total: leads.length
     };
   }, [leads]);
@@ -83,7 +91,7 @@ const VendorLeads = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-4 pb-20">
+    <div className="max-w-4xl mx-auto space-y-4 pb-20 relative">
 
       {/* Header & Search Group */}
       <div className="space-y-2.5">
@@ -96,21 +104,35 @@ const VendorLeads = () => {
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="flex gap-2 px-1">
-          <div className="flex-1 relative">
-            <Icon name="search" size="xs" color="#94a3b8" className="absolute left-3 top-1/2 -translate-y-1/2" />
+        <div className="flex items-center gap-1.5 px-1 overflow-x-auto no-scrollbar">
+          <div className="relative flex-shrink-0">
+            <Icon name="search" size="xs" color="#94a3b8" className="absolute left-2.5 top-1/2 -translate-y-1/2" />
             <input 
               type="text" 
               placeholder="Search leads..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-10 pl-10 pr-4 bg-[#f8fafc] border border-slate-100 rounded-xl text-[12px] font-medium focus:outline-none focus:ring-1 focus:ring-indigo-200 transition-all"
+              className="w-32 sm:w-44 h-8 pl-8 pr-3 bg-white border border-slate-100 rounded-lg text-[11px] font-medium focus:outline-none focus:ring-1 focus:ring-indigo-200 transition-all shadow-sm focus:w-40 sm:focus:w-52"
             />
           </div>
-          <button className="h-10 px-5 bg-white border border-slate-100 rounded-xl flex items-center gap-2 text-[12px] font-medium text-slate-700 shadow-sm active:scale-95 transition-all">
-            <Icon name="filter" size="xs" />
-            Filters
-          </button>
+          <div className="flex bg-slate-50 p-0.5 rounded-lg border border-slate-100 flex-shrink-0">
+            {[
+              { label: 'All', value: 'All' },
+              { label: 'New', value: 'New' },
+              { label: 'Contacted', value: 'Contacted' },
+              { label: 'Quoted', value: 'Quoted' },
+              { label: 'Confirmed', value: 'Confirmed' },
+              { label: 'Lost', value: 'Not converted' }
+            ].map(opt => (
+              <button
+                key={opt.value}
+                onClick={() => setStatusFilter(opt.value)}
+                className={`px-3 py-1 rounded-md text-[10px] font-semibold whitespace-nowrap transition-all ${statusFilter === opt.value ? 'bg-white text-indigo-600 shadow-sm border border-slate-100 scale-105' : 'text-slate-500 hover:text-slate-700 hover:scale-105'}`}
+              >
+                {opt.label}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -191,41 +213,7 @@ const VendorLeads = () => {
         </div>
       </div>
 
-      {/* Filters Row */}
-      <div className="flex gap-2 px-1">
-        <div className="relative">
-          <button 
-            onClick={() => setOpenDropdown(openDropdown === 'status' ? null : 'status')}
-            className={`px-4 py-2 bg-white border rounded-xl text-[11px] font-bold flex items-center gap-2 shadow-sm transition-all ${
-              statusFilter !== 'All' || openDropdown === 'status'
-                ? 'border-violet-200 text-violet-600 ring-4 ring-violet-50' 
-                : 'border-slate-100 text-slate-600'
-            }`}
-          >
-            {statusFilter === 'All' ? 'All Status' : statusFilter}
-            <Icon name="chevron-down" size="xs" color={statusFilter !== 'All' ? '#7c3aed' : "#94a3b8"} />
-          </button>
 
-          {openDropdown === 'status' && (
-            <div className="absolute top-full left-0 mt-2 w-40 bg-white border border-slate-100 rounded-xl shadow-xl z-50 py-1 animate-in fade-in slide-in-from-top-1">
-              {['All', ...statusOptions].map((opt) => (
-                <button
-                  key={opt}
-                  onClick={() => {
-                    setStatusFilter(opt);
-                    setOpenDropdown(null);
-                  }}
-                  className={`w-full px-4 py-2 text-left text-[11px] font-bold hover:bg-slate-50 transition-colors ${
-                    statusFilter === opt ? 'text-violet-600 bg-violet-50/50' : 'text-slate-600'
-                  }`}
-                >
-                  {opt}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
 
       {/* Leads List Header */}
       <div className="flex items-center justify-between px-1">

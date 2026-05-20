@@ -12,7 +12,7 @@ const ThemeShowcase = () => {
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div className="text-center">
         <h1 className="text-4xl font-bold text-theme-primary mb-4">
-          UtsavChakra Theme System
+          Utsavo Theme System
         </h1>
         <p className="text-lg text-theme-secondary">
           Centralized, flexible theming with CSS variables and Tailwind CSS

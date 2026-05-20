@@ -48,15 +48,15 @@ const VendorRegister = () => {
   return (
     <div className="relative overflow-hidden py-4 px-1" style={{ background: 'transparent' }}>
       <div className="max-w-2xl mx-auto py-2 px-1">
-        <div className="rounded-3xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(237,100,143,0.2)] relative overflow-hidden vendor-surface" style={{
+        <div className="rounded-3xl p-6 sm:p-10 shadow-[0_20px_60px_rgba(124, 58, 237,0.2)] relative overflow-hidden vendor-surface" style={{
           background: 'rgba(255, 255, 255, 0.95)',
           backdropFilter: 'blur(20px)',
           WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(237, 100, 143, 0.1)'
+          border: '1px solid rgba(124, 58, 237, 0.1)'
         }}>
           {/* Top gradient accent */}
           <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-[2.5rem]" style={{
-            background: 'linear-gradient(90deg, #ed648f, #f182a5, #f4a0bb, #ed648f)',
+            background: 'linear-gradient(90deg, #7c3aed, #f182a5, #f4a0bb, #7c3aed)',
             backgroundSize: '200% 100%',
             animation: 'gradient-shift 4s ease infinite'
           }}></div>
@@ -70,19 +70,19 @@ const VendorRegister = () => {
 
           <div className="mb-4 p-4 sm:p-5 rounded-2xl" style={{
             background: 'rgba(255, 255, 255, 0.95)',
-            border: '1px solid rgba(237, 100, 143, 0.15)',
-            boxShadow: '0 4px 15px rgba(237, 100, 143, 0.05)'
+            border: '1px solid rgba(124, 58, 237, 0.15)',
+            boxShadow: '0 4px 15px rgba(124, 58, 237, 0.05)'
           }}>
             <div className="flex justify-between text-[11px] font-bold uppercase tracking-wider mb-2" style={{ color: '#1e293b' }}>
               <span>Onboarding Progress</span>
               <span>{progressPercent}%</span>
             </div>
-            <div className="h-2 w-full rounded-full overflow-hidden" style={{ background: 'rgba(237, 100, 143, 0.1)' }}>
+            <div className="h-2 w-full rounded-full overflow-hidden" style={{ background: 'rgba(124, 58, 237, 0.1)' }}>
               <div
                 className="h-full rounded-full transition-all duration-700 ease-out"
                 style={{
                   width: `${progressPercent}%`,
-                  background: 'linear-gradient(90deg, #ed648f, #da4f7a, #c43e69)'
+                  background: 'linear-gradient(90deg, #7c3aed, #6d28d9, #5b21b6)'
                 }}
               />
             </div>
@@ -99,7 +99,7 @@ const VendorRegister = () => {
                 <input
                   autoFocus
                   className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20 outline-none"
-                  style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                  style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
                   value={formState.fullName}
                   onChange={(event) => handleChange('fullName', event.target.value.replace(/[^a-zA-Z ]/g, ''))}
                   placeholder="e.g. Aditi Kapoor"
@@ -117,7 +117,7 @@ const VendorRegister = () => {
                   </div>
                   <input
                     className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20 outline-none"
-                    style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
                     value={formState.businessName}
                     onChange={(event) => handleChange('businessName', event.target.value)}
                     placeholder="e.g. Emerald Studio"
@@ -137,7 +137,7 @@ const VendorRegister = () => {
                   <input
                     type="email"
                     className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20 outline-none"
-                    style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
                     value={formState.email}
                     onChange={(event) => handleChange('email', event.target.value)}
                     placeholder="hello@emeraldstudio.in"
@@ -168,7 +168,7 @@ const VendorRegister = () => {
                   </div>
                   <input
                     className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20 outline-none"
-                    style={{ border: '1px solid rgba(237, 100, 143, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
                     value={formState.phone}
                     onChange={(event) => {
                         const val = event.target.value.replace(/\D/g, '').slice(0, 10);

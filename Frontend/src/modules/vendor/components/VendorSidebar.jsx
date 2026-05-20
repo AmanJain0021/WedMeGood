@@ -33,11 +33,11 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
     }}>
       <div className="h-full flex flex-col">
         {/* Brand Header */}
-        <div className="px-6 py-4 border-b border-slate-100/80">
+        <div className="px-5 py-2.5 border-b border-slate-100/80">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#581C87]">UtsavChakra</p>
-              <h2 className="text-sm font-black text-slate-900 tracking-tight leading-none mt-1 uppercase">Vendor Portal</h2>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#581C87]">Utsavo</p>
+              <h2 className="text-[13px] font-black text-slate-900 tracking-tight leading-none mt-0.5 uppercase">Vendor Portal</h2>
             </div>
             <button
               type="button"
@@ -48,7 +48,7 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
               <Icon name="close" size="md" color="currentColor" />
             </button>
           </div>
-          <div className="mt-2.5 flex items-center gap-1.5 text-[10px] font-bold text-slate-500">
+          <div className="mt-1.5 flex items-center gap-1.5 text-[9px] font-bold text-slate-500">
             <span className="relative flex h-1.5 w-1.5">
               <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${isApproved ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
               <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${isApproved ? 'bg-emerald-400' : 'bg-amber-400'}`}></span>
@@ -58,7 +58,7 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-0.5 custom-scrollbar">
+        <nav className="flex-1 overflow-y-auto px-3 pt-2 pb-3 space-y-0.5 custom-scrollbar">
           {dynamicNavItems.map((item) => {
             const isHome = item.label === 'Dashboard' || item.label === 'Profile';
             const isDisabled = !isApproved && !isHome;

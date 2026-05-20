@@ -23,7 +23,7 @@ const VendorLayout = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#9D174D]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#7c3aed]"></div>
       </div>
     );
   }
@@ -106,7 +106,7 @@ const VendorLayout = () => {
                   <div className="max-w-md w-full bg-white/80 backdrop-blur-xl p-8 sm:p-10 rounded-[2.5rem] border border-white shadow-2xl text-center space-y-6">
                     <div className="relative inline-block">
                       <div className="h-20 w-20 rounded-3xl bg-slate-50 flex items-center justify-center mx-auto relative overflow-hidden">
-                        <Icon name="shield" size="lg" color="#9D174D" />
+                        <Icon name="shield" size="lg" color="#7c3aed" />
                         <div className="absolute inset-0 bg-slate-400/10 animate-pulse"></div>
                       </div>
                     </div>
@@ -130,7 +130,7 @@ const VendorLayout = () => {
       {/* Global AI Chatbot */}
       <VendorChatbot />
 
-      <div className="lg:hidden">
+      <div className="lg:hidden" id="global-bottom-nav">
          <VendorBottomNav isApproved={isApproved} />
       </div>
     </div>

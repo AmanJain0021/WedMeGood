@@ -718,7 +718,7 @@ const VendorDetail = () => {
           >
             <p className="mb-3 sm:mb-4 text-sm sm:text-base">
               <span className="font-medium">Been on </span>
-              <span style={{ color: theme.colors.primary[600] }}>UtsavChakra</span>
+              <span style={{ color: theme.colors.primary[600] }}>Utsavo</span>
               <span className="font-medium"> Since {vendor.experience || '2 years'}</span>
             </p>
 

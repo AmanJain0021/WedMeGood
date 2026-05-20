@@ -52,8 +52,8 @@ const AdminLogin = () => {
                     <div className="h-14 w-14 rounded-2xl bg-[#1A0F0F] flex items-center justify-center shadow-2xl mb-4 group hover:scale-105 transition-all duration-500">
                         <Icon name="sparkles" size="sm" color="#F9AEAF" />
                     </div>
-                    <h1 className="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">Utsav<span className="text-primary-400">Chakra</span></h1>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mt-2">UtsavChakra Master Access</p>
+                    <h1 className="text-2xl font-black text-slate-900 tracking-tighter uppercase leading-none">Utsavo<span className="text-primary-400">Chakra</span></h1>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mt-2">Utsavo Master Access</p>
                 </div>
 
                 {/* Secure Console */}

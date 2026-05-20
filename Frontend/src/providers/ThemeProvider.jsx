@@ -6,7 +6,7 @@ const ThemeContext = createContext();
 const ThemeProvider = ({ children }) => {
   const [currentTheme, setCurrentTheme] = useState(() => {
     // Get theme from localStorage or use default
-    const savedTheme = localStorage.getItem('utsav-chakra-theme');
+    const savedTheme = localStorage.getItem('utsavo-chakra-theme');
     return savedTheme ? themes[savedTheme] || defaultTheme : defaultTheme;
   });
 
@@ -23,7 +23,7 @@ const ThemeProvider = ({ children }) => {
     const newTheme = themes[themeName];
     if (newTheme) {
       setCurrentTheme(newTheme);
-      localStorage.setItem('utsav-chakra-theme', themeName);
+      localStorage.setItem('utsavo-chakra-theme', themeName);
     }
   };
 

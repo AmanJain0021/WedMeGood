@@ -57,7 +57,7 @@ const Header = () => {
               className="text-2xl sm:text-3xl font-black uppercase tracking-tighter"
               style={{ color: '#3D2B2B', fontFamily: '"Playfair Display", serif' }}
             >
-              UtsavChakra
+              Utsavo
             </Link>
           </div>
 

@@ -211,7 +211,7 @@ const sendSMSOTP = async (phone, otp, name) => {
     const twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
     
     await twilio.messages.create({
-      body: `Your UtsavChakra verification code is: ${otp}. Valid for 10 minutes.`,
+      body: `Your Utsavo verification code is: ${otp}. Valid for 10 minutes.`,
       from: process.env.TWILIO_PHONE_NUMBER,
       to: `+91${phone}`
     });

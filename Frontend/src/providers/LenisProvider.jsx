@@ -18,18 +18,17 @@ export const LenisProvider = ({ children }) => {
         // Register ScrollTrigger plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // Initialize Lenis with optimized settings for mobile
+        // Initialize Lenis with optimized settings for ultra-smooth scrolling
         lenisRef.current = new Lenis({
-          duration: 1.2,
-          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-          direction: 'vertical',
-          gestureDirection: 'vertical',
-          smooth: true,
-          mouseMultiplier: 1,
-          smoothTouch: true, // Enable smooth scrolling on touch devices
+          lerp: 0.08, // Controls the smoothness (lower = smoother/slower, higher = snappier)
+          wheelMultiplier: 1, // scroll speed
+          smoothWheel: true,
+          smoothTouch: false, // Usually false is better for touch devices to preserve native feel
           touchMultiplier: 2,
           infinite: false,
-          autoResize: true
+          autoResize: true,
+          orientation: 'vertical',
+          gestureOrientation: 'vertical'
         });
 
         // Update ScrollTrigger on Lenis scroll
@@ -65,21 +64,6 @@ export const LenisProvider = ({ children }) => {
             lenisRef.current?.destroy();
           } catch (e) {
             console.warn('Error destroying Lenis:', e);
-          }
-        };
-
-        // Add start/stop methods for external control
-        lenisRef.current.start = () => {
-          if (lenisRef.current) {
-            lenisRef.current.options.smooth = true;
-            gsap.ticker.add(update);
-          }
-        };
-
-        lenisRef.current.stop = () => {
-          if (lenisRef.current) {
-            lenisRef.current.options.smooth = false;
-            gsap.ticker.remove(update);
           }
         };
 

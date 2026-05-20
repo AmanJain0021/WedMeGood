@@ -43,7 +43,7 @@ const SmartSlider = ({
     e.stopPropagation(); // Prevent item click
     
     const message = encodeURIComponent(
-      `Hi! I found your ${item.category.toLowerCase()} service "${item.name}" on UtsavChakra and I'm interested in learning more about it for my wedding. Could you please share more details?`
+      `Hi! I found your ${item.category.toLowerCase()} service "${item.name}" on Utsavo and I'm interested in learning more about it for my wedding. Could you please share more details?`
     );
     const whatsappNumber = item.whatsappNumber || '+919876543210';
     const whatsappUrl = `https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=${message}`;

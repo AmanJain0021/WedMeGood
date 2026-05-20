@@ -20,7 +20,7 @@ const categories = [
 
 const seedCategories = async () => {
     try {
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/utsav-chakra');
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/utsavo-chakra');
         console.log('Connected to database for seeding...');
 
         // Clear existing categories

@@ -142,11 +142,11 @@ const VendorSettings = () => {
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b-2 border-slate-50 pb-6">
                 <div>
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="h-12 w-12 rounded-2xl bg-[#9D174D] flex items-center justify-center text-white shadow-xl">
+                        <div className="h-12 w-12 rounded-2xl bg-[#7c3aed] flex items-center justify-center text-white shadow-xl">
                             <Icon name="settings" size="sm" />
                         </div>
                         <div>
-                            <p className="text-[10px] font-black text-[#9D174D] uppercase tracking-[0.25em]">Core Configuration</p>
+                            <p className="text-[10px] font-black text-[#7c3aed] uppercase tracking-[0.25em]">Core Configuration</p>
                             <h1 className="text-2xl font-black text-slate-900 tracking-tight leading-none mt-1">Vendor Settings</h1>
                         </div>
                     </div>
@@ -181,7 +181,7 @@ const VendorSettings = () => {
                         >
                             <div className="flex items-center gap-4">
                                 <div className={`h-10 w-10 rounded-2xl flex items-center justify-center transition-colors ${
-                                    activeTab === tab.id ? 'bg-[#9D174D] text-white' : 'bg-slate-100 text-slate-400 group-hover:bg-white'
+                                    activeTab === tab.id ? 'bg-[#7c3aed] text-white' : 'bg-slate-100 text-slate-400 group-hover:bg-white'
                                 }`}>
                                     <Icon name={tab.icon} size="xs" />
                                 </div>
@@ -203,7 +203,7 @@ const VendorSettings = () => {
                             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <section>
                                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-[#9D174D]" />
+                                        <div className="h-1.5 w-1.5 rounded-full bg-[#7c3aed]" />
                                         Identity Profile
                                     </h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -251,7 +251,7 @@ const VendorSettings = () => {
 
                                 <section>
                                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-[#9D174D]" />
+                                        <div className="h-1.5 w-1.5 rounded-full bg-[#7c3aed]" />
                                         Localization
                                     </h3>
                                     <div className="bg-slate-50 p-6 rounded-3xl border border-slate-100 flex items-center justify-between">
@@ -265,7 +265,7 @@ const VendorSettings = () => {
                                                 setSettings({...settings, language: e.target.value});
                                                 handleUpdate({ language: e.target.value });
                                             }}
-                                            className="bg-white border-2 border-slate-100 rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest outline-none focus:border-[#9D174D]/20 transition-all cursor-pointer"
+                                            className="bg-white border-2 border-slate-100 rounded-xl px-4 py-2 text-[10px] font-black uppercase tracking-widest outline-none focus:border-[#7c3aed]/20 transition-all cursor-pointer"
                                         >
                                             <option value="English (India)">English (India)</option>
                                             <option value="Hindi">Hindi (Beta)</option>
@@ -280,7 +280,7 @@ const VendorSettings = () => {
                             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <section>
                                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-[#9D174D]" />
+                                        <div className="h-1.5 w-1.5 rounded-full bg-[#7c3aed]" />
                                         Alert Configuration
                                     </h3>
                                     <div className="space-y-3">
@@ -291,7 +291,7 @@ const VendorSettings = () => {
                                         ].map(item => (
                                             <div key={item.id} className="group p-5 rounded-[2rem] bg-slate-50 hover:bg-white border border-transparent hover:border-rose-100 transition-all flex items-center justify-between">
                                                 <div className="flex items-center gap-5">
-                                                    <div className="h-10 w-10 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover:text-[#9D174D] shadow-sm transition-colors">
+                                                    <div className="h-10 w-10 rounded-2xl bg-white flex items-center justify-center text-slate-400 group-hover:text-[#7c3aed] shadow-sm transition-colors">
                                                         <Icon name={item.icon} size="xs" />
                                                     </div>
                                                     <div>
@@ -302,7 +302,7 @@ const VendorSettings = () => {
                                                 <button 
                                                     onClick={() => handleNotificationToggle(item.id)}
                                                     className={`w-12 h-6 rounded-full relative transition-all duration-500 ${
-                                                        settings.notifications[item.id] ? 'bg-[#9D174D] shadow-lg shadow-rose-100' : 'bg-slate-200'
+                                                        settings.notifications[item.id] ? 'bg-[#7c3aed] shadow-lg shadow-rose-100' : 'bg-slate-200'
                                                     }`}
                                                 >
                                                     <div className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all duration-500 shadow-sm ${
@@ -320,7 +320,7 @@ const VendorSettings = () => {
                             <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
                                 <section>
                                     <h3 className="text-sm font-black text-slate-900 uppercase tracking-widest mb-6 flex items-center gap-2">
-                                        <div className="h-1.5 w-1.5 rounded-full bg-[#9D174D]" />
+                                        <div className="h-1.5 w-1.5 rounded-full bg-[#7c3aed]" />
                                         Rotate Security Keys
                                     </h3>
                                     <form onSubmit={handlePasswordChange} className="space-y-6 max-w-md">
@@ -360,7 +360,7 @@ const VendorSettings = () => {
                                         <button 
                                             disabled={isSaving}
                                             type="submit"
-                                            className="w-full py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-[#9D174D] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                            className="w-full py-4 bg-slate-900 text-white rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] shadow-xl hover:bg-[#7c3aed] transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                                         >
                                             {isSaving ? 'Processing...' : 'Rotate Security Keys'}
                                         </button>

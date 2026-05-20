@@ -119,7 +119,7 @@ const FeedbackSection = () => {
                 className="text-xl font-bold mb-2"
                 style={{ color: theme.semantic.text.primary }}
               >
-                How was your experience with UtsavChakra?
+                How was your experience with Utsavo?
               </h3>
               
               <p 

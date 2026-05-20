@@ -671,7 +671,7 @@ const UserHome = () => {
         </button>
       </div>
 
-      {/* 9. UtsavChakra Promotional Banner */}
+      {/* 9. Utsavo Promotional Banner */}
       <div className="px-4 py-6">
         <div
           onClick={() => navigate('/user/venue-booking-offer')}
@@ -684,7 +684,7 @@ const UserHome = () => {
           <div className="p-6 text-center">
             <div className="mb-3">
               <div className="w-10 h-10 mx-auto rounded-full overflow-hidden">
-                <img src="https://images.unsplash.com/photo-1519167758481-83f29d8ae8e4?w=100&h=100&fit=crop&q=80" alt="UtsavChakra" className="w-full h-full object-cover" />
+                <img src="https://images.unsplash.com/photo-1519167758481-83f29d8ae8e4?w=100&h=100&fit=crop&q=80" alt="Utsavo" className="w-full h-full object-cover" />
               </div>
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-2">BOOKED your VENUE?</h3>
@@ -697,10 +697,10 @@ const UserHome = () => {
         </div>
       </div>
 
-      {/* 10. UtsavChakra Services */}
+      {/* 10. Utsavo Services */}
       <div className="px-4 py-6">
         <h2 className="text-lg font-semibold mb-4 text-gray-900">
-          UtsavChakra Services
+          Utsavo Services
         </h2>
         
         {/* Genie Services */}
@@ -898,7 +898,7 @@ const UserHome = () => {
             </div>
           </div>
           <div className="absolute top-4 left-4">
-            <p className="text-white/80 text-sm">UtsavChakra</p>
+            <p className="text-white/80 text-sm">Utsavo</p>
           </div>
         </div>
       </div>

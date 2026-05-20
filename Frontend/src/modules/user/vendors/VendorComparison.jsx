@@ -112,7 +112,7 @@ const VendorComparison = () => {
   const handleShareComparison = async () => {
     const shareText = `🔍 Vendor Comparison - ${selectedCategory}\n\n${compareVendors.map((vendor, index) => 
       `${index + 1}. ${vendor.name}\n   ⭐ ${vendor.rating} (${vendor.reviews} reviews)\n   💰 ${vendor.price}\n   📍 ${vendor.location}\n`
-    ).join('\n')}\n🏆 Recommended: ${getSmartRecommendation()?.name || 'None'}\n\nCompared on UtsavChakra`;
+    ).join('\n')}\n🏆 Recommended: ${getSmartRecommendation()?.name || 'None'}\n\nCompared on Utsavo`;
     
     if (navigator.share) {
       try {

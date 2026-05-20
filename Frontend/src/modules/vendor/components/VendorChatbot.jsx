@@ -62,7 +62,25 @@ const VendorChatbot = () => {
   };
 
   return (
-    <div className={`fixed ${isKeyboardVisible ? 'bottom-0 inset-x-0' : 'bottom-20 lg:bottom-8 right-4 lg:right-8'} z-[9999] pointer-events-none transition-all duration-300`}>
+    <div className={`fixed ${isKeyboardVisible ? 'bottom-0 inset-x-0' : 'bottom-20 lg:bottom-8 right-8 lg:right-12'} z-[9999] pointer-events-none transition-all duration-300`}>
+      <style>{`
+        @keyframes float-btn {
+          0% { transform: translateY(0px) scale(1); }
+          50% { transform: translateY(-4px) scale(1.03); }
+          100% { transform: translateY(0px) scale(1); }
+        }
+        @keyframes sparkle-rotate {
+          0% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+          50% { transform: rotate(12deg) scale(1.18); opacity: 1; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7)); }
+          100% { transform: rotate(0deg) scale(1); opacity: 0.9; }
+        }
+        .animate-float-btn {
+          animation: float-btn 3s ease-in-out infinite;
+        }
+        .animate-sparkle-icon {
+          animation: sparkle-rotate 2.5s ease-in-out infinite;
+        }
+      `}</style>
       
       {/* Chat Window - Fixed keyboard pushing issue */}
       {isOpen && (
@@ -71,7 +89,7 @@ const VendorChatbot = () => {
           bg-white border border-slate-100 flex flex-col overflow-hidden pointer-events-auto animate-in fade-in slide-in-from-bottom-5 duration-300 origin-bottom-right
         `}>
            {/* Header */}
-           <div className="p-4 flex items-center justify-between text-white shrink-0" style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}>
+           <div className="p-4 flex items-center justify-between text-white shrink-0" style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}>
               <div className="flex items-center gap-2.5">
                  <div className="h-8 w-8 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur-md border border-white/20">
                     <Icon name="sparkles" size="xs" />
@@ -93,7 +111,7 @@ const VendorChatbot = () => {
                    <div className={`max-w-[88%] ${msg.sender === 'user' ? 'items-end' : 'items-start'}`}>
                       <div className={`px-3.5 py-2 rounded-2xl text-[11px] font-bold shadow-sm ${
                         msg.sender === 'user' 
-                          ? 'bg-[#9D174D] text-white rounded-tr-none' 
+                          ? 'bg-[#7c3aed] text-white rounded-tr-none' 
                           : 'bg-white text-slate-700 border border-slate-100 rounded-tl-none'
                       }`}>
                          {msg.text}
@@ -117,7 +135,7 @@ const VendorChatbot = () => {
               <button 
                 type="submit"
                 className="h-10 w-10 rounded-xl flex items-center justify-center text-white shadow-lg active:scale-90 transition-all shrink-0"
-                style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
               >
                  <Icon name="mail" size="xs" />
               </button>
@@ -127,13 +145,19 @@ const VendorChatbot = () => {
 
       {/* Toggle Button - Hidden when keyboard is visible to save space */}
       {!isKeyboardVisible && (
-        <div className="flex justify-end pointer-events-auto">
+        <div className={`flex justify-end pointer-events-auto ${!isOpen ? 'animate-float-btn' : ''}`}>
           <button 
             onClick={() => setIsOpen(!isOpen)}
             className="h-14 w-14 rounded-full flex items-center justify-center text-white shadow-2xl hover:scale-105 active:scale-95 transition-all relative overflow-hidden"
-            style={{ background: 'linear-gradient(135deg, #9D174D, #831843)', boxShadow: '0 8px 32px rgba(157, 23, 77, 0.4)' }}
+            style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)', boxShadow: '0 8px 32px rgba(124, 58, 237, 0.4)' }}
           >
-            {isOpen ? <Icon name="chevronDown" size="sm" /> : <Icon name="sparkles" size="sm" />}
+            {isOpen ? (
+              <Icon name="chevronDown" size="sm" />
+            ) : (
+              <div className="animate-sparkle-icon flex items-center justify-center">
+                <Icon name="sparkles" size="sm" />
+              </div>
+            )}
             {!isOpen && (
               <span className="absolute top-0 right-0 h-3.5 w-3.5 rounded-full bg-emerald-500 border-2 border-white shadow-sm"></span>
             )}

@@ -83,11 +83,11 @@ const VendorEarnings = () => {
       {/* Compact Header */}
       <div className="vendor-surface rounded-xl p-4 sm:p-5 relative overflow-hidden bg-[#FDF2F8] border border-rose-100 shadow-sm">
         <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-10" style={{
-          background: 'radial-gradient(circle, #ed648f, transparent 70%)'
+          background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
         }}></div>
         <div className="relative z-10 flex items-center justify-between">
           <div>
-            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#ed648f]">Financials</p>
+            <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#7c3aed]">Financials</p>
             <h2 className="text-lg font-black text-slate-900 mt-0.5 tracking-tight">Earnings Summary</h2>
           </div>
           <div className="h-9 w-9 rounded-xl bg-white flex items-center justify-center text-rose-500 shadow-sm border border-rose-50">
@@ -99,7 +99,7 @@ const VendorEarnings = () => {
       {/* High Density Stats Grid */}
       <div className="grid gap-3 sm:grid-cols-3">
         {[
-          { label: 'Total Earnings', value: `₹${(earnings.totalEarnings || 0).toLocaleString()}`, sub: 'Lifetime Profit', icon: 'money', bg: '#FFF1F2', text: '#E11D48' },
+          { label: 'Total Earnings', value: `₹${(earnings.totalEarnings || 0).toLocaleString()}`, sub: 'Lifetime Profit', icon: 'money', bg: '#f3e8ff', text: '#E11D48' },
           { label: 'Pending Payout', value: `₹${(earnings.pendingPayments || 0).toLocaleString()}`, sub: 'In Processing', icon: 'clock', bg: '#FFFBEB', text: '#D97706' },
           { label: 'Platform Fee', value: `₹${(earnings.platformCommission || 0).toLocaleString()}`, sub: '10% Service Charge', icon: 'chart', bg: '#F5F3FF', text: '#7C3AED' }
         ].map((stat) => (
@@ -207,7 +207,7 @@ const VendorEarnings = () => {
                         <button 
                            disabled={isSaving}
                            type="submit"
-                           className="w-full h-12 bg-[#9D174D] hover:bg-[#831843] text-white rounded-xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
+                           className="w-full h-12 bg-[#7c3aed] hover:bg-[#5b21b6] text-white rounded-xl text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50 flex items-center justify-center gap-2"
                         >
                            {isSaving ? 'Connecting to Node...' : 'Submit for Verification'}
                         </button>

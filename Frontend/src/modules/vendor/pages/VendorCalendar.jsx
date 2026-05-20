@@ -118,10 +118,10 @@ const VendorCalendar = () => {
       
       {/* Header */}
       <div className="vendor-surface rounded-xl p-3.5 sm:p-5 relative overflow-hidden bg-white border border-slate-100 shadow-sm">
-        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-5 bg-[#9D174D]"></div>
+        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-5 bg-[#7c3aed]"></div>
         <div className="relative z-10 flex items-center justify-between">
           <div className="flex items-center gap-3">
-             <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#9D174D] shadow-sm">
+             <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed] shadow-sm">
                 <Icon name="calendar" size="xs" />
              </div>
              <div>
@@ -135,7 +135,7 @@ const VendorCalendar = () => {
                 setShowAddModal(true);
             }}
             className="h-9 w-9 rounded-xl flex items-center justify-center text-white shadow-lg active:scale-90 transition-all"
-            style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}
+            style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
           >
              <Icon name="plus" size="xs" />
           </button>
@@ -192,10 +192,10 @@ const VendorCalendar = () => {
                       onClick={() => handleDayClick(day)}
                       className={`h-8 w-8 flex items-center justify-center rounded-xl text-[10px] font-black transition-all border ${
                         isSelected 
-                          ? 'bg-[#9D174D] text-white border-[#9D174D] shadow-lg shadow-rose-100 scale-105' 
+                          ? 'bg-[#7c3aed] text-white border-[#7c3aed] shadow-lg shadow-rose-100 scale-105' 
                           : isToday 
-                            ? 'bg-slate-100 text-[#9D174D] border-slate-200'
-                            : 'bg-white text-slate-600 border-transparent hover:bg-slate-50 hover:text-[#9D174D]'
+                            ? 'bg-slate-100 text-[#7c3aed] border-slate-200'
+                            : 'bg-white text-slate-600 border-transparent hover:bg-slate-50 hover:text-[#7c3aed]'
                       }`}
                     >
                        {day}
@@ -215,11 +215,11 @@ const VendorCalendar = () => {
                     setShowAddModal(true);
                 }}
                 className="flex-1 text-white h-10 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-rose-100 active:scale-95 transition-all"
-                style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}
+                style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
               >
                  Add Event
               </button>
-              <button onClick={fetchBookings} className="h-10 w-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#9D174D] transition-all"><Icon name="clock" size="xs" /></button>
+              <button onClick={fetchBookings} className="h-10 w-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#7c3aed] transition-all"><Icon name="clock" size="xs" /></button>
            </div>
         </div>
 
@@ -235,7 +235,7 @@ const VendorCalendar = () => {
                   <div key={booking._id || index} className="vendor-surface rounded-2xl p-3 bg-white border border-slate-100 shadow-sm transition-all hover:translate-x-1">
                     <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2.5">
-                           <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#9D174D] border border-white shadow-sm">
+                           <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed] border border-white shadow-sm">
                               <Icon name="party" size="xs" />
                            </div>
                            <div>
@@ -270,7 +270,7 @@ const VendorCalendar = () => {
            <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowAddModal(false)}></div>
            <div className="bg-white rounded-[2rem] p-5 sm:p-6 max-w-[340px] w-full relative z-[110] shadow-2xl animate-in fade-in zoom-in-95 duration-300 border border-white">
               <div className="flex items-center gap-3 mb-4">
-                 <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#9D174D]">
+                 <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed]">
                     <Icon name="calendar" size="xs" />
                  </div>
                  <div>
@@ -292,7 +292,7 @@ const VendorCalendar = () => {
                       readOnly={newEvent.isExisting}
                       value={newEvent.customerName}
                       onChange={(e) => setNewEvent({ ...newEvent, customerName: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#9D174D]/10'}`} 
+                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
                     />
                  </div>
                  <div className="space-y-1">
@@ -303,7 +303,7 @@ const VendorCalendar = () => {
                       readOnly={newEvent.isExisting}
                       value={newEvent.location}
                       onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#9D174D]/10'}`} 
+                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
                     />
                  </div>
                  <div className="space-y-1">
@@ -313,7 +313,7 @@ const VendorCalendar = () => {
                       readOnly={newEvent.isExisting}
                       value={newEvent.eventDate}
                       onChange={(e) => setNewEvent({ ...newEvent, eventDate: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#9D174D]/10'}`} 
+                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
                     />
                  </div>
 
@@ -321,7 +321,7 @@ const VendorCalendar = () => {
                    onClick={handleAddEvent}
                    disabled={isSubmitting}
                    className={`w-full h-11 rounded-xl text-white font-black uppercase text-[10px] tracking-widest shadow-xl shadow-rose-100 active:scale-95 transition-all mt-3 flex items-center justify-center ${isSubmitting ? 'opacity-50 grayscale' : ''}`}
-                   style={{ background: 'linear-gradient(135deg, #9D174D, #831843)' }}
+                   style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
                  >
                    {isSubmitting ? 'Saving...' : (newEvent.isExisting ? 'Close Details' : 'Save Event')}
                  </button>

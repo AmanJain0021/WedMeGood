@@ -61,7 +61,7 @@ const Welcome = () => {
                    <path d="M50 85c-2-2-35-25-35-45 0-12 10-20 20-20 6 0 11 3 15 8 4-5 9-8 15-8 10 0 20 8 20 20 0 20-33 43-35 45z"/>
                 </svg>
              </div>
-             <span className="text-white text-xl font-black tracking-tighter" style={{ fontFamily: '"Playfair Display", serif' }}>UtsavChakra</span>
+             <span className="text-white text-xl font-black tracking-tighter" style={{ fontFamily: '"Playfair Display", serif' }}>Utsavo</span>
           </div>
         </div>
 

@@ -286,7 +286,7 @@ const Privacy = () => {
                 <div className="flex items-center space-x-2">
                   <Icon name="envelope" size="xs" style={{ color: theme.colors.primary[600] }} />
                   <span className="text-sm" style={{ color: theme.colors.primary[600] }}>
-                    privacy@utsavchakra.com
+                    privacy@utsavo.com
                   </span>
                 </div>
                 <div className="flex items-center space-x-2">

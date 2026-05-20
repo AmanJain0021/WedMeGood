@@ -15,11 +15,11 @@ const Review = require('./modules/vendor/Review');
 const seedData = async () => {
     try {
         console.log('⏳ Connecting to MongoDB...');
-        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/utsav-chakra');
+        await mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/utsavo-chakra');
         console.log('✅ Connected to MongoDB');
 
         // 1. Create a Test User (Customer)
-        const testUserEmail = 'customer@utsavchakra.com';
+        const testUserEmail = 'customer@utsavo.com';
         const testUserPhone = '9876543210';
         let user = await User.findOne({ $or: [{ email: testUserEmail }, { phone: testUserPhone }] });
         if (!user) {
@@ -36,7 +36,7 @@ const seedData = async () => {
         }
 
         // 2. Create a Vendor
-        const vendorEmail = 'vendor@utsavchakra.com';
+        const vendorEmail = 'vendor@utsavo.com';
         const vendorPhone = '8888888888';
 
         // Clear existing data for this vendor to avoid duplicates

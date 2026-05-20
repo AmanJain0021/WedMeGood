@@ -177,7 +177,7 @@ const VendorChat = () => {
 
   const handleWhatsAppRedirect = () => {
     const message = encodeURIComponent(
-      `Hi! I found your ${vendorInfo.vendorCategory.toLowerCase()} service "${vendorInfo.vendorName}" on UtsavChakra and I'm interested in learning more about it for my wedding. Could you please share more details?`
+      `Hi! I found your ${vendorInfo.vendorCategory.toLowerCase()} service "${vendorInfo.vendorName}" on Utsavo and I'm interested in learning more about it for my wedding. Could you please share more details?`
     );
     const whatsappUrl = `https://wa.me/919876543210?text=${message}`;
     window.open(whatsappUrl, '_blank');

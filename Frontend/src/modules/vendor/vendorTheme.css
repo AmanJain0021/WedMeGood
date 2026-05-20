@@ -4,7 +4,7 @@
 
 .vendor-shell {
   font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
-  background: linear-gradient(135deg, #fff5f7 0%, #ffffff 50%, #fff1f2 100%);
+  background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 50%, #f3e8ff 100%);
   color: #1e293b;
   min-height: 100vh;
 }
@@ -13,7 +13,21 @@
 .vendor-shell h2, 
 .vendor-shell h3,
 .vendor-heading-serif {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Global Font Weight Adjustments for a Softer, Cleaner, More Professional Look */
+.vendor-shell .font-black,
+.vendor-shell .font-extrabold {
+  font-weight: 600 !important;
+}
+
+.vendor-shell .font-bold {
+  font-weight: 500 !important;
+}
+
+.vendor-shell .font-semibold {
+  font-weight: 500 !important;
 }
 
 /* ---- Glass-morphism Surface Cards ---- */
@@ -21,9 +35,9 @@
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(237, 100, 143, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.08);
   box-shadow: 
-    0 4px 24px rgba(237, 100, 143, 0.06),
+    0 4px 24px rgba(124, 58, 237, 0.06),
     0 1px 3px rgba(0, 0, 0, 0.04);
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -31,34 +45,34 @@
 .vendor-shell .vendor-surface:hover {
   transform: translateY(-4px);
   box-shadow: 
-    0 20px 50px rgba(237, 100, 143, 0.12),
+    0 20px 50px rgba(124, 58, 237, 0.12),
     0 4px 12px rgba(0, 0, 0, 0.06);
-  border-color: rgba(237, 100, 143, 0.15);
+  border-color: rgba(124, 58, 237, 0.15);
 }
 
 .vendor-shell .vendor-surface-soft {
-  background: linear-gradient(135deg, #FAF2F2 0%, #faf5ff 100%);
-  border: 1px solid rgba(210, 138, 140, 0.1);
+  background: linear-gradient(135deg, #f5f3ff 0%, #faf5ff 100%);
+  border: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 /* ---- Accent Colors - WedMeGood Pink ---- */
 .vendor-shell .vendor-accent {
-  color: #ed648f;
+  color: #7c3aed;
 }
 
 .vendor-shell .vendor-accent-bg {
-  background: linear-gradient(135deg, #fff5f7, #ffe4e6);
-  color: #ed648f;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  color: #7c3aed;
 }
 
 /* ---- CTA Buttons - Vibrant Gradient ---- */
 .vendor-shell .vendor-cta {
-  background: linear-gradient(135deg, #ed648f 0%, #da4f7a 50%, #c43e69 100%);
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 50%, #5b21b6 100%);
   color: #ffffff;
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   box-shadow: 
-    0 4px 15px rgba(237, 100, 143, 0.45),
-    0 2px 4px rgba(237, 100, 143, 0.3);
+    0 4px 15px rgba(124, 58, 237, 0.45),
+    0 2px 4px rgba(124, 58, 237, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -81,13 +95,13 @@
 .vendor-shell .vendor-cta:hover {
   transform: translateY(-3px) scale(1.02);
   box-shadow: 
-    0 12px 30px rgba(237, 100, 143, 0.5),
-    0 4px 8px rgba(237, 100, 143, 0.35);
+    0 12px 30px rgba(124, 58, 237, 0.5),
+    0 4px 8px rgba(124, 58, 237, 0.35);
 }
 
 .vendor-shell .vendor-cta:active {
   transform: translateY(1px) scale(0.98);
-  box-shadow: 0 2px 8px rgba(237, 100, 143, 0.4);
+  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
 }
 
 /* ---- General Button Interactions ---- */
@@ -103,17 +117,17 @@
 
 /* ---- Outline CTA ---- */
 .vendor-shell .vendor-cta-outline {
-  border: 2px solid #ed648f;
-  color: #ed648f;
+  border: 2px solid #7c3aed;
+  color: #7c3aed;
   transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   background: transparent;
 }
 
 .vendor-shell .vendor-cta-outline:hover {
-  background: linear-gradient(135deg, #fff5f7, #ffe4e6);
-  color: #ed648f;
+  background: linear-gradient(135deg, #f5f3ff, #ede9fe);
+  color: #7c3aed;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(237, 100, 143, 0.25);
+  box-shadow: 0 8px 25px rgba(124, 58, 237, 0.25);
 }
 
 /* ---- Muted Text ---- */
@@ -123,7 +137,7 @@
 
 /* ---- Decorative Grid Background ---- */
 .vendor-shell .vendor-grid-bg {
-  background-image: radial-gradient(rgba(210, 138, 140, 0.08) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(124, 58, 237, 0.08) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
@@ -132,7 +146,7 @@
   border-radius: 9999px;
   padding: 0.3rem 0.9rem;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 0.05em;
   transition: all 0.3s ease;
   text-transform: uppercase;
@@ -164,7 +178,7 @@
 }
 
 .vendor-shell .vendor-status-suspended {
-  background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+  background: linear-gradient(135deg, #ede9fe, #fecdd3);
   color: #9f1239;
 }
 
@@ -191,8 +205,8 @@
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(210, 138, 140, 0.4); }
-  50% { box-shadow: 0 0 20px 6px rgba(210, 138, 140, 0.15); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+  50% { box-shadow: 0 0 20px 6px rgba(124, 58, 237, 0.15); }
 }
 
 @keyframes gradient-shift {
@@ -244,19 +258,19 @@
   background: transparent;
 }
 .vendor-shell ::-webkit-scrollbar-thumb {
-  background: rgba(210, 138, 140, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   border-radius: 999px;
 }
 .vendor-shell ::-webkit-scrollbar-thumb:hover {
-  background: rgba(210, 138, 140, 0.4);
+  background: rgba(124, 58, 237, 0.4);
 }
 
 /* ---- Premium Input Focus States ---- */
 .vendor-shell input:focus,
 .vendor-shell select:focus,
 .vendor-shell textarea:focus {
-  border-color: #ed648f !important;
-  box-shadow: 0 0 0 4px rgba(237, 100, 143, 0.1) !important;
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1) !important;
   outline: none !important;
 }
 
@@ -284,7 +298,7 @@
 .vendor-shell .decor-blob-1 {
   width: 400px;
   height: 400px;
-  background: #D28A8C;
+  background: #7c3aed;
   top: -100px;
   right: -100px;
 }
