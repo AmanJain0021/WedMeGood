@@ -4,7 +4,7 @@
 
 .vendor-shell {
   font-family: 'Poppins', 'Plus Jakarta Sans', sans-serif;
-  background: linear-gradient(135deg, #f5f3ff 0%, #ffffff 50%, #f3e8ff 100%);
+  background: #ffffff;
   color: #1e293b;
   min-height: 100vh;
 }
@@ -332,3 +332,51 @@
   mix-blend-mode: multiply;
   filter: contrast(1.1) brightness(1.1);
 }
+
+/* ===== Centralized Soft Animations for Premium Feel ===== */
+
+/* Soft entrance fade-up animation for all page modules */
+.vendor-shell main > div {
+  animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Soft hover transition for all cards & boxes in the vendor pages */
+.vendor-shell .bg-white.rounded-xl,
+.vendor-shell .bg-white.rounded-2xl,
+.vendor-shell .bg-white.rounded-3xl,
+.vendor-shell .support-card,
+.vendor-shell .detail-card,
+.vendor-shell .section-box {
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.vendor-shell .bg-white.rounded-xl:hover,
+.vendor-shell .bg-white.rounded-2xl:hover,
+.vendor-shell .support-card:hover,
+.vendor-shell .section-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Soft transition for icons, buttons & images on hover */
+.vendor-shell svg, 
+.vendor-shell img {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vendor-shell .group:hover svg {
+  transform: scale(1.05);
+}
+
+.vendor-shell button:hover {
+  transform: translateY(-1px);
+}
+
+/* Custom scrollbar momentum, behavior containment, and smooth scroll controls */
+.custom-scrollbar {
+  overscroll-behavior: contain !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important; /* Premium hardware-accelerated scroll on iOS */
+}
+
+

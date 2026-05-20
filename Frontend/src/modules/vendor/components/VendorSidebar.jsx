@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 
@@ -20,7 +21,45 @@ const navItems = [
 
 const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
   const navigate = useNavigate();
+  const navRef = useRef(null);
   
+  useEffect(() => {
+    let lenisInstance;
+    let rafId;
+
+    const initLenis = async () => {
+      try {
+        const { default: Lenis } = await import('lenis');
+        if (!navRef.current) return;
+
+        lenisInstance = new Lenis({
+          wrapper: navRef.current,
+          lerp: 0.1,
+          smoothWheel: true,
+          smoothTouch: true,
+          touchMultiplier: 1.5,
+        });
+
+        const update = (time) => {
+          lenisInstance?.raf(time);
+          rafId = requestAnimationFrame(update);
+        };
+        rafId = requestAnimationFrame(update);
+      } catch (err) {
+        console.warn('Failed to initialize Lenis in Sidebar:', err);
+      }
+    };
+
+    initLenis();
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenisInstance) {
+        lenisInstance.destroy();
+      }
+    };
+  }, []);
+
   const dynamicNavItems = navItems.map(item => {
     if (item.label === 'Inquiries') return { ...item, badge: counts.leads || 0 };
     if (item.label === 'Chat') return { ...item, badge: counts.chat || 0 };
@@ -28,7 +67,7 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
   });
 
   return (
-    <aside className="fixed left-0 top-16 w-64 flex flex-col z-40 bg-white border-r border-slate-100" style={{
+    <aside data-lenis-prevent className="fixed left-0 top-16 w-64 flex flex-col z-40 bg-white border-r border-slate-100" style={{
       height: 'calc(100vh - 4rem)'
     }}>
       <div className="h-full flex flex-col">
@@ -58,7 +97,7 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto px-3 pt-2 pb-3 space-y-0.5 custom-scrollbar">
+        <nav ref={navRef} className="flex-1 overflow-y-auto px-3 pt-2 pb-3 space-y-0.5 custom-scrollbar">
           {dynamicNavItems.map((item) => {
             const isHome = item.label === 'Dashboard' || item.label === 'Profile';
             const isDisabled = !isApproved && !isHome;
@@ -99,14 +138,34 @@ const VendorSidebar = ({ onClose, isApproved, counts = {} }) => {
               </NavLink>
             );
           })}
+
+          {/* Proper, compact Sign Out menu item inside the scrollable list */}
+          <div className="pt-2 mt-2 border-t border-slate-100/60">
+            <button
+              type="button"
+              onClick={() => {
+                localStorage.removeItem('vendorToken');
+                window.location.href = '/vendor/login';
+              }}
+              className="w-full flex items-center gap-3 text-[13px] font-medium transition-all duration-200 px-3.5 py-2 rounded-xl text-slate-500 hover:bg-rose-50 hover:text-rose-600 active:scale-[0.98] cursor-pointer group"
+            >
+              <div className="flex items-center justify-center text-slate-400 group-hover:text-rose-500 transition-colors duration-200">
+                <Icon name="logout" size="md" color="currentColor" />
+              </div>
+              <span className="font-semibold text-rose-500/90 group-hover:text-rose-600">Sign Out</span>
+            </button>
+          </div>
         </nav>
 
-        {/* Sign Out */}
+        {/* Fixed Sign Out bottom bar */}
         <div className="p-4 border-t border-slate-100 bg-white mt-auto">
           <button
             type="button"
             className="w-full h-9 rounded-xl text-xs font-medium text-slate-500 hover:text-rose-600 hover:bg-rose-50 active:scale-95 transition-all flex items-center justify-center gap-2"
-            onClick={() => navigate('/vendor/login')}
+            onClick={() => {
+              localStorage.removeItem('vendorToken');
+              window.location.href = '/vendor/login';
+            }}
           >
             <Icon name="logout" size="sm" color="currentColor" />
             <span>Sign Out</span>

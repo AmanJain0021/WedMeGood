@@ -445,6 +445,23 @@ const VendorProfile = () => {
           </div>
         </div>
       )}
+      {/* Sign Out Card */}
+      <div className="section-box !bg-rose-50/40 !border-rose-100/60 !p-3 flex items-center justify-between gap-3 reveal-on-scroll">
+        <div className="space-y-0.5">
+          <h2 className="text-[11.5px] font-sans font-bold text-slate-800 tracking-tight">Active Session</h2>
+          <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider">Securely sign out of your Utsavo Vendor portal</p>
+        </div>
+        <button 
+          onClick={() => {
+            localStorage.removeItem('vendorToken');
+            window.location.href = '/vendor/login';
+          }}
+          className="h-8 px-4 bg-rose-500 hover:bg-rose-600 text-white rounded-lg flex items-center justify-center gap-1.5 text-[9.5px] font-black uppercase tracking-wider transition-all active:scale-[0.97] shadow-md shadow-rose-100/50"
+        >
+          <Icon name="logout" size="xs" />
+          Sign Out
+        </button>
+      </div>
     </div>
   );
 };

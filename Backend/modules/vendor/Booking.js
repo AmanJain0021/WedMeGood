@@ -25,12 +25,25 @@ const bookingSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide event location']
     },
+    eventType: {
+        type: String,
+        enum: ['Wedding', 'Reception', 'Haldi', 'Engagement', 'Corporate', 'Other'],
+        default: 'Wedding'
+    },
     services: [{
         type: String
     }],
+    guestCount: {
+        type: Number,
+        default: 0
+    },
+    notes: {
+        type: String,
+        default: ''
+    },
     totalPrice: {
         type: Number,
-        required: [true, 'Please provide total price']
+        default: 0
     },
     status: {
         type: String,
@@ -46,3 +59,4 @@ const bookingSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.models.Booking || mongoose.model('Booking', bookingSchema);
+

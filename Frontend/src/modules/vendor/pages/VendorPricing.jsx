@@ -43,97 +43,133 @@ const VendorPricing = () => {
     setShowModal(false);
   };
 
+  const activePackages = vendorState?.services?.flatMap((s) => s.packages || []) || [];
+
   return (
-    <div className="space-y-4 sm:space-y-6">
-      {/* Header Card - Solid Pastel Rose */}
-      <div className="vendor-surface rounded-xl p-3 sm:p-5 relative overflow-hidden bg-[#FDF2F8] border border-rose-100">
-        <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full opacity-15" style={{
-          background: 'radial-gradient(circle, #7c3aed, transparent 70%)'
-        }}></div>
-        <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 relative z-10">
+    <div className="space-y-3 pb-24 pf-sans">
+      {/* Dynamic font styles injection */}
+      <style>{`
+        .pf-sans  { font-family: 'Poppins', 'Inter', 'Arial', sans-serif; }
+        .pf-poppins { font-family: 'Poppins', sans-serif !important; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes pfFadeUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+        .pf-fadein { animation: pfFadeUp 0.4s cubic-bezier(0.16,1,0.3,1) both; }
+      `}</style>
+
+      {/* Header Card - Sleek & Compact */}
+      <div className="pf-fadein rounded p-3.5 relative overflow-hidden border border-rose-100"
+        style={{ background: 'linear-gradient(135deg, #FFF5F7 0%, #FFF9FA 100%)', borderRadius: '4px' }}>
+        <div className="relative z-10 flex items-center justify-between gap-3">
           <div>
-            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-[#7c3aed]">Financials</p>
-            <h2 className="text-lg sm:text-xl font-black text-slate-900 mt-0.5">Pricing Strategy</h2>
-            <p className="text-[11px] sm:text-xs font-bold text-slate-500 mt-0.5">Define your service value and market rates.</p>
+            <p className="text-[8px] font-black uppercase tracking-[0.2em] text-[#E11D48] mb-0.5">Financials</p>
+            <h1 className="text-[14px] font-black text-slate-900 leading-tight tracking-tight">Pricing Strategy</h1>
+            <p className="text-[8.5px] font-medium text-slate-500 mt-0.5 leading-tight">Define your service rates & package values</p>
           </div>
           <button 
             type="button" 
-            className="vendor-cta rounded-lg px-5 py-2.5 text-[11px] sm:text-xs font-black uppercase tracking-widest active:scale-95 transition-all flex items-center gap-2 shadow-lg shadow-rose-200"
+            className="shrink-0 flex items-center gap-1 px-3 py-1.5 rounded text-[8px] font-black uppercase tracking-widest text-white active:scale-95 transition-all"
+            style={{ background: 'linear-gradient(135deg, #E11D48, #BE123C)', borderRadius: '4px', boxShadow: '0 2px 6px rgba(225,29,72,0.2)' }}
             onClick={handleOpenModal}
           >
-            <Icon name="edit" size="xs" /> Update rates
+            <Icon name="edit" size="xs" /> Update Rates
           </button>
         </div>
       </div>
 
       {/* Stats Mini Row */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-3 gap-2 mt-2.5">
         {[
-          { label: 'Avg. Rate', value: vendorState?.pricing?.range || 'Not set', bg: '#FFFBEB', border: '#FEF3C7' },
-          { label: 'Live Plans', value: vendorState.services.flatMap(s => s.packages).length, bg: '#F0F9FF', border: '#E0F2FE' },
-          { label: 'Market Visibility', value: 'Top 10%', bg: '#F0FDF4', border: '#DCFCE7' }
+          { label: 'Avg. Rate', value: vendorState?.pricing?.range || 'Not set', bg: '#FFFDF0', border: '#FDE4A3', badgeBg: '#FFF2C6', color: '#F59E0B', icon: 'money' },
+          { label: 'Live Plans', value: activePackages.length.toString(), bg: '#F0F6FF', border: '#C7DDFE', badgeBg: '#DCE9FE', color: '#2563EB', icon: 'plan' },
+          { label: 'Market Visibility', value: 'Top 10%', bg: '#EEFBF4', border: '#C1F2D9', badgeBg: '#D3F8E6', color: '#10B981', icon: 'trophy' }
         ].map((stat, i) => (
-          <div key={i} className="vendor-surface rounded-xl p-2 sm:p-3 border shadow-none flex flex-col items-center justify-center text-center transition-all hover:scale-[1.02]" style={{ background: stat.bg, borderColor: stat.border }}>
-            <p className="text-[9px] font-black text-slate-400 uppercase tracking-tighter mb-0.5">{stat.label}</p>
-            <p className="text-xs sm:text-sm font-black text-slate-900 tracking-tight truncate w-full px-1">{stat.value}</p>
+          <div key={i} className="pf-fadein rounded p-2 flex flex-col justify-start border transition-all"
+            style={{ backgroundColor: stat.bg, borderColor: stat.border, borderRadius: '4px', animationDelay: `${i * 80}ms` }}>
+            <div className="flex items-center justify-between gap-1 w-full">
+              <span className="text-[7.5px] font-black text-slate-400 uppercase tracking-tight">{stat.label}</span>
+              <div className="w-4.5 h-4.5 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: stat.badgeBg }}>
+                <Icon name={stat.icon} size="xs" color={stat.color} className="w-2.5 h-2.5 shrink-0" />
+              </div>
+            </div>
+            <p className="pf-poppins text-xs font-black text-slate-900 tracking-tight leading-none mt-1 truncate">{stat.value}</p>
           </div>
         ))}
       </div>
 
-      {/* Main Pricing Grid - Solid Pastel Cards */}
-      <div className="grid gap-4 sm:gap-6 xl:grid-cols-[1fr_1.2fr]">
+      {/* Main Pricing Layout - 2 Columns (Clean White Cards) */}
+      <div className="grid gap-3 grid-cols-1 md:grid-cols-2 mt-3">
         
-        {/* Base Pricing Card - Solid Amber Pastel */}
-        <div className="vendor-surface rounded-2xl p-5 relative overflow-hidden transition-all hover:shadow-md border border-amber-100" style={{ backgroundColor: '#FFFBEB' }}>
-           <div className="flex items-center justify-between mb-6">
-              <div className="h-8 w-8 rounded-lg bg-white/60 flex items-center justify-center text-amber-500 shadow-sm">
-                <Icon name="money" size="sm" />
+        {/* Base Pricing Card - Clean White / Soft Amber Border */}
+        <div className="pf-fadein p-3.5 bg-white border border-amber-100 relative overflow-hidden transition-all hover:shadow-sm"
+          style={{ borderRadius: '4px' }}>
+          <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-50">
+            <div className="flex items-center gap-1.5">
+              <div className="h-6 w-6 rounded bg-amber-50 flex items-center justify-center text-amber-500">
+                <Icon name="money" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <Icon name="edit" size="xs" className="opacity-20 text-amber-600" />
-           </div>
+              <span className="text-[9px] font-black text-slate-800 uppercase tracking-wider">Starting Range</span>
+            </div>
+            <button onClick={handleOpenModal} className="text-slate-400 hover:text-amber-500 transition-colors">
+              <Icon name="edit" size="xs" className="w-3.5 h-3.5" />
+            </button>
+          </div>
            
-           <div className="space-y-4">
-              <div>
-                 <p className="text-[10px] font-black text-amber-900/30 uppercase tracking-[0.2em] mb-1">Starting Range</p>
-                 <p className="text-2xl font-black text-slate-900 tracking-tighter">{vendorState?.pricing?.range || 'Price Not Set'}</p>
-              </div>
+          <div className="space-y-3">
+            <div>
+              <p className="pf-poppins text-lg font-black text-slate-900 tracking-tighter">{vendorState?.pricing?.range || 'Price Not Set'}</p>
+            </div>
 
-              {vendorState?.pricing?.notes && (
-                <div className="pt-4 border-t border-amber-200/50">
-                  <p className="text-[10px] font-black text-amber-900/30 uppercase tracking-[0.2em] mb-2">Strategy Notes</p>
-                  <p className="text-xs font-bold text-amber-900/60 leading-relaxed italic">"{vendorState?.pricing?.notes}"</p>
-                </div>
-              )}
-           </div>
+            {vendorState?.pricing?.notes ? (
+              <div className="pt-2 border-t border-slate-100">
+                <p className="text-[7.5px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Strategy Inclusions & Notes</p>
+                <p className="text-[8.5px] font-bold text-slate-600 leading-relaxed italic">"{vendorState?.pricing?.notes}"</p>
+              </div>
+            ) : (
+              <div className="pt-2 border-t border-slate-100">
+                <p className="text-[8px] font-bold text-slate-400 italic">No additional strategy notes defined.</p>
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* Detailed Packages Card - Solid Rose Pastel */}
-        <div className="vendor-surface rounded-2xl p-5 relative overflow-hidden transition-all hover:shadow-md border border-rose-100" style={{ backgroundColor: '#f3e8ff' }}>
-           <div className="flex items-center justify-between mb-6">
-              <div className="h-8 w-8 rounded-lg bg-white/60 flex items-center justify-center text-rose-500 shadow-sm">
-                <Icon name="plan" size="sm" />
+        {/* Detailed Packages Card - Clean White / Soft Rose Border */}
+        <div className="pf-fadein p-3.5 bg-white border border-rose-100 relative overflow-hidden transition-all hover:shadow-sm"
+          style={{ borderRadius: '4px' }}>
+          <div className="flex items-center justify-between mb-3 pb-2 border-b border-slate-50">
+            <div className="flex items-center gap-1.5">
+              <div className="h-6 w-6 rounded bg-rose-50 flex items-center justify-center text-rose-500">
+                <Icon name="plan" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[8px] font-black uppercase tracking-widest px-2 py-1 bg-white/40 rounded text-rose-600">Active Plans</span>
-           </div>
+              <span className="text-[9px] font-black text-slate-800 uppercase tracking-wider">Active Service Packages</span>
+            </div>
+            <span className="text-[7.5px] font-black uppercase tracking-widest px-2 py-0.5 bg-rose-50 rounded text-rose-600 border border-rose-100">
+              {activePackages.length} Plans
+            </span>
+          </div>
 
-           <div className="grid gap-2">
-             {vendorState.services.flatMap((service) => service.packages).length > 0 ? (
-               vendorState.services.flatMap((service) => service.packages).map((pkg, index) => (
-                 <div key={`${pkg.name}-${index}`} className="flex items-center justify-between bg-white/40 rounded-xl p-3 border border-rose-100 transition-all hover:bg-white/60 group">
-                    <div className="flex items-center gap-3">
-                       <div className="h-1.5 w-1.5 rounded-full bg-rose-400"></div>
-                       <span className="text-xs font-black text-slate-700 uppercase tracking-tight">{pkg.name}</span>
-                    </div>
-                    <span className="text-sm font-black text-rose-600 tracking-tight">₹{pkg.price.toLocaleString()}</span>
-                 </div>
-               ))
-             ) : (
-               <div className="text-center py-10 bg-white/30 rounded-2xl border border-dashed border-rose-200">
-                  <p className="text-[10px] font-black text-rose-400 uppercase tracking-widest">No plans defined</p>
-                  <p className="text-[10px] font-bold text-rose-300 mt-1">Add services to populate rates.</p>
-               </div>
-             )}
-           </div>
+          <div className="grid gap-1.5 max-h-[140px] overflow-y-auto no-scrollbar">
+            {activePackages.length > 0 ? (
+              activePackages.map((pkg, index) => (
+                <div key={`${pkg.name}-${index}`} className="flex items-center justify-between bg-slate-50/50 hover:bg-slate-50 border border-slate-100 rounded p-2 transition-all group"
+                  style={{ borderRadius: '4px' }}>
+                  <div className="flex items-center gap-2">
+                    <div className="h-1.5 w-1.5 rounded-full bg-rose-400"></div>
+                    <span className="text-[8.5px] font-black text-slate-700 uppercase tracking-tight truncate max-w-[130px]">{pkg.name}</span>
+                  </div>
+                  <span className="pf-poppins text-[10px] font-black text-[#E11D48] tracking-tight">₹{pkg.price.toLocaleString()}</span>
+                </div>
+              ))
+            ) : (
+              <div className="text-center py-6 bg-slate-50 rounded border border-dashed border-slate-200" style={{ borderRadius: '4px' }}>
+                <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">No packages defined</p>
+                <p className="text-[7.5px] font-bold text-slate-400 mt-0.5">Go to Services to add packages.</p>
+              </div>
+            )}
+          </div>
         </div>
 
       </div>
@@ -142,41 +178,45 @@ const VendorPricing = () => {
       {showModal && (
         <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowModal(false)}></div>
-          <div className="relative w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 overflow-hidden animate-in fade-in zoom-in duration-300">
-             <div className="flex items-center justify-between mb-6">
+          <div className="relative w-full max-w-md bg-white rounded shadow-2xl p-4 overflow-hidden animate-in fade-in zoom-in duration-300"
+            style={{ borderRadius: '4px' }}>
+             <div className="flex items-center justify-between mb-4 pb-2 border-b border-slate-100">
                 <div>
-                  <h3 className="text-lg font-black text-slate-900 tracking-tight">Update Pricing</h3>
-                  <p className="text-xs font-bold text-slate-500">Set your market starting rates</p>
+                  <h3 className="text-[11px] font-black text-slate-900 uppercase tracking-wider">Update Pricing</h3>
+                  <p className="text-[8px] font-bold text-slate-400">Set your starting market rate</p>
                 </div>
-                <button onClick={() => setShowModal(false)} className="h-8 w-8 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors">
-                  <Icon name="close" size="sm" />
+                <button onClick={() => setShowModal(false)} className="h-6 w-6 rounded-full hover:bg-slate-100 flex items-center justify-center transition-colors">
+                  <Icon name="close" size="xs" />
                 </button>
              </div>
 
-             <div className="space-y-5">
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Starting Range</label>
+             <div className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-[7.5px] font-black text-slate-400 uppercase tracking-widest px-0.5">Starting Range</label>
                   <input 
                     type="text" 
                     placeholder="e.g. 50k - 2L"
-                    className="w-full h-11 px-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-black focus:outline-none focus:border-rose-400 transition-all"
+                    className="w-full h-8 px-2.5 bg-slate-50 border border-slate-200 rounded text-[9px] font-black focus:outline-none focus:border-rose-400 transition-all"
+                    style={{ borderRadius: '4px' }}
                     value={tempPricing.range}
                     onChange={(e) => setTempPricing({...tempPricing, range: e.target.value})}
                   />
                 </div>
 
-                <div className="space-y-1.5">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Pricing Notes</label>
+                <div className="space-y-1">
+                  <label className="text-[7.5px] font-black text-slate-400 uppercase tracking-widest px-0.5">Pricing Notes</label>
                   <textarea 
-                    placeholder="Details about inclusions..."
-                    className="w-full h-32 p-4 bg-slate-50 border border-slate-200 rounded-xl text-xs font-bold focus:outline-none focus:border-rose-400 transition-all resize-none"
+                    placeholder="Details about package inclusions..."
+                    className="w-full h-24 p-2.5 bg-slate-50 border border-slate-200 rounded text-[9px] font-bold focus:outline-none focus:border-rose-400 transition-all resize-none"
+                    style={{ borderRadius: '4px' }}
                     value={tempPricing.notes}
                     onChange={(e) => setTempPricing({...tempPricing, notes: e.target.value})}
                   />
                 </div>
 
                 <div className="pt-2">
-                   <button onClick={handleSave} className="w-full vendor-cta h-12 rounded-xl text-xs font-black uppercase tracking-widest shadow-lg shadow-rose-200">
+                   <button onClick={handleSave} className="w-full h-8 rounded text-[8.5px] font-black uppercase tracking-widest shadow-md transition-all active:scale-95 text-white"
+                     style={{ background: 'linear-gradient(135deg, #E11D48, #BE123C)', borderRadius: '4px' }}>
                       Save Rates
                    </button>
                 </div>

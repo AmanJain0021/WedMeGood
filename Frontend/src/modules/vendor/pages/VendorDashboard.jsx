@@ -295,7 +295,7 @@ const VendorDashboard = () => {
   };
 
   return (
-    <div className="space-y-3 sm:space-y-5 animate-in fade-in duration-500 pb-20 sm:pb-0">
+    <div className="space-y-3 sm:space-y-5 animate-in fade-in duration-500 pb-20 sm:pb-0 w-full max-w-full overflow-x-hidden px-0.5">
       <style>{`
         .font-heading { font-family: 'Poppins', sans-serif; }
         .font-sans { font-family: 'Poppins', sans-serif; }
@@ -389,11 +389,11 @@ const VendorDashboard = () => {
 
       {/* Quick Actions Card (Professional - Black Typography) */}
       <div 
-        className="reveal-on-scroll rounded-2xl !px-1.5 !pt-3 !pb-1.5 bg-white border border-slate-100 shadow-sm font-sans"
+        className="reveal-on-scroll rounded-2xl !px-1.5 !pt-3 !pb-1.5 bg-white border border-slate-100 shadow-sm font-sans w-full max-w-full overflow-hidden"
       >
         <div className="flex items-center justify-between mb-3 px-3">
           <h3 className="text-[12px] font-sans font-bold text-black tracking-[0.05em] uppercase">Quick Actions</h3>
-          <span className="text-[10px] font-semibold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
+          <span onClick={() => navigate('/vendor/services')} className="text-[10px] font-semibold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
         </div>
         <div className="flex overflow-x-auto no-scrollbar gap-1 pb-0 pt-0.5 px-1 items-start">
           {[
@@ -431,7 +431,7 @@ const VendorDashboard = () => {
       {/* Autoscrolling Banners */}
       {activeBanners.length > 0 && (
         <div 
-          className="reveal-on-scroll rounded-xl overflow-hidden relative group shadow-lg"
+          className="reveal-on-scroll rounded-xl overflow-hidden relative group shadow-lg w-full max-w-full"
         >
           <div
             ref={scrollRef}
@@ -462,51 +462,48 @@ const VendorDashboard = () => {
 
       {/* Profile Completion */}
       <div 
-        className="reveal-on-scroll rounded-2xl relative overflow-hidden group shadow-md border border-purple-200/50 bg-gradient-to-br from-[#fbf9ff] via-[#f5eeff] to-[#eddfff]"
+        className="reveal-on-scroll rounded-2xl relative overflow-hidden group shadow-md border border-purple-200/50 bg-gradient-to-br from-[#fbf9ff] via-[#f5eeff] to-[#eddfff] w-full max-w-full"
       >
-        <div className="absolute bottom-4 right-2 sm:right-4 h-[88%] sm:h-[90%] w-[45%] sm:w-[40%] z-0 pointer-events-none flex items-center justify-end">
+        <div className="absolute bottom-0 right-2 sm:right-4 h-full w-[45%] sm:w-[40%] z-0 pointer-events-none flex items-end justify-end">
           {/* Soft purple decorative backdrop circle behind the wedding couple */}
-          <div className="absolute w-28 h-28 sm:w-44 sm:h-44 rounded-full bg-purple-300/20 -z-10 right-0 bottom-2 blur-xl"></div>
+          <div className="absolute w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-purple-300/20 -z-10 right-2 bottom-1 blur-xl"></div>
           <img
             src={weddingImg}
             alt="Wedding Couple"
-            className="h-[96%] sm:h-[94%] w-auto object-contain object-center transition-transform duration-700 group-hover:scale-[1.02] opacity-100"
+            className="h-[105%] sm:h-[115%] w-auto object-contain object-bottom transition-transform duration-700 group-hover:scale-[1.02] opacity-100"
           />
         </div>
 
-        <div className="p-3.5 sm:p-5 relative z-10">
-          <div className="flex flex-col w-[53%] sm:w-[56%] lg:w-[58%]">
-            <div className="space-y-1">
+        <div className="p-3 sm:p-4 relative z-10">
+          <div className="flex flex-col w-[52%] sm:w-[55%] lg:w-[58%]">
+            <div className="space-y-0.5">
               <div className="flex flex-wrap items-center gap-1.5">
                 <p className="text-[8px] sm:text-[9px] font-sans font-black uppercase tracking-[0.2em] text-[#7c3aed]">Profile Strength</p>
                 <span className={`text-[7px] sm:text-[8px] font-sans font-black uppercase tracking-widest px-2 py-0.5 rounded-full border ${completion > 80 ? 'bg-emerald-100 text-emerald-700 border-emerald-200' : 'bg-rose-100 text-rose-700 border-rose-200'}`}>
                   {completion > 80 ? 'Verified' : 'Action Required'}
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl lg:text-4xl font-heading font-black text-slate-900 tracking-tighter leading-none mt-1 sm:mt-1.5">{completion}% Complete</h3>
-              <p className="text-[10px] sm:text-[11px] font-sans font-medium text-slate-600 mt-1.5 sm:mt-2 max-w-xs sm:max-w-sm leading-relaxed">
-                {completion < 100 ? 'Complete your business profile and bank details to unlock higher visibility and trust with customers.' : 'Your profile is 100% complete. You are getting maximum exposure!'}
-              </p>
+              <h3 className="text-xl sm:text-2xl lg:text-3xl font-heading font-black text-slate-900 tracking-tighter leading-none mt-1">{completion}% Complete</h3>
             </div>
 
-            <div className="mt-3 sm:mt-4 h-1.5 w-full max-w-xs sm:max-w-md rounded-full overflow-hidden bg-purple-100/50 border border-purple-200/40">
+            <div className="mt-2.5 sm:mt-3 h-1.5 w-full max-w-xs sm:max-w-md rounded-full overflow-hidden bg-purple-100/50 border border-purple-200/40">
               <div className="h-full rounded-full transition-all duration-1000" style={{
                 width: completion + '%',
                 background: 'linear-gradient(90deg, #a78bfa, #7c3aed)',
               }}></div>
             </div>
 
-            <div className="mt-3.5 sm:mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
+            <div className="mt-3 sm:mt-3.5 flex flex-wrap items-center gap-2">
               <button 
                 type="button" 
-                className="vendor-cta rounded-full px-4 sm:px-6 h-9 sm:h-10 text-[9px] sm:text-[10px] font-heading font-extrabold uppercase tracking-[0.1em] text-white shadow-md shadow-purple-500/20 active:scale-95 transition-all flex items-center gap-1.5 bg-gradient-to-r from-[#7c3aed] to-[#9333ea] hover:from-[#6d28d9] hover:to-[#820ad9] hover:shadow-lg hover:shadow-purple-500/25"
+                className="vendor-cta rounded-full px-3.5 sm:px-5 h-8 sm:h-9 text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-[0.1em] text-white shadow-md shadow-purple-500/20 active:scale-95 transition-all flex items-center gap-1 bg-gradient-to-r from-[#7c3aed] to-[#9333ea] hover:from-[#6d28d9] hover:to-[#820ad9] hover:shadow-lg hover:shadow-purple-500/25"
                 onClick={() => navigate('/vendor/profile')}
               >
                 <Icon name="edit" size="xs" /> Optimize Profile
               </button>
               <button
                 type="button"
-                className="rounded-full px-4 sm:px-6 h-9 sm:h-10 text-[9px] sm:text-[10px] font-heading font-extrabold uppercase tracking-[0.1em] border border-purple-200/60 text-purple-700 bg-white/70 backdrop-blur-md hover:bg-white hover:border-purple-300 hover:text-purple-900 active:scale-95 transition-all"
+                className="rounded-full px-3.5 sm:px-5 h-8 sm:h-9 text-[8px] sm:text-[9px] font-heading font-extrabold uppercase tracking-[0.1em] border border-purple-200/60 text-purple-700 bg-white/70 backdrop-blur-md hover:bg-white hover:border-purple-300 hover:text-purple-900 active:scale-95 transition-all"
                 onClick={() => refreshData()}
               >
                 Refresh
@@ -529,11 +526,11 @@ const VendorDashboard = () => {
         } = getChartData();
 
         const svgWidth = 500;
-        const svgHeight = 160;
+        const svgHeight = 100;
         const paddingLeft = 45;
         const paddingRight = 10;
-        const paddingTop = 15;
-        const paddingBottom = 25;
+        const paddingTop = 10;
+        const paddingBottom = 20;
         
         const chartWidth = svgWidth - paddingLeft - paddingRight;
         const chartHeight = svgHeight - paddingTop - paddingBottom;
@@ -553,7 +550,7 @@ const VendorDashboard = () => {
           : '';
 
         return (
-          <div className="reveal-on-scroll rounded-2xl p-4 sm:p-5 bg-white border border-slate-100/80 shadow-xs font-sans">
+          <div className="reveal-on-scroll rounded-2xl p-3 sm:p-4 bg-white border border-slate-100/80 shadow-xs font-sans w-full max-w-full overflow-hidden">
             <div className="flex justify-between items-center">
               <h3 className="text-xs sm:text-sm font-sans font-bold text-slate-800 tracking-tight">Earnings Overview</h3>
               
@@ -575,21 +572,21 @@ const VendorDashboard = () => {
             </div>
 
             {/* Value and Percentage Row */}
-            <div className="flex justify-between items-end mt-3 mb-1">
+            <div className="flex justify-between items-end mt-2 mb-1">
               <div>
-                <span className="text-2xl sm:text-3xl font-heading font-black text-slate-900 tracking-tight leading-none">
+                <span className="text-xl sm:text-2xl font-heading font-black text-slate-900 tracking-tight leading-none">
                   ₹{chartTotalEarnings.toLocaleString('en-IN')}
                 </span>
-                <p className="text-[10px] sm:text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider leading-none">Total Earnings</p>
+                <p className="text-[9px] sm:text-[10px] font-bold text-slate-400 mt-0.5 uppercase tracking-wider leading-none">Total Earnings</p>
               </div>
-              <div className="flex items-center gap-0.5 text-emerald-600 font-extrabold text-[10px] sm:text-xs pb-1">
+              <div className="flex items-center gap-0.5 text-emerald-600 font-extrabold text-[9px] sm:text-[10px] pb-0.5">
                 <span>{chartPercentageChange} vs last month</span>
-                <span className="text-sm leading-none font-bold">↑</span>
+                <span className="text-xs leading-none font-bold">↑</span>
               </div>
             </div>
 
             {/* Chart SVG */}
-            <div className="relative w-full h-36 sm:h-44 mt-3 select-none">
+            <div className="relative w-full h-24 sm:h-28 mt-2 select-none">
               <svg viewBox={`0 0 ${svgWidth} ${svgHeight}`} width="100%" height="100%" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="chartPurpleGradient" x1="0" y1="0" x2="0" y2="1">
@@ -634,7 +631,7 @@ const VendorDashboard = () => {
                     <text 
                       key={idx}
                       x={xCoord} 
-                      y={svgHeight - 6} 
+                      y={svgHeight - 4} 
                       textAnchor="middle" 
                       className="text-[9px] font-sans font-bold fill-slate-400"
                     >
@@ -677,43 +674,43 @@ const VendorDashboard = () => {
             </div>
 
             {/* Breakdown boxes */}
-            <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-4">
               {/* Received Card */}
-              <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
-                <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                  <Icon name="bag" size="sm" />
+              <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-emerald-50 text-emerald-500 border border-emerald-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                  <Icon name="bag" size="xs" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-[14px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
+                  <p className="text-xs sm:text-[13px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
                     ₹{chartReceived.toLocaleString('en-IN')}
                   </p>
-                  <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Received</p>
+                  <p className="text-[8px] sm:text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Received</p>
                 </div>
               </div>
 
               {/* Pending Card */}
-              <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
-                <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-amber-50 text-amber-500 border border-amber-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                  <Icon name="clock" size="sm" />
+              <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-amber-50 text-amber-500 border border-amber-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                  <Icon name="clock" size="xs" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-[14px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
+                  <p className="text-xs sm:text-[13px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
                     ₹{chartPending.toLocaleString('en-IN')}
                   </p>
-                  <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Pending</p>
+                  <p className="text-[8px] sm:text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Pending</p>
                 </div>
               </div>
 
               {/* Total Bookings Card */}
-              <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-2.5 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
-                <div className="h-8 w-8 sm:h-9 sm:w-9 rounded-full bg-blue-50 text-blue-500 border border-blue-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
-                  <Icon name="calendar" size="sm" />
+              <div className="flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-xl bg-slate-50/60 border border-slate-100/50 hover:bg-slate-50 transition-all">
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-blue-50 text-blue-500 border border-blue-100/80 flex items-center justify-center flex-shrink-0 shadow-2xs">
+                  <Icon name="calendar" size="xs" />
                 </div>
                 <div className="min-w-0">
-                  <p className="text-xs sm:text-[14px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
+                  <p className="text-xs sm:text-[13px] font-sans font-black text-slate-800 truncate leading-tight tracking-tight">
                     ₹{chartTotalBookings.toLocaleString('en-IN')}
                   </p>
-                  <p className="text-[8px] sm:text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Bookings</p>
+                  <p className="text-[8px] sm:text-[9px] text-slate-400 font-bold uppercase tracking-wider leading-none mt-0.5">Bookings</p>
                 </div>
               </div>
             </div>
@@ -725,11 +722,11 @@ const VendorDashboard = () => {
       <div className="grid gap-3 sm:gap-5 lg:grid-cols-2">
         {/* New Enquiries Section */}
         <div 
-          className="reveal-on-scroll bg-gradient-to-br from-indigo-50/40 to-white rounded-2xl p-3 sm:p-5 border border-indigo-100 shadow-sm font-sans"
+          className="reveal-on-scroll bg-gradient-to-br from-indigo-50/40 to-white rounded-2xl p-3 sm:p-5 border border-indigo-100 shadow-sm font-sans w-full max-w-full overflow-hidden"
         >
           <div className="flex items-center justify-between mb-4 px-1">
             <h3 className="text-sm sm:text-base font-heading font-extrabold text-slate-900 tracking-tight uppercase">New Enquiries</h3>
-            <span className="text-xs font-sans font-bold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
+            <span onClick={() => navigate('/vendor/leads')} className="text-xs font-sans font-bold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
           </div>
           <div className="space-y-3">
             {(vendorState.leads || []).slice(0, 3).map((enq, idx) => {
@@ -755,12 +752,12 @@ const VendorDashboard = () => {
                     <p className="text-[11px] sm:text-[12px] font-sans font-bold text-slate-500 truncate leading-none uppercase tracking-wider">{enq.category || 'Wedding Inquiry'}</p>
                     <p className="text-[13px] sm:text-[14px] font-heading font-black text-[#7C3AED] leading-none">{enq.budget || '₹' + (enq.totalAmount || 'TBD')}</p>
                   </div>
-                  <div className="flex items-center gap-1.5 mt-1.5 text-[10px] sm:text-[11px] text-slate-400 font-semibold">
-                    <Icon name="calendar" size="xs" />
-                    <span>{new Date(enq.eventDate).toLocaleDateString()}</span>
-                    <span className="opacity-50">•</span>
-                    <Icon name="location" size="xs" />
-                    <span>{enq.eventLocation}</span>
+                  <div className="flex items-center gap-1.5 mt-1.5 text-[10px] sm:text-[11px] text-slate-400 font-semibold min-w-0">
+                    <Icon name="calendar" size="xs" className="flex-shrink-0" />
+                    <span className="flex-shrink-0">{new Date(enq.eventDate).toLocaleDateString()}</span>
+                    <span className="opacity-50 flex-shrink-0">•</span>
+                    <Icon name="location" size="xs" className="flex-shrink-0" />
+                    <span className="truncate">{enq.eventLocation}</span>
                   </div>
                   
                   <div className="flex items-center gap-1.5 mt-1.5">
@@ -775,7 +772,7 @@ const VendorDashboard = () => {
             )})}
           </div>
           <div className="mt-2 pt-2 border-t border-slate-50">
-            <button className="text-[10px] font-bold text-slate-400 hover:text-[#7C3AED] transition-colors flex items-center justify-center gap-1 w-full group">
+            <button onClick={() => navigate('/vendor/leads')} className="text-[10px] font-bold text-slate-400 hover:text-[#7C3AED] transition-colors flex items-center justify-center gap-1 w-full group">
               View All Enquiries <Icon name="chevronRight" size="xs" className="group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
@@ -783,11 +780,11 @@ const VendorDashboard = () => {
 
         {/* Upcoming Bookings Section */}
         <div 
-          className="reveal-on-scroll bg-gradient-to-br from-emerald-50/40 to-white rounded-2xl p-3 sm:p-5 border border-emerald-100 shadow-sm font-sans"
+          className="reveal-on-scroll bg-gradient-to-br from-emerald-50/40 to-white rounded-2xl p-3 sm:p-5 border border-emerald-100 shadow-sm font-sans w-full max-w-full overflow-hidden"
         >
           <div className="flex items-center justify-between mb-4 px-1">
             <h3 className="text-sm sm:text-base font-heading font-extrabold text-slate-900 tracking-tight uppercase">Upcoming Bookings</h3>
-            <span className="text-xs font-sans font-bold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
+            <span onClick={() => navigate('/vendor/bookings')} className="text-xs font-sans font-bold text-[#7C3AED] hover:underline cursor-pointer tracking-wide">View All</span>
           </div>
           <div className="space-y-3">
             {(vendorState.bookings || []).slice(0, 3).map((book) => {
@@ -826,7 +823,7 @@ const VendorDashboard = () => {
             )})}
           </div>
           <div className="mt-2 pt-2 border-t border-slate-50">
-            <button className="text-[10px] font-bold text-slate-400 hover:text-[#7C3AED] transition-colors flex items-center justify-center gap-1 w-full group">
+            <button onClick={() => navigate('/vendor/bookings')} className="text-[10px] font-bold text-slate-400 hover:text-[#7C3AED] transition-colors flex items-center justify-center gap-1 w-full group">
               View All Bookings <Icon name="chevronRight" size="xs" className="group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>

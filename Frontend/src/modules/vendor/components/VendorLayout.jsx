@@ -18,6 +18,41 @@ const VendorLayout = () => {
     }
   }, [loading, vendorState._id, vendorState.subscription?.status, navigate]);
 
+  useEffect(() => {
+    if (sidebarOpen) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      if (window.lenis && typeof window.lenis.stop === 'function') {
+        window.lenis.stop();
+      }
+
+      const preventTouch = (e) => {
+        const scrollContainer = document.querySelector('.custom-scrollbar');
+        if (scrollContainer && scrollContainer.contains(e.target)) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      document.addEventListener('touchmove', preventTouch, { passive: false });
+
+      return () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+        if (window.lenis && typeof window.lenis.start === 'function') {
+          window.lenis.start();
+        }
+        document.removeEventListener('touchmove', preventTouch);
+      };
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+      if (window.lenis && typeof window.lenis.start === 'function') {
+        window.lenis.start();
+      }
+    }
+  }, [sidebarOpen]);
+
   const isApproved = vendorState.status === 'Approved';
 
   if (loading) {
@@ -30,36 +65,7 @@ const VendorLayout = () => {
 
   return (
     <div className="vendor-shell min-h-screen relative overflow-x-hidden">
-      {/* Animated Movable Gradient Background */}
-      <style>{`
-        @keyframes move-gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animated-bg {
-          background: linear-gradient(-45deg, #F8FAFC, #F1F5F9, #F8FAFC, #EFF6FF);
-          background-size: 400% 400%;
-          animation: move-gradient 15s ease infinite;
-        }
-        .decor-blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(80px);
-          z-index: 0;
-          animation: blob-move 20s infinite alternate;
-        }
-        @keyframes blob-move {
-          from { transform: translate(0, 0) scale(1); }
-          to { transform: translate(100px, 50px) scale(1.2); }
-        }
-      `}</style>
 
-      <div className="fixed inset-0 animated-bg z-0"></div>
-
-      {/* Decorative Movable Blobs */}
-      <div className="decor-blob w-[500px] h-[500px] bg-slate-200/20 -top-48 -left-48"></div>
-      <div className="decor-blob w-[400px] h-[400px] bg-slate-100/30 -bottom-24 -right-24" style={{ animationDelay: '-5s' }}></div>
 
       <div className="flex min-h-screen relative z-10 flex-col">
         {/* Full width fixed topbar */}

@@ -200,7 +200,7 @@ const VendorBookings = () => {
     return (
       <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
         <div className="animate-spin h-8 w-8 border-4 border-rose-400 border-t-transparent rounded-full"></div>
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Streaming Event Ledger...</p>
+        <p className="text-[10px] font-medium text-slate-400 uppercase tracking-widest">Streaming Event Ledger...</p>
       </div>
     );
   }
@@ -223,14 +223,14 @@ const VendorBookings = () => {
       <div data-lenis-prevent className="fixed top-16 bottom-[72px] lg:bottom-0 lg:left-64 inset-x-0 z-[40] bg-[#FAFAFC] scrollable-portal text-slate-800 animate-fade-in no-scrollbar touch-auto">
         <style>
           {`
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
             .font-luxury-serif {
-              font-family: 'Playfair Display', Georgia, serif;
+              font-family: 'Poppins', sans-serif;
             }
 
             .font-luxury-sans {
-              font-family: 'Inter', 'Poppins', sans-serif;
+              font-family: 'Poppins', sans-serif;
             }
 
             .luxury-card {
@@ -277,7 +277,7 @@ const VendorBookings = () => {
           <div className="flex items-center gap-2 pt-2 pb-0 px-1">
             <button
               onClick={() => setSelectedBooking(null)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-extrabold text-[#6D3BFF] hover:text-indigo-800 transition-all active:scale-95 shadow-3xs font-luxury-sans"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white text-[11px] font-medium text-[#6D3BFF] hover:text-indigo-800 transition-all active:scale-95 shadow-3xs font-luxury-sans"
             >
               <Icon name="arrowLeft" size="xs" className="w-3.5 h-3.5" /> Back to Bookings
             </button>
@@ -286,9 +286,9 @@ const VendorBookings = () => {
           <div className="luxury-card p-3.5 sm:p-4 space-y-3 bg-white !mt-1">
             <div className="flex items-start gap-4">
               <div className="flex flex-col items-center justify-center w-14 h-[64px] bg-slate-50 rounded-2xl shrink-0 shadow-3xs">
-                <span className="text-[9px] font-black text-[#6D3BFF] tracking-wider uppercase mb-0.5 font-luxury-sans">{month}</span>
-                <span className="text-[20px] font-black text-slate-950 leading-none mb-0.5 font-luxury-sans">{dateNum}</span>
-                <span className="text-[9px] font-bold text-slate-400 leading-none font-luxury-sans">{dayStr}</span>
+                <span className="text-[9px] font-medium text-[#6D3BFF] tracking-wider uppercase mb-0.5 font-luxury-sans">{month}</span>
+                <span className="text-[20px] font-medium text-slate-950 leading-none mb-0.5 font-luxury-sans">{dateNum}</span>
+                <span className="text-[9px] font-medium text-slate-400 leading-none font-luxury-sans">{dayStr}</span>
               </div>
 
               <img
@@ -302,26 +302,26 @@ const VendorBookings = () => {
 
               <div className="flex-1 min-w-0 flex flex-col gap-1.5 py-0.5">
                 <div className="flex items-center gap-2 flex-wrap leading-none">
-                  <h2 className="text-[18px] sm:text-[20px] font-black text-slate-950 tracking-tight font-luxury-serif">
+                  <h2 className="text-[18px] sm:text-[20px] font-medium text-slate-950 tracking-tight font-luxury-sans">
                     {booking.customerName || 'Rahul & Sneha'}
                   </h2>
-                  <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-purple-50 text-[#6D3BFF] font-luxury-sans">
+                  <span className="px-2 py-0.5 rounded-full text-[8.5px] font-medium uppercase tracking-wider bg-purple-50 text-[#6D3BFF] font-luxury-sans">
                     Wedding
                   </span>
                 </div>
 
                 <div className="space-y-1 font-luxury-sans">
-                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-semibold min-w-0">
+                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-medium min-w-0">
                     <Icon name="location" size="xs" className="w-3 h-3 text-[#6D3BFF] flex-shrink-0" />
                     <span className="truncate">{booking.location || 'Sayaji Hotel, Indore'}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-semibold min-w-0">
+                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-medium min-w-0">
                     <Icon name="users" size="xs" className="w-3 h-3 text-[#6D3BFF] flex-shrink-0" />
                     <span className="truncate">{booking.guests || '300–350 Guests'}</span>
                   </div>
 
-                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-semibold min-w-0">
+                  <div className="flex items-center gap-1.5 text-[11.5px] text-slate-500 font-medium min-w-0">
                     <Icon name="palette" size="xs" className="w-3 h-3 text-[#6D3BFF] flex-shrink-0" />
                     <span className="truncate text-slate-500 font-medium">{booking.theme || 'Royal Theme / Floral Decor'}</span>
                   </div>
@@ -331,11 +331,11 @@ const VendorBookings = () => {
 
             <div className="bg-slate-50 p-3 rounded-xl flex items-center justify-between font-luxury-sans shadow-3xs">
               <div>
-                <span className="text-[16px] font-black text-slate-950 font-luxury-sans">₹{totalAmount.toLocaleString('en-IN')}</span>
-                <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none mt-0.5">Total Package</p>
+                <span className="text-[16px] font-medium">₹{totalAmount.toLocaleString('en-IN')}</span>
+                <p className="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none mt-0.5">Total Package</p>
               </div>
 
-              <span className="px-2 py-1 rounded-full text-[9px] font-black uppercase tracking-wider bg-[#6D3BFF] text-white shadow-2xs">
+              <span className="px-2 py-1 rounded-full text-[9px] font-medium uppercase tracking-wider bg-[#6D3BFF] text-white">
                 Advance Paid
               </span>
 
@@ -346,10 +346,10 @@ const VendorBookings = () => {
                     <circle cx="18" cy="18" r="15" fill="none" stroke="#6D3BFF" strokeWidth="3.5" strokeDasharray="70, 100" strokeLinecap="round" />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-[8px] font-black text-slate-900">70%</span>
+                    <span className="text-[8px] font-medium text-slate-900">70%</span>
                   </div>
                 </div>
-                <span className="text-[7px] font-black text-slate-400 mt-0.5 leading-none uppercase tracking-wider">Prep</span>
+                <span className="text-[7px] font-medium text-slate-400 mt-0.5 leading-none uppercase tracking-wider">Prep</span>
               </div>
             </div>
           </div>
@@ -362,7 +362,7 @@ const VendorBookings = () => {
               <div className="h-9 w-9 rounded-full bg-violet-50 text-[#6D3BFF] flex items-center justify-center shadow-3xs">
                 <Icon name="phone" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[9.5px] font-black uppercase tracking-wider text-slate-500 mt-0.5">Call</span>
+              <span className="text-[9.5px] font-medium uppercase tracking-wider text-slate-500 mt-0.5">Call</span>
             </a>
 
             <a
@@ -374,7 +374,7 @@ const VendorBookings = () => {
               <div className="h-9 w-9 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center shadow-3xs">
                 <Icon name="whatsapp" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[9.5px] font-black uppercase tracking-wider text-slate-500 mt-0.5">WhatsApp</span>
+              <span className="text-[9.5px] font-medium uppercase tracking-wider text-slate-500 mt-0.5">WhatsApp</span>
             </a>
 
             <button
@@ -384,7 +384,7 @@ const VendorBookings = () => {
               <div className="h-9 w-9 rounded-full bg-indigo-50 text-indigo-600 flex items-center justify-center shadow-3xs">
                 <Icon name="bookmark" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[9.5px] font-black uppercase tracking-wider text-slate-500 mt-0.5">Invoice</span>
+              <span className="text-[9.5px] font-medium uppercase tracking-wider text-slate-500 mt-0.5">Invoice</span>
             </button>
 
             <button
@@ -394,16 +394,16 @@ const VendorBookings = () => {
               <div className="h-9 w-9 rounded-full bg-slate-50 text-slate-500 flex items-center justify-center shadow-3xs">
                 <Icon name="more" size="xs" className="w-3.5 h-3.5" />
               </div>
-              <span className="text-[9.5px] font-black uppercase tracking-wider text-slate-500 mt-0.5">More</span>
+              <span className="text-[9.5px] font-medium uppercase tracking-wider text-slate-500 mt-0.5">More</span>
             </button>
           </div>
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-2.5 font-luxury-sans">
             <div className="flex items-center justify-between">
-              <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest font-luxury-sans">Event Timeline</h3>
+              <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest font-luxury-sans">Event Timeline</h3>
               <button
                 onClick={() => showToast("Entering timeline configuration mode...")}
-                className="text-[10px] font-black uppercase text-[#6D3BFF] tracking-wider hover:underline"
+                className="text-[10px] font-medium uppercase text-[#6D3BFF] tracking-wider hover:underline"
               >
                 Edit
               </button>
@@ -421,10 +421,10 @@ const VendorBookings = () => {
                 { label: 'Event Day', completed: false, val: '○', color: 'bg-slate-100 text-slate-400' },
               ].map((step, idx) => (
                 <div key={idx} className="flex flex-col items-center relative z-10 w-12 shrink-0">
-                  <div className={`h-6.5 w-6.5 rounded-full flex items-center justify-center font-black text-[9px] shadow-3xs transition-all duration-300 ${step.color}`}>
+                  <div className={`h-6.5 w-6.5 rounded-full flex items-center justify-center font-medium text-[9px] shadow-3xs transition-all duration-300 ${step.color}`}>
                     {step.val}
                   </div>
-                  <span className="text-[8.5px] font-bold text-slate-500 mt-1.5 text-center whitespace-nowrap leading-none">{step.label}</span>
+                  <span className="text-[8.5px] font-medium text-slate-500 mt-1.5 text-center whitespace-nowrap leading-none">{step.label}</span>
                 </div>
               ))}
             </div>
@@ -432,10 +432,10 @@ const VendorBookings = () => {
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-3.5 font-luxury-sans">
             <div className="flex items-center justify-between pb-1">
-              <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest">Venue & Date</h3>
+              <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest">Venue & Date</h3>
               <button
                 onClick={() => showToast("Modifying venue & event schedule...")}
-                className="text-[10px] font-black uppercase text-[#6D3BFF] tracking-wider hover:underline"
+                className="text-[10px] font-medium uppercase text-[#6D3BFF] tracking-wider hover:underline"
               >
                 Edit
               </button>
@@ -447,8 +447,8 @@ const VendorBookings = () => {
                   <Icon name="location" size="xs" className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Venue</h4>
-                  <p className="text-[12.5px] font-bold text-slate-800 mt-1 leading-tight">{booking.location || 'Sayaji Hotel, Indore'}</p>
+                  <h4 className="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none">Venue</h4>
+                  <p className="text-[12.5px] font-medium text-slate-800 mt-1 leading-tight">{booking.location || 'Sayaji Hotel, Indore'}</p>
                 </div>
               </div>
 
@@ -457,8 +457,8 @@ const VendorBookings = () => {
                   <Icon name="calendar" size="xs" className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Event Date</h4>
-                  <p className="text-[12.5px] font-bold text-slate-800 mt-1 leading-tight">{fullDateStr}</p>
+                  <h4 className="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none">Event Date</h4>
+                  <p className="text-[12.5px] font-medium text-slate-800 mt-1 leading-tight">{fullDateStr}</p>
                 </div>
               </div>
 
@@ -467,47 +467,47 @@ const VendorBookings = () => {
                   <Icon name="clock" size="xs" className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Time</h4>
-                  <p className="text-[12.5px] font-bold text-slate-800 mt-1 leading-tight">7:00 PM onwards</p>
+                  <h4 className="text-[9px] font-medium text-slate-400 uppercase tracking-widest leading-none">Time</h4>
+                  <p className="text-[12.5px] font-medium text-slate-800 mt-1 leading-tight">7:00 PM onwards</p>
                 </div>
               </div>
             </div>
           </div>
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-2.5 font-luxury-sans">
-            <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest pb-1">Booking Summary</h3>
+            <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest pb-1">Booking Summary</h3>
 
             <div className="space-y-2 text-[12px]">
-              <div className="flex justify-between items-center font-semibold text-slate-500">
+              <div className="flex justify-between items-center font-medium text-slate-500">
                 <span>Total Package</span>
-                <span className="text-slate-950 font-black text-[13px]">₹{totalAmount.toLocaleString('en-IN')}</span>
+                <span className="text-slate-950 font-medium text-[13px]">₹{totalAmount.toLocaleString('en-IN')}</span>
               </div>
-              <div className="flex justify-between items-center font-semibold text-slate-500">
+              <div className="flex justify-between items-center font-medium text-slate-500">
                 <span>Advance Paid</span>
-                <span className="text-slate-950 font-bold">₹{advancePaid.toLocaleString('en-IN')}</span>
+                <span className="text-slate-950 font-normal">₹{advancePaid.toLocaleString('en-IN')}</span>
               </div>
-              <div className="flex justify-between items-center font-semibold text-slate-500">
+              <div className="flex justify-between items-center font-medium text-slate-500">
                 <span>Second Payment</span>
-                <span className="text-slate-950 font-bold">₹{secondPayment.toLocaleString('en-IN')}</span>
+                <span className="text-slate-950 font-normal">₹{secondPayment.toLocaleString('en-IN')}</span>
               </div>
-              <div className="flex justify-between items-center font-semibold text-slate-500">
+              <div className="flex justify-between items-center font-medium text-slate-500">
                 <span>Final Payment</span>
-                <span className="text-slate-950 font-bold">₹{finalPayment.toLocaleString('en-IN')}</span>
+                <span className="text-slate-950 font-normal">₹{finalPayment.toLocaleString('en-IN')}</span>
               </div>
 
-              <div className="bg-rose-50/60 p-2.5 rounded-xl flex justify-between items-center mt-2.5 text-[12px] font-bold text-rose-600 shadow-3xs">
+              <div className="bg-rose-50/60 p-2.5 rounded-xl flex justify-between items-center mt-2.5 text-[12px] font-medium text-rose-600 shadow-3xs">
                 <span>Outstanding Balance</span>
-                <span className="text-[13px] font-black">₹{outstanding.toLocaleString('en-IN')}</span>
+                <span className="text-[13px] font-medium">₹{outstanding.toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-3 font-luxury-sans">
             <div className="flex items-center justify-between pb-1">
-              <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest">Payment Schedule</h3>
+              <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest">Payment Schedule</h3>
               <button
                 onClick={() => showToast("Displaying complete payment schedule ledger...")}
-                className="text-[10px] font-black uppercase text-[#6D3BFF] tracking-wider hover:underline"
+                className="text-[10px] font-medium uppercase text-[#6D3BFF] tracking-wider hover:underline"
               >
                 View All
               </button>
@@ -517,14 +517,14 @@ const VendorBookings = () => {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="h-6 w-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    <span className="text-[10px] font-extrabold">✓</span>
+                    <span className="text-[10px] font-medium">✓</span>
                   </div>
                   <div>
-                    <h4 className="text-[11.5px] font-bold text-slate-700 leading-tight">Advance Payment</h4>
-                    <p className="text-[8px] font-black text-emerald-600 uppercase tracking-wider leading-none mt-0.5">Paid</p>
+                    <h4 className="text-[11.5px] font-medium text-slate-700 leading-tight">Advance Payment</h4>
+                    <p className="text-[8px] font-medium text-emerald-600 uppercase tracking-wider leading-none mt-0.5">Paid</p>
                   </div>
                 </div>
-                <span className="text-[12px] font-extrabold text-slate-900">₹{advancePaid.toLocaleString('en-IN')}</span>
+                <span className="text-[12px] font-medium text-slate-900">₹{advancePaid.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="flex items-center justify-between pt-1">
@@ -533,11 +533,11 @@ const VendorBookings = () => {
                     <span className="text-[10px]">⏰</span>
                   </div>
                   <div>
-                    <h4 className="text-[11.5px] font-bold text-slate-700 leading-tight">Second Payment</h4>
-                    <p className="text-[8px] font-black text-amber-500 uppercase tracking-wider leading-none mt-0.5">Due</p>
+                    <h4 className="text-[11.5px] font-medium text-slate-700 leading-tight">Second Payment</h4>
+                    <p className="text-[8px] font-medium text-amber-500 uppercase tracking-wider leading-none mt-0.5">Due</p>
                   </div>
                 </div>
-                <span className="text-[12px] font-extrabold text-slate-900">₹{secondPayment.toLocaleString('en-IN')}</span>
+                <span className="text-[12px] font-medium text-slate-900">₹{secondPayment.toLocaleString('en-IN')}</span>
               </div>
 
               <div className="flex items-center justify-between pt-1">
@@ -546,54 +546,54 @@ const VendorBookings = () => {
                     <span className="text-[11px] leading-none mb-0.5">○</span>
                   </div>
                   <div>
-                    <h4 className="text-[11.5px] font-bold text-slate-700 leading-tight">Final Payment</h4>
-                    <p className="text-[8px] font-black text-slate-400 uppercase tracking-wider leading-none mt-0.5">Pending</p>
+                    <h4 className="text-[11.5px] font-medium text-slate-700 leading-tight">Final Payment</h4>
+                    <p className="text-[8px] font-medium text-slate-400 uppercase tracking-wider leading-none mt-0.5">Pending</p>
                   </div>
                 </div>
-                <span className="text-[12px] font-extrabold text-slate-900">₹{finalPayment.toLocaleString('en-IN')}</span>
+                <span className="text-[12px] font-medium text-slate-900">₹{finalPayment.toLocaleString('en-IN')}</span>
               </div>
             </div>
           </div>
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-3 font-luxury-sans">
             <div className="flex items-center justify-between pb-1">
-              <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest">Event Details</h3>
+              <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest">Event Details</h3>
               <button
                 onClick={() => showToast("Editing event details & services package...")}
-                className="text-[10px] font-black uppercase text-[#6D3BFF] tracking-wider hover:underline"
+                className="text-[10px] font-medium uppercase text-[#6D3BFF] tracking-wider hover:underline"
               >
                 Edit
               </button>
             </div>
 
             <div className="space-y-3 text-[12.5px]">
-              <div className="grid grid-cols-3 font-semibold py-1">
+              <div className="grid grid-cols-3 font-medium py-1">
                 <span className="text-slate-400">Event Type</span>
-                <span className="col-span-2 text-slate-850 font-extrabold">Wedding</span>
+                <span className="col-span-2 text-slate-850 font-normal">Wedding</span>
               </div>
-              <div className="grid grid-cols-3 font-semibold pt-1 py-1">
+              <div className="grid grid-cols-3 font-medium pt-1 py-1">
                 <span className="text-slate-400">Guests</span>
-                <span className="col-span-2 text-slate-850 font-extrabold">{booking.guests || '300–350 Guests'}</span>
+                <span className="col-span-2 text-slate-850 font-normal">{booking.guests || '300–350 Guests'}</span>
               </div>
-              <div className="grid grid-cols-3 font-semibold pt-1 py-1">
+              <div className="grid grid-cols-3 font-medium pt-1 py-1">
                 <span className="text-slate-400">Theme</span>
-                <span className="col-span-2 text-slate-850 font-extrabold">{booking.theme || 'Royal Theme / Floral Decor'}</span>
+                <span className="col-span-2 text-slate-850 font-normal">{booking.theme || 'Royal Theme / Floral Decor'}</span>
               </div>
-              <div className="grid grid-cols-3 font-semibold pt-1 py-1">
+              <div className="grid grid-cols-3 font-medium pt-1 py-1">
                 <span className="text-slate-400">Services</span>
-                <div className="col-span-2 text-slate-850 font-bold space-y-1">
+                <div className="col-span-2 text-slate-850 font-normal space-y-1">
                   {Array.isArray(booking.services) && booking.services.length > 0 ? (
                     booking.services.map((srv, sIdx) => (
                       <p key={sIdx} className="flex items-center gap-1.5">
-                        <span className="text-[#6D3BFF] font-bold">•</span> {srv}
+                        <span className="text-[#6D3BFF] font-medium">•</span> {srv}
                       </p>
                     ))
                   ) : (
                     <>
-                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-bold">•</span> Grand floral chandeliers</p>
-                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-bold">•</span> Couple initials with flowers</p>
-                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-bold">•</span> Royal entry gate</p>
-                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-bold">•</span> LED wall backdrop</p>
+                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-medium">•</span> Grand floral chandeliers</p>
+                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-medium">•</span> Couple initials with flowers</p>
+                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-medium">•</span> Royal entry gate</p>
+                      <p className="flex items-center gap-1.5"><span className="text-[#6D3BFF] font-medium">•</span> LED wall backdrop</p>
                     </>
                   )}
                 </div>
@@ -603,10 +603,10 @@ const VendorBookings = () => {
 
           <div className="luxury-card p-3.5 sm:p-4 space-y-3 font-luxury-sans">
             <div className="flex items-center justify-between pb-0.5">
-              <h3 className="text-[11.5px] font-black text-slate-800 uppercase tracking-widest">Assigned Team</h3>
+              <h3 className="text-[11.5px] font-medium text-slate-800 uppercase tracking-widest">Assigned Team</h3>
               <button
                 onClick={() => showToast("Updating assigned operational team...")}
-                className="text-[10px] font-black uppercase text-[#6D3BFF] tracking-wider hover:underline"
+                className="text-[10px] font-medium uppercase text-[#6D3BFF] tracking-wider hover:underline"
               >
                 Edit
               </button>
@@ -620,11 +620,11 @@ const VendorBookings = () => {
                 { name: 'Arjun Singh', role: 'Lighting Lead', initials: 'AS', grad: 'from-amber-500 to-orange-500' }
               ].map((member, mIdx) => (
                 <div key={mIdx} className="flex flex-col items-center text-center shrink-0 w-[56px]">
-                  <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${member.grad} text-white font-black text-[10px] flex items-center justify-center shadow-md border border-white/20 transform hover:scale-105 transition-all`}>
+                  <div className={`h-10 w-10 rounded-xl bg-gradient-to-tr ${member.grad} text-white font-medium text-[10px] flex items-center justify-center shadow-md border border-white/20 transform hover:scale-105 transition-all`}>
                     {member.initials}
                   </div>
-                  <span className="text-[9.5px] font-bold text-slate-800 mt-1.5 truncate max-w-[56px] leading-tight font-luxury-sans">{member.name}</span>
-                  <span className="text-[8px] font-semibold text-slate-400 mt-0.5 truncate max-w-[56px] leading-none uppercase font-luxury-sans">{member.role}</span>
+                  <span className="text-[9.5px] font-medium text-slate-800 mt-1.5 truncate max-w-[56px] leading-tight font-luxury-sans">{member.name}</span>
+                  <span className="text-[8px] font-normal text-slate-400 mt-0.5 truncate max-w-[56px] leading-none uppercase font-luxury-sans">{member.role}</span>
                 </div>
               ))}
             </div>
@@ -633,13 +633,13 @@ const VendorBookings = () => {
           <div className="flex gap-3 pt-2 pb-6 font-luxury-sans">
             <button
               onClick={() => handleDownloadInvoice(booking)}
-              className="flex-1 bg-white border border-slate-200/80 text-slate-700 font-extrabold uppercase text-[10px] tracking-wider py-3.5 rounded-2xl text-center hover:bg-slate-50 transition-all active:scale-95 shadow-3xs flex items-center justify-center gap-1.5"
+              className="flex-1 bg-white border border-slate-200/80 text-slate-700 font-medium uppercase text-[10px] tracking-wider py-3.5 rounded-2xl text-center hover:bg-slate-50 transition-all active:scale-95 shadow-3xs flex items-center justify-center gap-1.5"
             >
               <Icon name="download" size="xs" className="w-3.5 h-3.5" /> Download Invoice
             </button>
             <button
               onClick={() => handleSendReminder(booking)}
-              className="flex-1 bg-[#6D3BFF] hover:bg-[#5b2ee6] text-white font-extrabold uppercase text-[10px] tracking-wider py-3.5 rounded-2xl text-center transition-all active:scale-95 shadow-md flex items-center justify-center gap-1.5 shadow-[#6D3BFF]/25"
+              className="flex-1 bg-[#6D3BFF] hover:bg-[#5b2ee6] text-white font-medium uppercase text-[10px] tracking-wider py-3.5 rounded-2xl text-center transition-all active:scale-95 shadow-md flex items-center justify-center gap-1.5 shadow-[#6D3BFF]/25"
             >
               <Icon name="bell" size="xs" className="w-3.5 h-3.5" /> Send Reminder
             </button>
@@ -651,7 +651,7 @@ const VendorBookings = () => {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-3">
       <style>
         {`
           @keyframes flipIn {
@@ -698,11 +698,11 @@ const VendorBookings = () => {
       </style>
 
       {/* Header & Search Group */}
-      <div className="space-y-2 pb-1 animate-flip-in" style={{ animationDelay: '0ms' }}>
+      <div className="space-y-1.5 pb-0 animate-flip-in" style={{ animationDelay: '0ms' }}>
         {/* Simple Clean Header */}
         <div className="flex items-center justify-between px-1">
           <div>
-            <h1 className="text-[20px] font-semibold text-[#1e293b] tracking-tight leading-tight">Booking</h1>
+            <h1 className="text-[20px] font-medium text-[#1e293b] tracking-tight leading-tight">Booking</h1>
             <p className="text-[11px] font-medium text-slate-500">Overseeing {stats.total} Secured Engagements</p>
           </div>
           <button
@@ -730,7 +730,7 @@ const VendorBookings = () => {
               <button
                 key={status}
                 onClick={() => setStatusFilter(status)}
-                className={`px-3 py-1 rounded-md text-[10px] font-semibold whitespace-nowrap transition-all ${statusFilter === status ? 'bg-white text-indigo-600 shadow-sm border border-slate-100 scale-105' : 'text-slate-500 hover:text-slate-700 hover:scale-105'}`}
+                className={`px-3 py-1 rounded-md text-[10px] font-medium whitespace-nowrap transition-all ${statusFilter === status ? 'bg-white text-indigo-600 shadow-sm border border-slate-100 scale-105' : 'text-slate-500 hover:text-slate-700 hover:scale-105'}`}
               >
                 {status}
               </button>
@@ -740,7 +740,7 @@ const VendorBookings = () => {
       </div>
 
       {/* Top Metrics Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 px-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 px-1">
         {[
           {
             label: 'Booked Volume',
@@ -787,9 +787,9 @@ const VendorBookings = () => {
             indigo: {
               bg: 'bg-indigo-50/50',
               bgActive: 'bg-indigo-50',
-              border: 'border-indigo-100/50',
-              borderActive: 'border-indigo-400',
-              ring: 'ring-2 ring-indigo-500/25 shadow-indigo-100/50 shadow-md',
+              border: 'border-none',
+              borderActive: 'border-none',
+              ring: 'shadow-indigo-100/50 shadow-md',
               iconBg: 'bg-white',
               text: 'text-indigo-600',
               trend: 'text-indigo-500'
@@ -797,9 +797,9 @@ const VendorBookings = () => {
             blue: {
               bg: 'bg-blue-50/50',
               bgActive: 'bg-blue-50',
-              border: 'border-blue-100/50',
-              borderActive: 'border-blue-400',
-              ring: 'ring-2 ring-blue-500/25 shadow-blue-100/50 shadow-md',
+              border: 'border-none',
+              borderActive: 'border-none',
+              ring: 'shadow-blue-100/50 shadow-md',
               iconBg: 'bg-white',
               text: 'text-blue-600',
               trend: 'text-blue-500'
@@ -807,9 +807,9 @@ const VendorBookings = () => {
             amber: {
               bg: 'bg-orange-50/50',
               bgActive: 'bg-orange-50',
-              border: 'border-orange-100/50',
-              borderActive: 'border-orange-400',
-              ring: 'ring-2 ring-orange-500/25 shadow-orange-100/50 shadow-md',
+              border: 'border-none',
+              borderActive: 'border-none',
+              ring: 'shadow-orange-100/50 shadow-md',
               iconBg: 'bg-white',
               text: 'text-orange-500',
               trend: 'text-orange-400'
@@ -817,9 +817,9 @@ const VendorBookings = () => {
             emerald: {
               bg: 'bg-emerald-50/50',
               bgActive: 'bg-emerald-50',
-              border: 'border-emerald-100/50',
-              borderActive: 'border-emerald-400',
-              ring: 'ring-2 ring-emerald-500/25 shadow-emerald-100/50 shadow-md',
+              border: 'border-none',
+              borderActive: 'border-none',
+              ring: 'shadow-emerald-100/50 shadow-md',
               iconBg: 'bg-white',
               text: 'text-emerald-600',
               trend: 'text-emerald-500'
@@ -832,28 +832,28 @@ const VendorBookings = () => {
             <div
               key={i}
               onClick={() => setStatusFilter(item.filterTarget)}
-              className={`relative p-2.5 pb-10 sm:pb-11 rounded-2xl cursor-pointer transition-all duration-300 animate-flip-in ${isActive
-                  ? `${style.bgActive} ${style.ring} -translate-y-1 scale-[1.02]`
-                  : `${style.bg} hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.03)] hover:-translate-y-1 hover:scale-[1.02]`
-                } flex flex-col min-h-[95px] sm:min-h-[105px] overflow-hidden`}
+              className={`relative p-2 pb-8 sm:pb-9 rounded-xl cursor-pointer transition-all duration-300 animate-flip-in ${isActive
+                  ? `${style.bgActive} ${style.ring} -translate-y-0.5 scale-[1.01]`
+                  : `${style.bg} hover:shadow-[0_4px_15px_-3px_rgba(0,0,0,0.03)] hover:-translate-y-0.5 hover:scale-[1.01]`
+                } flex flex-col min-h-[78px] sm:min-h-[85px] overflow-hidden`}
               style={{ animationDelay: `${(i + 1) * 100}ms` }}
             >
               {/* Top Row: Icon + Value */}
-              <div className="flex items-center gap-2 mb-2 relative z-10">
-                <div className={`h-6 w-6 sm:h-7 sm:w-7 rounded-lg flex items-center justify-center shadow-sm ${style.iconBg} ${style.text}`}>
+              <div className="flex items-center gap-1.5 mb-1.5 relative z-10">
+                <div className={`h-5 w-5 sm:h-6 sm:w-6 rounded-md flex items-center justify-center shadow-sm ${style.iconBg} ${style.text}`}>
                   <Icon name={item.icon} size="xs" />
                 </div>
-                <span className={`text-[16px] sm:text-[20px] font-semibold tracking-tight leading-none ${style.text}`}>{item.value}</span>
+                <span className={`text-[14px] sm:text-[17px] font-medium tracking-tight leading-none ${style.text}`}>{item.value}</span>
               </div>
 
               {/* Middle Row: Label + Trend */}
               <div className="relative z-10 flex-1 flex flex-col justify-start pl-0.5">
-                <p className="text-[10px] sm:text-[12px] font-medium text-slate-800 leading-tight mb-0.5">{item.label}</p>
-                <p className={`text-[8.5px] sm:text-[10px] font-medium ${style.trend}`}>{item.trend}</p>
+                <p className="text-[9px] sm:text-[11px] font-medium text-slate-800 leading-tight mb-0.5">{item.label}</p>
+                <p className={`text-[8px] sm:text-[9px] font-medium ${style.trend}`}>{item.trend}</p>
               </div>
 
               {/* Bottom Sparkline / Wave */}
-              <div className={`absolute bottom-0 left-0 right-0 h-10 sm:h-12 ${style.text} pointer-events-none transition-transform duration-500 group-hover:translate-y-1`}>
+              <div className={`absolute bottom-0 left-0 right-0 h-8 sm:h-9 ${style.text} pointer-events-none transition-transform duration-500 group-hover:translate-y-1`}>
                 <svg viewBox="0 0 100 30" preserveAspectRatio="none" className="w-full h-full opacity-80">
                   <defs>
                     <linearGradient id={`grad-${i}`} x1="0" y1="0" x2="0" y2="1">
@@ -877,14 +877,14 @@ const VendorBookings = () => {
       </div>
 
       {/* Dynamic Booking Grid */}
-      <div className="grid gap-4">
+      <div className="grid gap-2.5">
         {filteredBookings.length === 0 ? (
-          <div className="vendor-surface rounded-[2.5rem] p-24 text-center bg-slate-50 border border-dashed border-slate-200 animate-flip-in">
-            <div className="h-20 w-20 rounded-full bg-white mx-auto flex items-center justify-center text-slate-200 mb-6 shadow-sm">
+          <div className="vendor-surface rounded-2xl p-12 text-center bg-slate-50 border border-dashed border-slate-200 animate-flip-in">
+            <div className="h-14 w-14 rounded-full bg-white mx-auto flex items-center justify-center text-slate-200 mb-4 shadow-sm">
               <Icon name="checkList" size="lg" />
             </div>
-            <p className="text-sm font-black text-slate-400 uppercase tracking-widest">No active bookings</p>
-            <p className="text-[11px] font-bold text-slate-300 mt-2 italic">Your event calendar is currently open for new opportunities.</p>
+            <p className="text-sm font-medium text-slate-400 uppercase tracking-widest">No active bookings</p>
+            <p className="text-[11px] font-normal text-slate-300 mt-2 italic">Your event calendar is currently open for new opportunities.</p>
           </div>
         ) : (
           filteredBookings.map((booking, index) => {
@@ -902,68 +902,68 @@ const VendorBookings = () => {
               <div
                 key={booking._id}
                 onClick={() => setSelectedBooking(booking)}
-                className="rounded-3xl p-4.5 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_8px_30px_rgba(109,59,255,0.04)] transition-all duration-300 hover:-translate-y-0.5 animate-flip-in cursor-pointer"
+                className="rounded-2xl p-3 shadow-[0_2px_12px_-4px_rgba(0,0,0,0.02)] hover:shadow-[0_6px_20px_rgba(109,59,255,0.04)] transition-all duration-300 hover:-translate-y-0.5 animate-flip-in cursor-pointer"
                 style={{
                   backgroundColor: status.bg,
-                  animationDelay: `${(index + 5) * 100}ms`
+                  animationDelay: `${(index + 5) * 80}ms`
                 }}
               >
-                <div className="flex flex-col gap-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 flex-1 min-w-0">
-                      <div className="flex flex-col items-center justify-center w-12 h-13 shrink-0 bg-white/90 rounded-2xl shadow-3xs">
-                        <span className="text-[9px] font-bold text-slate-500 tracking-wider uppercase mb-0.5">{month}</span>
-                        <span className="text-[18px] font-black text-[#1e293b] leading-none mb-0.5">{dateNum}</span>
-                        <span className="text-[9px] font-bold text-slate-400 leading-none">{dayStr}</span>
+                <div className="flex flex-col gap-2.5">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div className="flex flex-col items-center justify-center w-10 h-11 shrink-0 bg-white/90 rounded-xl shadow-3xs">
+                        <span className="text-[8px] font-medium text-slate-500 tracking-wider uppercase mb-0.5">{month}</span>
+                        <span className="text-[15px] font-medium text-[#1e293b] leading-none mb-0.5">{dateNum}</span>
+                        <span className="text-[8px] font-medium text-slate-400 leading-none">{dayStr}</span>
                       </div>
-                      <div className="h-12 w-12 rounded-2xl bg-pink-50 text-[#db2777] flex items-center justify-center shrink-0 shadow-3xs">
-                        <span className="text-sm font-black tracking-tight">{getInitials(booking.customerName)}</span>
+                      <div className="h-10 w-10 rounded-xl bg-pink-50 text-[#db2777] flex items-center justify-center shrink-0 shadow-3xs">
+                        <span className="text-xs font-medium tracking-tight">{getInitials(booking.customerName)}</span>
                       </div>
                       <div className="flex-1 min-w-0 font-luxury-sans">
-                        <div className="flex items-center gap-2 mb-1 flex-wrap leading-none">
-                          <h3 className="text-[15px] font-bold text-[#1e293b] tracking-tight truncate">{booking.customerName}</h3>
-                          <span className="px-2 py-0.5 rounded-full text-[8.5px] font-black uppercase tracking-wider bg-violet-50 text-[#7C3AED]">
+                        <div className="flex items-center gap-1.5 mb-0.5 flex-wrap leading-none">
+                          <h3 className="text-[13px] font-medium text-[#1e293b] tracking-tight truncate">{booking.customerName}</h3>
+                          <span className="px-2 py-0.5 rounded-full text-[8.5px] font-medium uppercase tracking-wider bg-violet-50 text-[#7C3AED]">
                             Event
                           </span>
                         </div>
-                        <div className="flex items-center gap-1.5 text-[11px] font-semibold text-slate-500 mb-0.5">
+                        <div className="flex items-center gap-1 text-[10px] font-medium text-slate-500 mb-0.5">
                           <Icon name="location" size="xs" className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" />
                           <span className="truncate text-slate-500">{booking.location || 'Venue details pending'}</span>
                         </div>
-                        <div className="text-[10px] text-[#6D3BFF] font-black uppercase tracking-wider truncate leading-none mt-1">
+                        <div className="text-[9px] text-[#6D3BFF] font-medium uppercase tracking-wider truncate leading-none mt-0.5">
                           {booking.services?.join(' / ') || 'Standard Photography'}
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-center justify-between sm:justify-end gap-4 border-t border-dashed border-slate-200/30 sm:border-t-0 pt-3 sm:pt-0 shrink-0 font-luxury-sans">
+                    <div className="flex items-center justify-between sm:justify-end gap-3 border-t border-dashed border-slate-200/30 sm:border-t-0 pt-2 sm:pt-0 shrink-0 font-luxury-sans">
                       <div className="flex flex-col sm:items-end">
-                        <span className="text-[15px] sm:text-[17px] font-black text-[#1e293b]">₹{(booking.totalPrice || booking.totalAmount || 0).toLocaleString('en-IN')}</span>
-                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider mt-0.5">Total Package</span>
+                        <span className="text-[13px] sm:text-[15px] font-medium text-[#1e293b]">₹{(booking.totalPrice || booking.totalAmount || 0).toLocaleString('en-IN')}</span>
+                        <span className="text-[8px] font-medium text-slate-400 uppercase tracking-wider mt-0.5">Total Package</span>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <span className="text-[9px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full text-center" style={{ backgroundColor: status.bg === '#F8FAFC' ? '#F1F5F9' : 'rgba(255,255,255,0.7)', color: status.color }}>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[9px] font-medium uppercase tracking-wider px-2.5 py-1 rounded-full text-center" style={{ backgroundColor: status.bg === '#F8FAFC' ? '#F1F5F9' : 'rgba(255,255,255,0.7)', color: status.color }}>
                           {booking.status}
                         </span>
                         <div className="flex items-center gap-1 bg-white/80 rounded-full px-1.5 py-0.5 shadow-3xs">
                           <div className="h-5 w-5 rounded-full border border-indigo-600 flex items-center justify-center">
-                            <span className="text-[8px] font-black text-[#1e293b]">100%</span>
+                            <span className="text-[8px] font-medium text-[#1e293b]">100%</span>
                           </div>
-                          <span className="text-[8px] text-slate-400 font-extrabold uppercase tracking-wider hidden xs:inline pr-1">Prep</span>
+                          <span className="text-[8px] text-slate-400 font-medium uppercase tracking-wider hidden xs:inline pr-1">Prep</span>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-200/20">
+                  <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-slate-200/20">
                     <button
                       onClick={(e) => { e.stopPropagation(); setSelectedBooking(booking); }}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white text-[10px] font-bold uppercase tracking-wide text-indigo-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[9px] font-medium uppercase tracking-wide text-indigo-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
                     >
                       <Icon name="eye" size="xs" className="w-3.5 h-3.5" /> View
                     </button>
                     <a
                       href={`tel:${booking.customerPhone || "+919910088204"}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white text-[10px] font-bold uppercase tracking-wide text-slate-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[9px] font-medium uppercase tracking-wide text-slate-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
                     >
                       <Icon name="phone" size="xs" className="w-3.5 h-3.5" /> Call
                     </a>
@@ -972,14 +972,14 @@ const VendorBookings = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-white text-[10px] font-bold uppercase tracking-wide text-emerald-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
+                      className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white text-[9px] font-medium uppercase tracking-wide text-emerald-600 hover:bg-slate-50 active:scale-95 transition-all shadow-3xs"
                     >
                       <Icon name="chat" size="xs" className="w-3.5 h-3.5" /> WhatsApp
                     </a>
                     {booking.status === 'Pending' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); handleStatusUpdate(booking._id, 'Accepted'); }}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-500 text-[10px] font-bold uppercase tracking-wide text-white hover:bg-emerald-600 active:scale-95 transition-all shadow-2xs"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500 text-[9px] font-medium uppercase tracking-wide text-white hover:bg-emerald-600 active:scale-95 transition-all shadow-2xs"
                       >
                         <Icon name="check" size="xs" className="w-3.5 h-3.5" /> Accept
                       </button>
@@ -987,14 +987,14 @@ const VendorBookings = () => {
                     {booking.status === 'Accepted' && (
                       <button
                         onClick={(e) => { e.stopPropagation(); handleStatusUpdate(booking._id, 'Confirmed'); }}
-                        className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 text-[10px] font-bold uppercase tracking-wide text-white hover:bg-indigo-700 active:scale-95 transition-all shadow-2xs"
+                        className="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600 text-[9px] font-medium uppercase tracking-wide text-white hover:bg-indigo-700 active:scale-95 transition-all shadow-2xs"
                       >
                         <Icon name="check" size="xs" className="w-3.5 h-3.5" /> Confirm
                       </button>
                     )}
                     <div className="relative ml-auto">
                       <button
-                        className="px-2 py-1 rounded-xl bg-white text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all flex items-center justify-center h-8 w-8 shadow-3xs"
+                        className="px-1.5 py-0.5 rounded-lg bg-white text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-all flex items-center justify-center h-7 w-7 shadow-3xs"
                         onClick={(e) => {
                           e.stopPropagation();
                           setOpenMenu(openMenu === booking._id ? null : booking._id);
@@ -1009,14 +1009,14 @@ const VendorBookings = () => {
                             {booking.status !== 'Confirmed' && booking.status !== 'Rejected' && (
                               <button
                                 onClick={() => handleStatusUpdate(booking._id, 'Confirmed')}
-                                className="w-full px-3 py-2 text-left text-[10px] font-bold uppercase tracking-wider hover:bg-slate-50 text-slate-700 rounded-lg transition-all"
+                                className="w-full px-3 py-2 text-left text-[10px] font-medium uppercase tracking-wider hover:bg-slate-50 text-slate-700 rounded-lg transition-all"
                               >
                                 Mark as Confirmed
                               </button>
                             )}
                             <button
                               onClick={() => handleStatusUpdate(booking._id, 'Rejected')}
-                              className="w-full px-3 py-2 text-left text-[10px] font-bold uppercase tracking-wider hover:bg-rose-50 text-rose-600 rounded-lg transition-all mt-1"
+                              className="w-full px-3 py-2 text-left text-[10px] font-medium uppercase tracking-wider hover:bg-rose-50 text-rose-600 rounded-lg transition-all mt-1"
                             >
                               Cancel Booking
                             </button>
@@ -1034,7 +1034,7 @@ const VendorBookings = () => {
 
       {/* View in Detail Modal removed to use high-fidelity portal details */}
       {toast && (
-        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[200] px-4.5 py-2.5 rounded-full bg-slate-900/95 backdrop-blur-md text-white text-[10.5px] font-black uppercase tracking-widest shadow-xl flex items-center gap-2 animate-fade-in border border-slate-800/50 font-luxury-sans">
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[200] px-4.5 py-2.5 rounded-full bg-slate-900/95 backdrop-blur-md text-white text-[10.5px] font-medium uppercase tracking-widest shadow-xl flex items-center gap-2 animate-fade-in border border-slate-800/50 font-luxury-sans">
           <span className="h-2 w-2 rounded-full bg-[#6D3BFF] animate-pulse"></span>
           <span>{toast}</span>
         </div>

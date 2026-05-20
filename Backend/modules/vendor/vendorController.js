@@ -343,7 +343,7 @@ exports.updateBookingStatus = async (req, res, next) => {
 // @access  Private
 exports.createBooking = async (req, res, next) => {
     try {
-        const { customerName, eventDate, location, services, totalAmount } = req.body;
+        const { customerName, eventDate, location, services, totalAmount, eventType, guestCount, notes } = req.body;
 
         const booking = await Booking.create({
             vendorId: req.vendor.id,
@@ -351,6 +351,9 @@ exports.createBooking = async (req, res, next) => {
             eventDate,
             location,
             services: services || ['Manual Entry'],
+            eventType: eventType || 'Wedding',
+            guestCount: guestCount || 0,
+            notes: notes || '',
             totalPrice: totalAmount || 0,
             status: 'Confirmed'
         });

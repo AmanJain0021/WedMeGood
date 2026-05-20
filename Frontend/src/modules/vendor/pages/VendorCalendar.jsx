@@ -1,336 +1,756 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useVendorState } from '../useVendorState';
 import { vendorApi } from '../vendorApi';
 import Icon from '../../../components/ui/Icon';
 
-const VendorCalendar = () => {
-  const { refreshData } = useVendorState();
-  const [currentDate, setCurrentDate] = useState(new Date()); 
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [newEvent, setNewEvent] = useState({ customerName: '', eventDate: '', location: '' });
-  const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+/* ─── Config ─────────────────────────────────────────────── */
+const EVENT_TYPES = [
+  { id: 'Wedding',    label: 'Wedding',       color: '#7C3AED' },
+  { id: 'Reception',  label: 'Reception',     color: '#EC4899' },
+  { id: 'Haldi',      label: 'Haldi',         color: '#F59E0B' },
+  { id: 'Engagement', label: 'Engagement',    color: '#06B6D4' },
+  { id: 'Corporate',  label: 'Corporate',     color: '#10B981' },
+  { id: 'Other',      label: 'Other',         color: '#94A3B8' },
+];
 
-  const fetchBookings = async () => {
+const STATUS_CONFIG = {
+  Confirmed:  { bg: '#F0EEFF', text: '#7C3AED', label: 'Upcoming' },
+  Completed:  { bg: '#ECFDF5', text: '#059669', label: 'Completed' },
+  Cancelled:  { bg: '#FFF1F2', text: '#E11D48', label: 'Cancelled' },
+};
+
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const DAYS   = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+
+const toDs = (y, m, d) => `${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+const today = new Date();
+const todayDs = toDs(today.getFullYear(), today.getMonth(), today.getDate());
+
+const fmtEventDate = (d) => {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+};
+const fmtTime = (d) => {
+  if (!d) return '7:00 PM Onwards';
+  return new Date(d).toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' }) + ' Onwards';
+};
+const fmtBudget = (n) => {
+  if (!n || n === 0) return null;
+  if (n >= 100000) return `₹${(n/100000).toFixed(2).replace(/\.?0+$/,'')}L`;
+  if (n >= 1000)   return `₹${(n/1000).toFixed(1)}K`;
+  return `₹${n}`;
+};
+const getColor = (type) => EVENT_TYPES.find(e => e.id === type)?.color || '#94A3B8';
+
+/* ─── Main Component ────────────────────────────────────── */
+const VendorCalendar = () => {
+  const { vendorState } = useVendorState();
+  const vendorName = vendorState?.profile?.businessName || vendorState?.profile?.fullName || 'Your Business';
+
+  const [currentDate, setCurrentDate]   = useState(new Date());
+  const [bookings, setBookings]         = useState([]);
+  const [loading, setLoading]           = useState(true);
+  const [selectedDate, setSelectedDate] = useState(todayDs);
+  const [calView, setCalView]           = useState('Month'); // Month|Week|Day
+  const [addModal, setAddModal] = useState(false);
+  const [viewDetailsModal, setViewDetailsModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast]               = useState(null);
+
+  const [newEvent, setNewEvent] = useState({
+    customerName:'', eventDate:'', location:'',
+    eventType:'Wedding', guestCount:'', totalAmount:'', notes:''
+  });
+
+  // ── Fetch ─────────────────────────────────────────────────
+  const fetchBookings = useCallback(async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem('vendorToken');
       const res = await vendorApi.getBookings(token);
-      if (res.success) {
-        setBookings(res.data);
-      }
-    } catch (err) {
-      console.error('Failed to fetch bookings:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchBookings();
+      if (res.success) setBookings(res.data || []);
+    } catch (_) {}
+    finally { setLoading(false); }
   }, []);
 
-  const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
-  const startDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay();
-  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const adjustedStartDay = startDay === 0 ? 6 : startDay - 1;
+  useEffect(() => { fetchBookings(); }, [fetchBookings]);
 
-  const handlePrev = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
-  const handleNext = () => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+  // ── Toast ─────────────────────────────────────────────────
+  const showToast = (msg, type = 'ok') => {
+    setToast({ msg, type });
+    setTimeout(() => setToast(null), 2800);
+  };
 
-  const handleDayClick = (day) => {
-    const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-    const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-    setSelectedDate(dateStr);
-    
-    const existing = bookings.find(b => {
-        const bd = new Date(b.eventDate);
-        return bd.getFullYear() === d.getFullYear() && 
-               bd.getMonth() === d.getMonth() && 
-               bd.getDate() === d.getDate();
-    });
+  // ── Calendar data ─────────────────────────────────────────
+  const year  = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const startDow    = new Date(year, month, 1).getDay(); // 0=Sun
+  // Prev month tail days shown
+  const prevDaysInMonth = new Date(year, month, 0).getDate();
 
-    if (existing) {
-        setNewEvent({
-            customerName: existing.customerName,
-            eventDate: dateStr,
-            location: existing.location || '',
-            isExisting: true
-        });
-    } else {
-        setNewEvent({
-            customerName: '',
-            eventDate: dateStr,
-            location: '',
-            isExisting: false
-        });
+  // Group bookings by date
+  const byDate = {};
+  bookings.forEach(b => {
+    const dt = new Date(b.eventDate);
+    const key = toDs(dt.getFullYear(), dt.getMonth(), dt.getDate());
+    if (!byDate[key]) byDate[key] = [];
+    byDate[key].push(b);
+  });
+
+  // Selected day's events
+  const selectedEvents = selectedDate ? (byDate[selectedDate] || []) : [];
+  const selectedEvent  = selectedEvents[0] || null; // show first
+
+  // Upcoming events sorted
+  const upcomingEvents = [...bookings]
+    .filter(b => new Date(b.eventDate) >= today && b.status !== 'Cancelled')
+    .sort((a,b) => new Date(a.eventDate) - new Date(b.eventDate));
+
+  // Stats
+  const totalEvents = bookings.length;
+  const confirmedCount = bookings.filter(b => b.status === 'Confirmed').length;
+  const completedCount = bookings.filter(b => b.status === 'Completed').length;
+  const totalRevenue = bookings.filter(b => b.status !== 'Cancelled').reduce((s,b) => s+(b.totalPrice||0),0);
+
+  // ── Actions ───────────────────────────────────────────────
+  const handleDayClick = (ds) => {
+    setSelectedDate(ds);
+    if (!byDate[ds]) {
+      setNewEvent(p => ({ ...p, eventDate: ds }));
+      setAddModal(true);
     }
-    setShowAddModal(true);
   };
 
   const handleAddEvent = async () => {
-    if (newEvent.isExisting) {
-        setShowAddModal(false);
-        return;
+    if (!newEvent.customerName || !newEvent.eventDate || !newEvent.location) {
+      showToast('Please fill required fields', 'err');
+      return;
     }
-
-    if (!newEvent.customerName || !newEvent.eventDate) {
-        alert('Please fill in Customer Name and Date');
-        return;
-    }
-
     try {
-        setIsSubmitting(true);
-        const token = localStorage.getItem('vendorToken');
-        const res = await vendorApi.createBooking({
-            customerName: newEvent.customerName,
-            eventDate: newEvent.eventDate,
-            location: newEvent.location,
-            services: ['Manual Calendar Entry'],
-            status: 'Confirmed'
-        }, token);
-
-        if (res.success) {
-            await fetchBookings();
-            setShowAddModal(false);
-            setNewEvent({ customerName: '', eventDate: '', location: '' });
-        }
-    } catch (err) {
-        console.error('Failed to save event:', err);
-    } finally {
-        setIsSubmitting(false);
-    }
+      setIsSubmitting(true);
+      const token = localStorage.getItem('vendorToken');
+      const res = await vendorApi.createBooking({
+        customerName: newEvent.customerName,
+        eventDate: newEvent.eventDate,
+        location: newEvent.location,
+        services: [newEvent.eventType],
+        eventType: newEvent.eventType,
+        guestCount: parseInt(newEvent.guestCount) || 0,
+        totalAmount: parseFloat(newEvent.totalAmount) || 0,
+        notes: newEvent.notes,
+        status: 'Confirmed'
+      }, token);
+      if (res.success) {
+        await fetchBookings();
+        setAddModal(false);
+        setSelectedDate(newEvent.eventDate);
+        setNewEvent({ customerName:'', eventDate:'', location:'', eventType:'Wedding', guestCount:'', totalAmount:'', notes:'' });
+        showToast('Event added!');
+      } else {
+        showToast(res.message || 'Failed', 'err');
+      }
+    } catch (_) { showToast('Network error', 'err'); }
+    finally { setIsSubmitting(false); }
   };
 
-  if (loading) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-        <div className="animate-spin h-8 w-8 border-4 border-rose-400 border-t-transparent rounded-full"></div>
-        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Loading Calendar...</p>
-      </div>
-    );
-  }
+  const handleStatusChange = async (id, status) => {
+    try {
+      const token = localStorage.getItem('vendorToken');
+      const res = await vendorApi.updateBookingStatus(id, status, token);
+      if (res.success) { await fetchBookings(); showToast(`Marked ${status}`); }
+    } catch (_) { showToast('Update failed', 'err'); }
+  };
 
+  // ── Loading ───────────────────────────────────────────────
+  if (loading) return (
+    <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+      <div className="animate-spin h-8 w-8 border-4 border-[#7C3AED] border-t-transparent rounded-full" />
+      <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Loading Calendar...</p>
+    </div>
+  );
+
+  /* ── Render ─────────────────────────────────────────────── */
   return (
-    <div className="space-y-3 sm:space-y-4 max-w-7xl mx-auto animate-in fade-in duration-500 pb-20 sm:pb-0">
-      
-      {/* Header */}
-      <div className="vendor-surface rounded-xl p-3.5 sm:p-5 relative overflow-hidden bg-white border border-slate-100 shadow-sm">
-        <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full opacity-5 bg-[#7c3aed]"></div>
+    <div className="pb-24 space-y-3">
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+        .cal { font-family: 'Inter', system-ui, sans-serif; }
+        @keyframes calUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+        .cal-in { animation: calUp 0.35s cubic-bezier(0.16,1,0.3,1) both; }
+        @keyframes modalUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+        .modal-in { animation: modalUp 0.3s cubic-bezier(0.34,1.2,0.64,1) both; }
+        .day-btn { transition: all 0.15s; }
+        .day-btn:active { transform: scale(0.88); }
+        .no-scroll::-webkit-scrollbar{display:none}
+        .no-scroll{-ms-overflow-style:none;scrollbar-width:none}
+      `}</style>
+
+      {/* ── Purple Gradient Hero Header ──────────────────── */}
+      <div className="cal cal-in relative overflow-hidden rounded-2xl px-4 py-4"
+        style={{ background: 'linear-gradient(135deg, #7C3AED 0%, #9333EA 55%, #6D28D9 100%)' }}>
+        {/* Decorative blobs */}
+        <div className="absolute -top-8 -right-8 w-24 h-24 rounded-full opacity-20 bg-white" />
+        <div className="absolute bottom-0 left-8 w-14 h-14 rounded-full opacity-10 bg-white" />
+        <div className="absolute top-2 right-16 w-8 h-8 rounded-full opacity-15 bg-white" />
         <div className="relative z-10 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-             <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed] shadow-sm">
-                <Icon name="calendar" size="xs" />
-             </div>
-             <div>
-                <p className="text-[8px] font-black uppercase tracking-[0.2em] text-slate-400">Timeline</p>
-                <h2 className="text-lg font-black text-slate-900 tracking-tight leading-none mt-0.5">Event Schedule</h2>
-             </div>
+          <div>
+            <p className="cal text-[8px] font-black uppercase tracking-[0.22em] text-purple-200 mb-0.5">Vendor Portal</p>
+            <h1 className="cal text-[17px] font-black text-white tracking-tight leading-tight">Event Schedule</h1>
+            <p className="cal text-[9px] font-semibold text-purple-200 mt-0.5">
+              {vendorName} · {MONTHS[month]} {year}
+            </p>
           </div>
-          <button 
-            onClick={() => {
-                setNewEvent({ customerName: '', eventDate: '', location: '', isExisting: false });
-                setShowAddModal(true);
-            }}
-            className="h-9 w-9 rounded-xl flex items-center justify-center text-white shadow-lg active:scale-90 transition-all"
-            style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
-          >
-             <Icon name="plus" size="xs" />
-          </button>
+          <div className="flex flex-col items-end gap-2">
+            {/* View Toggle */}
+            <div className="flex items-center bg-white/15 backdrop-blur-sm rounded-xl p-0.5 gap-0.5">
+              {['Month','Week','Day'].map(v => (
+                <button key={v} onClick={() => setCalView(v)}
+                  className="px-2 py-1 rounded-lg text-[8px] font-bold transition-all"
+                  style={{
+                    background: calView === v ? 'rgba(255,255,255,0.95)' : 'transparent',
+                    color: calView === v ? '#7C3AED' : 'rgba(255,255,255,0.85)'
+                  }}>
+                  {v}
+                </button>
+              ))}
+            </div>
+            {/* Add Event pill */}
+            <button
+              onClick={() => { setNewEvent(p => ({...p, eventDate: todayDs})); setAddModal(true); }}
+              className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-white text-[#7C3AED] text-[8px] font-black uppercase tracking-wide shadow-lg active:scale-95 transition-all">
+              <Icon name="plus" size="xs" className="w-2.5 h-2.5" /> Add Event
+            </button>
+          </div>
+        </div>
+        {/* Mini KPI strip */}
+        <div className="relative z-10 flex items-center gap-2 mt-3 pt-3 border-t border-white/15">
+          {[
+            { label: 'Total', value: totalEvents },
+            { label: 'Upcoming', value: confirmedCount },
+            { label: 'Done', value: completedCount },
+            { label: 'Revenue', value: fmtBudget(totalRevenue) || '₹0' },
+          ].map((s,i) => (
+            <div key={i} className="flex-1 text-center">
+              <p className="cal text-[13px] font-black text-white leading-none">{s.value}</p>
+              <p className="cal text-[7px] font-semibold text-purple-200 mt-0.5 uppercase tracking-wide">{s.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[380px_1fr]">
-        
-        {/* Calendar Card */}
-        <div className="vendor-surface rounded-2xl p-4 sm:p-5 bg-white border border-slate-100 shadow-sm flex flex-col w-full h-fit">
-           <div className="flex items-center justify-between mb-4">
-              <h3 className="text-[13px] font-black text-slate-900 uppercase tracking-tighter">
-                 {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
-              </h3>
-              <div className="flex gap-1">
-                 <button onClick={handlePrev} className="h-7 w-7 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-all text-slate-400">
-                    <Icon name="chevron-down" className="rotate-90" size="xs" />
-                 </button>
-                 <button onClick={handleNext} className="h-7 w-7 rounded-lg bg-slate-50 flex items-center justify-center hover:bg-slate-100 transition-all text-slate-400">
-                    <Icon name="chevron-down" className="-rotate-90" size="xs" />
-                 </button>
-              </div>
-           </div>
+      {/* ── Main Calendar + Details Card ─────────────────── */}
+      <div className="cal-in bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden" style={{ animationDelay: '60ms' }}>
 
-           <div className="grid grid-cols-7 gap-1 mb-1.5">
-              {['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'].map(day => (
-                <div key={day} className="h-7 flex items-center justify-center text-[8px] font-black text-slate-300">
-                   {day}
+        {/* Split Layout */}
+        <div className="flex flex-col">
+
+          {/* ── Calendar Panel ───────────────────────────── */}
+          <div className="p-1">
+            {/* Month nav */}
+            <div className="flex items-center justify-between mb-4">
+              <button
+                className="flex items-center gap-1.5 text-[13px] font-bold text-slate-800 hover:text-[#7C3AED] transition-colors"
+                onClick={() => {}}>
+                {MONTHS[month]} {year}
+                <Icon name="chevronDown" size="xs" className="w-3.5 h-3.5 text-slate-400" />
+              </button>
+              <div className="flex items-center gap-1">
+                <button onClick={() => setCurrentDate(new Date(year, month-1, 1))}
+                  className="h-7 w-7 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90">
+                  <Icon name="chevronLeft" size="xs" className="w-3.5 h-3.5 text-slate-500" />
+                </button>
+                <button onClick={() => setCurrentDate(new Date(year, month+1, 1))}
+                  className="h-7 w-7 rounded-lg flex items-center justify-center hover:bg-slate-100 transition-all active:scale-90">
+                  <Icon name="chevronRight" size="xs" className="w-3.5 h-3.5 text-slate-500" />
+                </button>
+              </div>
+            </div>
+
+            {/* Day headers — colourful */}
+            <div className="grid grid-cols-7 mb-2 rounded-xl overflow-hidden" style={{ background: 'linear-gradient(90deg,#F0EEFF,#FAF5FF)' }}>
+              {DAYS.map((d,di) => (
+                <div key={d} className="flex items-center justify-center h-7">
+                  <span className="cal text-[8px] font-extrabold" style={{ color: di === 0 || di === 6 ? '#7C3AED' : '#64748B' }}>{d}</span>
                 </div>
               ))}
-           </div>
+            </div>
 
-           <div className="grid grid-cols-7 gap-1">
-              {[...Array(adjustedStartDay)].map((_, i) => <div key={`off-${i}`} className="h-9"></div>)}
-              
-              {[...Array(daysInMonth(currentDate.getMonth(), currentDate.getFullYear()))].map((_, i) => {
-                const day = i + 1;
-                const d = new Date(currentDate.getFullYear(), currentDate.getMonth(), day);
-                const dateStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-                
-                const hasEvent = bookings.some(b => {
-                    const bd = new Date(b.eventDate);
-                    return bd.getFullYear() === currentDate.getFullYear() && 
-                           bd.getMonth() === currentDate.getMonth() && 
-                           bd.getDate() === day;
-                });
+            {/* Calendar cells */}
+            <div className="grid grid-cols-7 gap-y-0.5">
 
-                const isSelected = selectedDate === dateStr;
-                const isToday = day === new Date().getDate() && currentDate.getMonth() === new Date().getMonth() && currentDate.getFullYear() === new Date().getFullYear();
-
+              {/* Prev month fade cells */}
+              {[...Array(startDow)].map((_, i) => {
+                const dayNum = prevDaysInMonth - startDow + 1 + i;
                 return (
-                  <div key={day} className="relative flex justify-center items-center h-9">
-                    <button 
-                      onClick={() => handleDayClick(day)}
-                      className={`h-8 w-8 flex items-center justify-center rounded-xl text-[10px] font-black transition-all border ${
-                        isSelected 
-                          ? 'bg-[#7c3aed] text-white border-[#7c3aed] shadow-lg shadow-rose-100 scale-105' 
-                          : isToday 
-                            ? 'bg-slate-100 text-[#7c3aed] border-slate-200'
-                            : 'bg-white text-slate-600 border-transparent hover:bg-slate-50 hover:text-[#7c3aed]'
-                      }`}
-                    >
-                       {day}
-                       {hasEvent && !isSelected && (
-                         <div className="absolute top-1 right-1 h-1 w-1 rounded-full bg-emerald-500 border border-white"></div>
-                       )}
-                    </button>
+                  <div key={`prev-${i}`} className="h-9 flex flex-col items-center justify-start pt-1.5">
+                    <span className="cal text-[10px] font-medium text-slate-200">{dayNum}</span>
                   </div>
                 );
               })}
-           </div>
 
-           <div className="mt-6 pt-4 border-t border-slate-50 flex items-center gap-2">
-              <button 
-                onClick={() => {
-                    setNewEvent({ customerName: '', eventDate: '', location: '', isExisting: false });
-                    setShowAddModal(true);
-                }}
-                className="flex-1 text-white h-10 rounded-xl text-[9px] font-black uppercase tracking-widest shadow-lg shadow-rose-100 active:scale-95 transition-all"
-                style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
-              >
-                 Add Event
-              </button>
-              <button onClick={fetchBookings} className="h-10 w-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-[#7c3aed] transition-all"><Icon name="clock" size="xs" /></button>
-           </div>
-        </div>
+              {/* Current month cells */}
+              {[...Array(daysInMonth)].map((_, i) => {
+                const day = i + 1;
+                const ds  = toDs(year, month, day);
+                const events = byDate[ds] || [];
+                const isToday    = ds === todayDs;
+                const isSelected = ds === selectedDate;
+                const hasEvents  = events.length > 0;
 
-        {/* Schedule View */}
-        <div className="space-y-3">
-           <div className="flex items-center justify-between px-1">
-              <h3 className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Schedule Overview</h3>
-           </div>
-           
-           <div className="space-y-2">
-             {bookings.length > 0 ? (
-                [...bookings].sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate)).map((booking, index) => (
-                  <div key={booking._id || index} className="vendor-surface rounded-2xl p-3 bg-white border border-slate-100 shadow-sm transition-all hover:translate-x-1">
-                    <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center gap-2.5">
-                           <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed] border border-white shadow-sm">
-                              <Icon name="party" size="xs" />
-                           </div>
-                           <div>
-                              <h4 className="text-[11px] font-black text-slate-900 tracking-tight leading-none">{booking.customerName}</h4>
-                              <p className={`text-[8px] font-black mt-1 uppercase tracking-widest ${booking.status === 'Confirmed' ? 'text-emerald-500' : 'text-amber-500'}`}>{booking.status}</p>
-                           </div>
-                        </div>
-                        <span className="text-[8px] font-black text-slate-300 uppercase tracking-widest">
-                            {new Date(booking.eventDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
-                        </span>
-                    </div>
-                    <div className="flex items-center gap-3 pt-2 border-t border-slate-50">
-                      <p className="text-[9px] font-bold text-slate-400 flex items-center gap-2 truncate">
-                          <Icon name="map" size="xs" /> {booking.location || 'Venue TBD'}
-                      </p>
-                    </div>
+                return (
+                  <div key={day} className="h-9 flex flex-col items-center justify-start pt-1">
+                    <button
+                      className="day-btn h-7 w-7 rounded-full flex flex-col items-center justify-center relative"
+                      onClick={() => handleDayClick(ds)}
+                      style={{
+                        background: isSelected
+                          ? 'linear-gradient(135deg,#7C3AED,#9333EA)'
+                          : isToday
+                          ? '#F0EEFF'
+                          : hasEvents ? 'rgba(124,58,237,0.06)' : 'transparent',
+                        boxShadow: isSelected ? '0 2px 8px rgba(124,58,237,0.35)' : 'none',
+                      }}>
+                      <span className="cal text-[10px] font-extrabold leading-none" style={{ color: isSelected ? '#fff' : isToday ? '#7C3AED' : hasEvents ? '#6D28D9' : '#000' }}>
+                        {day}
+                      </span>
+                    </button>
+                    {/* Event dots row */}
+                    {hasEvents && (
+                      <div className="flex items-center gap-px mt-0.5">
+                        {events.slice(0, 3).map((ev, ei) => (
+                          <div key={ei} className="h-1.5 w-1.5 rounded-full"
+                            style={{ background: isSelected ? 'rgba(255,255,255,0.9)' : getColor(ev.eventType || ev.services?.[0]),
+                              boxShadow: `0 0 3px ${getColor(ev.eventType || ev.services?.[0])}88` }} />
+                        ))}
+                      </div>
+                    )}
                   </div>
-                ))
-             ) : (
-                <div className="vendor-surface rounded-2xl p-8 text-center bg-white border border-dashed border-slate-100">
-                   <p className="text-[8px] font-black text-slate-300 uppercase tracking-widest">No Events Found</p>
-                </div>
-             )}
-           </div>
-        </div>
+                );
+              })}
 
+              {/* Next month fade cells */}
+              {(() => {
+                const total = startDow + daysInMonth;
+                const remainder = total % 7 === 0 ? 0 : 7 - (total % 7);
+                return [...Array(remainder)].map((_, i) => (
+                  <div key={`next-${i}`} className="h-9 flex flex-col items-center justify-start pt-1.5">
+                    <span className="cal text-[10px] font-medium text-slate-200">{i + 1}</span>
+                  </div>
+                ));
+              })()}
+            </div>
+
+            {/* Legend */}
+            <div className="mt-3 pt-3 border-t border-slate-50 flex flex-wrap gap-x-3 gap-y-1.5">
+              {EVENT_TYPES.map(et => (
+                <div key={et.id} className="flex items-center gap-1">
+                  <div className="h-2 w-2 rounded-full" style={{ background: et.color }} />
+                  <span className="cal text-[8px] font-semibold text-black">{et.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* ── Selected Event Details ────────────────────── */}
+          <div className="border-t-2 p-4" style={{ borderColor: selectedEvent ? getColor(selectedEvent.eventType || selectedEvent.services?.[0]) : '#F1F5F9' }}>
+            {/* Details header accent */}
+            {selectedEvent && (
+              <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-50">
+                <div className="h-1 flex-1 rounded-full" style={{ background: `linear-gradient(90deg, ${getColor(selectedEvent.eventType || selectedEvent.services?.[0])}, transparent)` }} />
+                <span className="cal text-[7.5px] font-black uppercase tracking-widest" style={{ color: getColor(selectedEvent.eventType || selectedEvent.services?.[0]) }}>
+                  {selectedDate ? new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'short'}) : ''}
+                </span>
+                <div className="h-1 flex-1 rounded-full" style={{ background: `linear-gradient(270deg, ${getColor(selectedEvent.eventType || selectedEvent.services?.[0])}, transparent)` }} />
+              </div>
+            )}
+            {selectedEvent ? (
+              <div className="cal-in space-y-3">
+                {/* Status badge + Title */}
+                <div>
+                  <span className="inline-block px-2 py-0.5 rounded-full text-[8px] font-bold uppercase tracking-wide mb-2"
+                    style={{
+                      background: STATUS_CONFIG[selectedEvent.status]?.bg || '#F0EEFF',
+                      color: STATUS_CONFIG[selectedEvent.status]?.text || '#7C3AED'
+                    }}>
+                    {STATUS_CONFIG[selectedEvent.status]?.label || selectedEvent.status}
+                  </span>
+                  <h3 className="cal text-[14px] font-extrabold text-slate-900 leading-tight">
+                    {selectedEvent.customerName}
+                    {selectedEvents.length > 1 && (
+                      <span className="ml-1.5 text-[9px] font-bold text-slate-400">+{selectedEvents.length - 1} more</span>
+                    )}
+                  </h3>
+                </div>
+
+                {/* Detail rows */}
+                <div className="space-y-2">
+                  <DetailRow icon="calendar" text={fmtEventDate(selectedEvent.eventDate)} />
+                  <DetailRow icon="clock"    text={fmtTime(selectedEvent.eventDate)} />
+                  <DetailRow icon="location" text={selectedEvent.location || 'Venue TBD'} />
+                  {selectedEvent.guestCount > 0 && (
+                    <DetailRow icon="users"  text={`${selectedEvent.guestCount} – ${Math.round(selectedEvent.guestCount * 1.1)} Guests`} />
+                  )}
+                  {selectedEvent.totalPrice > 0 && (
+                    <DetailRow icon="money"  text={fmtBudget(selectedEvent.totalPrice)} />
+                  )}
+                  {selectedEvent.eventType && (
+                    <div className="flex items-center gap-2.5">
+                      <div className="h-4 w-4 rounded-full flex items-center justify-center shrink-0"
+                        style={{ background: getColor(selectedEvent.eventType) + '20' }}>
+                        <div className="h-1.5 w-1.5 rounded-full" style={{ background: getColor(selectedEvent.eventType) }} />
+                      </div>
+                      <span className="cal text-[11px] font-semibold text-slate-700">{selectedEvent.eventType} Event</span>
+                    </div>
+                  )}
+                  {selectedEvent.notes && (
+                    <div className="bg-slate-50 rounded-xl p-2.5 border border-slate-100">
+                      <p className="cal text-[9px] font-extrabold text-slate-400 uppercase tracking-widest mb-1">Notes</p>
+                      <p className="cal text-[10px] font-medium text-slate-600 leading-relaxed">{selectedEvent.notes}</p>
+                    </div>
+                  )}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="space-y-2 pt-1">
+                  <button
+                    className="w-full h-10 rounded-xl flex items-center justify-center gap-2 text-[10px] font-bold text-white transition-all active:scale-95"
+                    style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)' }}
+                    onClick={() => { setViewDetailsModal(true); }}>
+                    View Details
+                    <Icon name="arrow" size="xs" className="w-3 h-3" />
+                  </button>
+                  {selectedEvent.status === 'Confirmed' && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <button onClick={() => handleStatusChange(selectedEvent._id, 'Completed')}
+                        className="h-8 rounded-xl bg-emerald-50 text-emerald-600 text-[8.5px] font-bold border border-emerald-100 active:scale-95 transition-all">
+                        ✓ Done
+                      </button>
+                      <button onClick={() => handleStatusChange(selectedEvent._id, 'Cancelled')}
+                        className="h-8 rounded-xl bg-rose-50 text-rose-500 text-[8.5px] font-bold border border-rose-100 active:scale-95 transition-all">
+                        ✕ Cancel
+                      </button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              /* No event on selected date */
+              <div className="py-4 flex flex-col items-center text-center gap-2">
+                <div className="h-10 w-10 rounded-2xl bg-slate-50 flex items-center justify-center border border-slate-100">
+                  <Icon name="calendar" size="sm" className="text-slate-300" />
+                </div>
+                <div>
+                  <p className="cal text-[10px] font-bold text-slate-500">
+                    {selectedDate
+                      ? `No events on ${new Date(selectedDate + 'T00:00:00').toLocaleDateString('en-IN', { day:'numeric', month:'short' })}`
+                      : 'Select a date'}
+                  </p>
+                  <p className="cal text-[8.5px] text-slate-400 mt-0.5">Tap any date to view or add events</p>
+                </div>
+                <button
+                  onClick={() => { setNewEvent(p => ({...p, eventDate: selectedDate || todayDs})); setAddModal(true); }}
+                  className="mt-1 px-4 py-1.5 rounded-full text-[8.5px] font-bold text-white active:scale-95 transition-all"
+                  style={{ background: '#7C3AED' }}>
+                  + Add Event
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      {/* Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3">
-           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={() => setShowAddModal(false)}></div>
-           <div className="bg-white rounded-[2rem] p-5 sm:p-6 max-w-[340px] w-full relative z-[110] shadow-2xl animate-in fade-in zoom-in-95 duration-300 border border-white">
-              <div className="flex items-center gap-3 mb-4">
-                 <div className="h-8 w-8 rounded-xl bg-slate-50 flex items-center justify-center text-[#7c3aed]">
-                    <Icon name="calendar" size="xs" />
-                 </div>
-                 <div>
-                    <h3 className="text-base font-black text-slate-900 tracking-tight leading-none">
-                        {newEvent.isExisting ? 'Event Details' : 'Add New Event'}
-                    </h3>
-                    <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                        {newEvent.isExisting ? 'Snapshot of scheduled booking' : 'Schedule a manual entry'}
-                    </p>
-                 </div>
-              </div>
-              
-              <div className="space-y-3">
-                 <div className="space-y-1">
-                    <label className="text-[8px] font-black text-slate-400 uppercase px-1">Customer Name</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. Rahul Sharma"
-                      readOnly={newEvent.isExisting}
-                      value={newEvent.customerName}
-                      onChange={(e) => setNewEvent({ ...newEvent, customerName: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
-                    />
-                 </div>
-                 <div className="space-y-1">
-                    <label className="text-[8px] font-black text-slate-400 uppercase px-1">Location</label>
-                    <input 
-                      type="text" 
-                      placeholder="e.g. Mumbai, Taj Mahal Hotel"
-                      readOnly={newEvent.isExisting}
-                      value={newEvent.location}
-                      onChange={(e) => setNewEvent({ ...newEvent, location: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
-                    />
-                 </div>
-                 <div className="space-y-1">
-                    <label className="text-[8px] font-black text-slate-400 uppercase px-1">Event Date</label>
-                    <input 
-                      type="date" 
-                      readOnly={newEvent.isExisting}
-                      value={newEvent.eventDate}
-                      onChange={(e) => setNewEvent({ ...newEvent, eventDate: e.target.value })}
-                      className={`w-full h-10 rounded-xl bg-slate-50 border-0 px-4 text-xs font-bold transition-all ${newEvent.isExisting ? 'opacity-70' : 'focus:ring-2 ring-[#7c3aed]/10'}`} 
-                    />
-                 </div>
+      {/* ── Stats Row ─────────────────────────────────────── */}
+      <div className="cal-in grid grid-cols-4 gap-2" style={{ animationDelay: '80ms' }}>
+        {[
+          { label: 'Total', value: totalEvents, color: '#7C3AED', bg: '#F0EEFF' },
+          { label: 'Upcoming', value: confirmedCount, color: '#2563EB', bg: '#EFF6FF' },
+          { label: 'Done', value: completedCount, color: '#059669', bg: '#ECFDF5' },
+          { label: 'Revenue', value: fmtBudget(totalRevenue) || '₹0', color: '#F59E0B', bg: '#FFFBEB', small: true },
+        ].map((s, i) => (
+          <div key={i} className="bg-white rounded-xl border border-slate-100 p-2.5 flex flex-col gap-1 shadow-sm"
+            style={{ borderLeftWidth: 3, borderLeftColor: s.color }}>
+            <p className="cal text-[13px] font-extrabold leading-none" style={{ color: s.color, fontSize: s.small ? '10px' : undefined }}>{s.value}</p>
+            <p className="cal text-[7px] font-semibold text-slate-400 uppercase tracking-wide">{s.label}</p>
+          </div>
+        ))}
+      </div>
 
-                 <button 
-                   onClick={handleAddEvent}
-                   disabled={isSubmitting}
-                   className={`w-full h-11 rounded-xl text-white font-black uppercase text-[10px] tracking-widest shadow-xl shadow-rose-100 active:scale-95 transition-all mt-3 flex items-center justify-center ${isSubmitting ? 'opacity-50 grayscale' : ''}`}
-                   style={{ background: 'linear-gradient(135deg, #7c3aed, #5b21b6)' }}
-                 >
-                   {isSubmitting ? 'Saving...' : (newEvent.isExisting ? 'Close Details' : 'Save Event')}
-                 </button>
-              </div>
-           </div>
+      {/* ── Upcoming Events Section ─────────────────────── */}
+      {upcomingEvents.length > 0 && (
+        <div className="cal-in" style={{ animationDelay: '100ms' }}>
+          <div className="flex items-center justify-between px-0.5 mb-2">
+            <h2 className="cal text-[12px] font-extrabold text-black">Upcoming Events</h2>
+            <span className="cal text-[8.5px] font-bold text-[#7C3AED]">View All</span>
+          </div>
+          <div className="flex gap-2.5 overflow-x-auto no-scroll pb-1 px-2">
+            {upcomingEvents.slice(0, 6).map((b, i) => {
+              const evColor = getColor(b.eventType || b.services?.[0]);
+              return (
+                <div key={b._id || i}
+                  className="cal-in shrink-0 w-[96px] bg-white rounded-xl border border-slate-200 shadow-md overflow-hidden cursor-pointer hover:shadow-lg transition-all active:scale-95 mx-1"
+                  style={{ animationDelay: `${i * 50}ms` }}
+                  onClick={() => {
+                    const dt = new Date(b.eventDate);
+                    setSelectedDate(toDs(dt.getFullYear(), dt.getMonth(), dt.getDate()));
+                  }}>
+                  {/* Image placeholder / color bar */}
+                                      <div className="h-[60px] relative overflow-hidden rounded-t-md"
+                    style={{ background: `linear-gradient(135deg, ${evColor}22, ${evColor}44)` }}>
+                    {/* decorative circles */}
+                    <div className="absolute -top-4 -right-4 w-14 h-14 rounded-full opacity-30"
+                      style={{ background: evColor }} />
+                    <div className="absolute bottom-1 left-2">
+                      <div className="h-5 w-5 rounded-full border-2 border-white bg-slate-200 overflow-hidden" />
+                    </div>
+                    <div className="absolute top-2 right-2">
+                      <span className="text-[6px] font-black uppercase px-1.5 py-0.5 rounded-full text-white"
+                        style={{ background: evColor }}>
+                        {b.eventType || 'Event'}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-1.5">
+                    <h4 className="cal text-[9px] font-extrabold text-black truncate leading-tight">{b.customerName}</h4>
+                    <div className="flex items-center gap-1 mt-1">
+                      <div className="h-1.5 w-1.5 rounded-full" style={{ background: evColor }} />
+                      <span className="cal text-[7.5px] font-semibold text-black">{b.eventType || 'Event'}</span>
+                    </div>
+                    <p className="cal text-[7.5px] font-semibold text-slate-400 mt-1">
+                      {new Date(b.eventDate).toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' })}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
+
+      {/* ── All Events Schedule List ─────────────────────── */}
+      <div className="cal-in" style={{ animationDelay: '120ms' }}>
+        <div className="flex items-center justify-between px-0.5 mb-2">
+          <h2 className="cal text-[12px] font-extrabold text-black">All Events</h2>
+          <button onClick={() => { setNewEvent(p=>({...p, eventDate: todayDs})); setAddModal(true); }}
+            className="flex items-center gap-1 px-2.5 py-1 rounded-full text-white text-[8px] font-bold active:scale-95 transition-all"
+            style={{ background: '#7C3AED' }}>
+            <Icon name="plus" size="xs" className="w-2.5 h-2.5" /> Add
+          </button>
+        </div>
+
+        {bookings.length === 0 ? (
+          <div className="py-8 flex flex-col items-center bg-white rounded-2xl border border-dashed border-slate-200">
+            <Icon name="calendar" size="md" className="text-slate-200 mb-2" />
+            <p className="cal text-[9px] font-bold text-slate-400 uppercase tracking-widest">No Events Yet</p>
+            <button onClick={() => setAddModal(true)}
+              className="mt-3 px-4 py-1.5 rounded-full text-white text-[8.5px] font-bold"
+              style={{ background: '#7C3AED' }}>
+              + Add First Event
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            {[...bookings].sort((a,b) => new Date(a.eventDate) - new Date(b.eventDate)).map((b, i) => {
+              const evColor = getColor(b.eventType || b.services?.[0]);
+              const st = STATUS_CONFIG[b.status] || STATUS_CONFIG.Confirmed;
+              const dt = new Date(b.eventDate);
+              const dsKey = toDs(dt.getFullYear(), dt.getMonth(), dt.getDate());
+              return (
+                <div key={b._id || i}
+                  className="cal-in bg-white rounded-2xl border border-slate-100 shadow-sm flex items-center gap-3 p-3 cursor-pointer hover:border-violet-200 transition-all active:scale-[0.99]"
+                  style={{ animationDelay: `${i * 35}ms` }}
+                  onClick={() => { setSelectedDate(dsKey); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>
+                  {/* Color accent */}
+                  <div className="shrink-0 w-1 h-10 rounded-full" style={{ background: evColor }} />
+
+                  {/* Date block */}
+                  <div className="shrink-0 w-10 text-center">
+                    <p className="cal text-[16px] font-extrabold leading-none" style={{ color: evColor }}>
+                      {dt.getDate()}
+                    </p>
+                    <p className="cal text-[8px] font-semibold text-slate-400">
+                      {MONTHS[dt.getMonth()].slice(0,3)}
+                    </p>
+                  </div>
+
+                  {/* Info */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-1">
+                      <h4 className="cal text-[8px] font-extrabold text-black truncate leading-tight">{b.customerName}</h4>
+                      <span className="shrink-0 px-1.5 py-0.5 rounded-full text-[7px] font-bold uppercase"
+                        style={{ background: st.bg, color: st.text }}>
+                        {b.status}
+                      </span>
+                    </div>
+                    <p className="cal text-[8px] font-semibold text-slate-400 flex items-center gap-1 mt-0.5 truncate">
+                      <Icon name="location" size="xs" className="w-2 h-2 text-slate-300 shrink-0" />
+                      {b.location || 'Venue TBD'}
+                    </p>
+                    <div className="flex items-center gap-2 mt-1.5">
+                      <span className="px-1.5 py-0.5 rounded-full text-[7px] font-bold"
+                        style={{ background: evColor + '18', color: evColor }}>
+                        {b.eventType || b.services?.[0] || 'Event'}
+                      </span>
+                      {b.guestCount > 0 && (
+                        <span className="cal text-[7px] font-semibold text-black">👥 {b.guestCount}</span>
+                      )}
+                      {b.totalPrice > 0 && (
+                        <span className="cal text-[7.5px] font-bold text-[#7C3AED]">{fmtBudget(b.totalPrice)}</span>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* ── Add Event Modal ──────────────────────────────── */}
+      {addModal && (
+        <div className="fixed inset-0 z-[130] flex items-end justify-center">
+          <div className="absolute inset-0 bg-slate-900/55 backdrop-blur-sm" onClick={() => setAddModal(false)} />
+          <div className="relative w-full max-w-md bg-white rounded-t-3xl shadow-2xl modal-in max-h-[92vh] flex flex-col z-[140] overflow-hidden">
+
+            <div className="flex items-center justify-between px-5 pt-5 pb-3 border-b border-slate-100 shrink-0">
+              <div>
+                <h3 className="cal text-[14px] font-extrabold text-slate-900">Add New Event</h3>
+                <p className="cal text-[8.5px] font-medium text-slate-400 mt-0.5">Schedule an event in your calendar</p>
+              </div>
+              <button onClick={() => setAddModal(false)}
+                className="h-7 w-7 rounded-full bg-slate-100 flex items-center justify-center active:scale-90 transition-all">
+                <Icon name="close" size="xs" className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto no-scroll flex-1 p-5">
+              <form className="space-y-3" onSubmit={e => { e.preventDefault(); handleAddEvent(); }}>
+
+                <MField label="Customer / Client Name" required>
+                  <input type="text" required placeholder="e.g. Rahul & Sneha Wedding"
+                    value={newEvent.customerName}
+                    onChange={e => setNewEvent(p => ({...p, customerName: e.target.value}))}
+                    className="field" />
+                </MField>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <MField label="Event Date" required>
+                    <input type="date"
+                      value={newEvent.eventDate}
+                      onChange={e => setNewEvent(p => ({...p, eventDate: e.target.value}))}
+                      className="field" />
+                  </MField>
+                  <MField label="Event Type">
+                    <select value={newEvent.eventType}
+                      onChange={e => setNewEvent(p => ({...p, eventType: e.target.value}))}
+                      className="field appearance-none">
+                      {EVENT_TYPES.map(et => <option key={et.id} value={et.id}>{et.label}</option>)}
+                    </select>
+                  </MField>
+                </div>
+
+                <MField label="Venue / Location" required>
+                  <input type="text" required placeholder="e.g. The Leela Palace, Delhi"
+                    value={newEvent.location}
+                    onChange={e => setNewEvent(p => ({...p, location: e.target.value}))}
+                    className="field" />
+                </MField>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <MField label="Guest Count">
+                    <input type="number" placeholder="e.g. 300"
+                      value={newEvent.guestCount}
+                      onChange={e => setNewEvent(p => ({...p, guestCount: e.target.value}))}
+                      className="field" />
+                  </MField>
+                  <MField label="Budget (₹)">
+                    <input type="number" placeholder="e.g. 450000"
+                      value={newEvent.totalAmount}
+                      onChange={e => setNewEvent(p => ({...p, totalAmount: e.target.value}))}
+                      className="field" />
+                  </MField>
+                </div>
+
+                <MField label="Notes (optional)">
+                  <textarea placeholder="Royal Floral Theme, special requests..."
+                    value={newEvent.notes}
+                    onChange={e => setNewEvent(p => ({...p, notes: e.target.value}))}
+                    rows={2} className="field resize-none" />
+                </MField>
+
+                <style>{`
+                  .field {
+                    width:100%; height:40px; padding:0 12px;
+                    background:#F8FAFC; border:1.5px solid #E2E8F0;
+                    border-radius:12px; font-size:11px; font-weight:600;
+                    color:#1E293B; font-family:'Inter',sans-serif;
+                    outline:none; transition:all 0.15s;
+                  }
+                  textarea.field { height:auto; padding:10px 12px; }
+                  .field:focus { border-color:#7C3AED; box-shadow:0 0 0 3px rgba(124,58,237,0.08); }
+                `}</style>
+
+                <button type="submit" disabled={isSubmitting}
+                  className="w-full h-11 rounded-2xl text-white text-[10px] font-extrabold uppercase tracking-widest active:scale-95 transition-all disabled:opacity-50 mt-2"
+                  style={{ background: 'linear-gradient(135deg, #7C3AED, #6D28D9)', boxShadow: '0 4px 16px rgba(124,58,237,0.3)' }}>
+                  {isSubmitting ? 'Saving...' : 'Save Event'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── Toast ───────────────────────────────────────── */}
+      {viewDetailsModal && selectedEvent && (
+          <div className="fixed inset-0 z-[150] flex items-center justify-center">
+            <div className="absolute inset-0 bg-slate-900/55 backdrop-blur-sm" onClick={() => setViewDetailsModal(false)} />
+            <div className="relative bg-white rounded-2xl shadow-2xl max-w-md w-full p-5 z-[160] modal-in">
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="cal text-[14px] font-extrabold text-slate-900">Event Details</h3>
+                <button onClick={() => setViewDetailsModal(false)} className="h-6 w-6 rounded-full bg-slate-100 flex items-center justify-center active:scale-90 transition-all">
+                  <Icon name="close" size="xs" className="w-3 h-3" />
+                </button>
+              </div>
+              <div className="space-y-2">
+                <DetailRow icon="user" text={selectedEvent.customerName} />
+                <DetailRow icon="calendar" text={fmtEventDate(selectedEvent.eventDate)} />
+                <DetailRow icon="clock" text={fmtTime(selectedEvent.eventDate)} />
+                <DetailRow icon="location" text={selectedEvent.location || 'Venue TBD'} />
+                {selectedEvent.eventType && <DetailRow icon="tag" text={`${selectedEvent.eventType} Event`} />}
+                {selectedEvent.notes && <p className="cal text-[9px] font-medium mt-1">{selectedEvent.notes}</p>}
+              </div>
+            </div>
+          </div>
+        )}
+        {toast && (
+          <div className="fixed top-16 left-1/2 -translate-x-1/2 z-[200] px-4 py-2 rounded-full text-white text-[9px] font-bold uppercase tracking-widest shadow-xl flex items-center gap-2 cal-in"
+            style={{ background: toast.type === 'err' ? '#E11D48' : '#7C3AED' }}>
+            <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-pulse" />
+            {toast.msg}
+          </div>
+        )}
     </div>
   );
 };
+
+/* ─── Helper sub-components ─────────────────────────────── */
+const DetailRow = ({ icon, text }) => (
+  <div className="flex items-center gap-2.5">
+    <div className="h-6 w-6 rounded-lg bg-slate-50 border border-slate-100 flex items-center justify-center shrink-0">
+      <Icon name={icon} size="xs" className="w-3 h-3 text-slate-400" />
+    </div>
+    <span className="cal text-[11px] font-semibold text-slate-700 leading-tight">{text}</span>
+  </div>
+);
+
+const MField = ({ label, children, required }) => (
+  <div className="space-y-1">
+    <label className="cal text-[8px] font-bold text-slate-400 uppercase tracking-widest ml-0.5">
+      {label}{required && <span className="text-[#7C3AED] ml-0.5">*</span>}
+    </label>
+    {children}
+  </div>
+);
 
 export default VendorCalendar;

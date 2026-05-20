@@ -74,7 +74,7 @@ const VendorBottomNav = ({ isApproved }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] px-4 pb-2 pointer-events-none">
+    <div className="fixed inset-x-0 bottom-0 z-[100] px-4 pointer-events-none" style={{ bottom: 0, paddingBottom: `calc(env(safe-area-inset-bottom) + 0.5rem)` }}>
       <style>{`
         @keyframes fade-in {
           from { opacity: 0; }
@@ -251,3 +251,6 @@ const VendorBottomNav = ({ isApproved }) => {
 };
 
 export default VendorBottomNav;
+
+// Ensure safe area inset for devices with home indicator
+
