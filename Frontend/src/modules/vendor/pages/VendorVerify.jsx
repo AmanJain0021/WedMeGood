@@ -156,7 +156,7 @@ const VendorVerify = () => {
             className={`vendor-cta rounded-xl sm:rounded-2xl px-6 sm:px-8 py-3 sm:py-4 text-xs sm:text-sm font-semibold tracking-wide w-full md:w-auto transition-all ${(!verification.phoneVerified || !verification.emailVerified) ? 'opacity-50 grayscale cursor-not-allowed' : 'shadow-xl active:scale-95'}`}
             style={verification.phoneVerified && verification.emailVerified ? { boxShadow: '0 8px 30px rgba(124, 58, 237, 0.25)' } : {}}
             onClick={() => {
-              if (verification.phoneVerified && verification.emailVerified) navigate('/vendor/onboarding/business')
+              if (verification.phoneVerified && verification.emailVerified) navigate('/vendor/onboarding/category')
             }}
           >
             Continue to Onboarding

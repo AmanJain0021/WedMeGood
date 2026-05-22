@@ -28,7 +28,7 @@ const VendorRoutes = () => {
         <Route path="register" element={<VendorRegister />} />
         <Route path="login" element={<VendorLogin />} />
         <Route path="verify" element={<VendorVerify />} />
-        <Route path="onboarding" element={<Navigate to="/vendor/onboarding/business" replace />} />
+        <Route path="onboarding" element={<Navigate to="/vendor/onboarding/category" replace />} />
         <Route path="onboarding/:stepId" element={<VendorOnboarding />} />
       </Route>
       <Route element={<VendorLayout />}>

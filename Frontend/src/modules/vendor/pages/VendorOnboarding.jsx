@@ -3,21 +3,40 @@ import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 import { useVendorState } from '../useVendorState';
 import { vendorApi } from '../vendorApi';
+import { adminApi } from '../../admin/services/adminApi';
 
 const steps = [
+  { id: 'category', label: 'Choose Main Category' },
+  { id: 'subcategory', label: 'Choose Subcategory' },
+  { id: 'services', label: 'Select Services' },
   { id: 'business', label: 'Business Details' },
-  { id: 'pricing', label: 'Pricing' },
-  { id: 'portfolio', label: 'Portfolio' },
-  { id: 'documents', label: 'Documents' },
-  { id: 'bank', label: 'Bank Details' },
-  { id: 'subscription', label: 'Subscription' }
+  { id: 'location', label: 'Location & Service Area' },
+  { id: 'portfolio', label: 'Portfolio & Packages' },
+  { id: 'review', label: 'Review & Submit' },
+  { id: 'submitted', label: 'Registration Submitted' }
 ];
+
+const subcategoryOptions = {
+  Photography: ['Photographer', 'Videographer', 'Drone Photography', 'Live Streaming', 'Wedding Reel Creator'],
+  Decoration: ['Stage Decor', 'Floral Decor', 'Lighting', 'Fabric Draping', 'Entrance Decor'],
+  'Beauty & Fashion': ['Bridal Makeup', 'Groom Styling', 'Hair Styling', 'Pre-Wedding Glam', 'Fashion Shoot'],
+  'Catering & Food': ['Buffet Service', 'Dessert Counter', 'Live Kitchen', 'Beverages', 'Custom Cakes'],
+  Entertainment: ['DJ', 'Live Band', 'Dance Group', 'Hosts & MCs', 'Photobooth'],
+  'Event Setup & Rentals': ['Lighting', 'Sound', 'Furniture', 'Tent Setup', 'AV Support'],
+  default: ['Standard Service', 'Premium Service', 'Custom Package', 'Consultation']
+};
+
+const getSubcategories = (mainCategory) => {
+  return subcategoryOptions[mainCategory] || subcategoryOptions.default;
+};
 
 const VendorOnboarding = () => {
   const { stepId } = useParams();
   const navigate = useNavigate();
   const { vendorState, updateVendorState, loading } = useVendorState();
   const currentStepIndex = Math.max(0, steps.findIndex((step) => step.id === stepId));
+  const [categories, setCategories] = useState([]);
+  const [subCategory, setSubCategory] = useState(vendorState.registration?.subCategory || '');
 
   const [toast, setToast] = useState({ show: false, message: '', type: 'info' });
 
@@ -72,14 +91,30 @@ const VendorOnboarding = () => {
   }, []);
 
   useEffect(() => {
-    // Scroll to top on step change
-    window.scrollTo(0, 0);
+    const fetchCats = async () => {
+      try {
+        const res = await adminApi.getCategories();
+        if (res.success) setCategories(res.data);
+      } catch (err) {
+        console.error('Category fetch failed', err);
+      }
+    };
+    fetchCats();
+  }, []);
 
-    // If already subscribed, don't show subscription page
-    if (!loading && vendorState.subscription?.status === 'Active' && stepId === 'subscription') {
-      navigate('/vendor/dashboard');
+  useEffect(() => {
+    if (stepId === 'business' && !vendorState.registration.category) {
+      navigate('/vendor/onboarding/category');
+    } else if (stepId === 'subcategory' && !vendorState.registration.category) {
+      navigate('/vendor/onboarding/category');
+    } else if (stepId === 'services' && !vendorState.registration.subCategory) {
+      navigate('/vendor/onboarding/subcategory');
     }
-  }, [stepId, loading, vendorState.subscription?.status, navigate]);
+  }, [stepId, vendorState.registration.category, vendorState.registration.subCategory, navigate]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [stepId]);
 
   useEffect(() => {
     if (showServiceModal) {
@@ -174,21 +209,22 @@ const VendorOnboarding = () => {
 
   const isStepComplete = (id) => {
     switch (id) {
-      case 'business':
-        const { description, years, teamSize, languages, serviceCities } = vendorState.businessDetails;
-        return description && years && teamSize && languages.some(l => l.trim()) && serviceCities.some(l => l.trim());
+      case 'category':
+        return !!vendorState.registration.category;
+      case 'subcategory':
+        return !!subCategory;
       case 'services':
         return vendorState.services.length > 0;
-      case 'pricing':
-        return !!vendorState.pricing.range;
+      case 'business':
+        const { description, years, teamSize, languages } = vendorState.businessDetails;
+        return description && years && teamSize && languages.some(l => l.trim());
+      case 'location':
+        return !!vendorState.registration.city && vendorState.businessDetails.serviceCities.some(l => l.trim());
       case 'portfolio':
         return vendorState.portfolio.length > 0;
-      case 'documents':
-        return vendorState.documents.idProof && vendorState.documents.gst;
-      case 'bank':
-        return vendorState.bank.accountName && vendorState.bank.accountNumber && vendorState.bank.ifsc;
-      case 'subscription':
-        return !!vendorState.subscription.planId;
+      case 'review':
+      case 'submitted':
+        return true;
       default:
         return true;
     }
@@ -238,84 +274,23 @@ const VendorOnboarding = () => {
     const check = canNavigateTo(currentStepIndex + 1);
     const token = localStorage.getItem('vendorToken');
 
-    if (!check.complete && stepId !== 'subscription') {
+    if (!check.complete) {
       alert(`⚠️ Requirement Missing: Please finish "${check.stepLabel}" to continue.`);
       return;
     }
 
-    // Razorpay Integration for Subscription
-    if (stepId === 'subscription') {
-      if (!vendorState.subscription.planId) {
-        alert('Please select a plan to continue.');
-        return;
-      }
-
-      showToast('Initializing secure payment...', 'loading', 0);
-      const sdkLoaded = await loadRazorpay();
-      if (!sdkLoaded) {
-        showToast('Razorpay SDK failed to load. Please check your connection.', 'error');
-        return;
-      }
-
-      try {
-        const res = await vendorApi.createSubscriptionOrder({ planId: selectedPlanId }, token);
-
-        if (res.success) {
-          const options = {
-            key: import.meta.env.VITE_RAZORPAY_KEY_ID,
-            amount: res.order.amount,
-            currency: res.order.currency,
-            name: 'Utsavo',
-            description: `Subscription: ${res.plan.name}`,
-            order_id: res.order.id,
-            handler: async (response) => {
-              showToast('Verifying payment...', 'loading', 0);
-              console.log('Payment Success Response:', response);
-              const verifyRes = await vendorApi.verifySubscriptionPayment({
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_signature: response.razorpay_signature
-              }, token);
-
-              if (verifyRes.success) {
-                showToast('Payment successful! Your profile is now under review. ✨', 'success');
-                updateVendorState({ 
-                  status: 'Pending', 
-                  subscription: { ...vendorState.subscription, status: 'Active' } 
-                });
-                setTimeout(() => navigate('/vendor/dashboard'), 2000);
-              } else {
-                showToast('Payment verification failed. Please contact support.', 'error');
-                console.error('Verification Error:', verifyRes);
-              }
-            },
-            prefill: {
-              name: vendorState.vendor?.fullName || vendorState.registration?.fullName,
-              email: vendorState.vendor?.email || vendorState.registration?.email,
-              contact: vendorState.vendor?.phone || vendorState.registration?.phone
-            },
-            theme: { color: '#7c3aed' },
-            modal: {
-              ondismiss: () => showToast('Payment cancelled', 'info')
-            }
-          };
-          const rzp = new window.Razorpay(options);
-          rzp.open();
-          return;
-        } else {
-          showToast(orderRes.message || 'Failed to create payment order', 'error');
-          console.error('Order Creation Failed:', orderRes);
-        }
-      } catch (err) {
-        showToast('Failed to initialize payment gateway', 'error');
-        console.error('Razorpay Init Error:', err);
+    if (stepId === 'business') {
+      const desc = vendorState.businessDetails.description || '';
+      if (desc.length < 100) {
+        showToast(`Description too short (${desc.length}/100). Please provide more detail about your services.`, 'error');
         return;
       }
     }
 
-    const stepData = vendorState[stepId] || vendorState.businessDetails;
+    const backendSteps = ['business', 'services', 'portfolio'];
+    const stepData = backendSteps.includes(stepId) ? (stepId === 'business' ? vendorState.businessDetails : vendorState[stepId]) : null;
 
-    if (token) {
+    if (backendSteps.includes(stepId) && token && stepData) {
       try {
         const res = await vendorApi.updateOnboarding(stepId, stepData, token);
         if (res.success) {
@@ -324,6 +299,11 @@ const VendorOnboarding = () => {
       } catch (err) {
         console.error('Failed to sync onboarding step with backend:', err);
       }
+    }
+
+    if (stepId === 'review') {
+      navigate('/vendor/onboarding/submitted');
+      return;
     }
 
     if (currentStepIndex === steps.length - 1) {
@@ -350,17 +330,28 @@ const VendorOnboarding = () => {
 
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex-1">
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] drop-shadow-sm" style={{ color: '#7c3aed' }}>Vendor Onboarding</p>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-0.5 drop-shadow-md">Complete your profile</h2>
-            <p className="text-xs sm:text-sm font-semibold mt-0.5" style={{ color: '#1e293b' }}>Finish setup to boost visibility and unlock leads.</p>
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] drop-shadow-sm" style={{ color: '#7c3aed' }}>Vendor Registration</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight mt-0.5 drop-shadow-md">Finish your vendor onboarding</h2>
+            <div className="mt-2 flex flex-wrap items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.25em] text-slate-500">
+              <span className="rounded-full bg-[#eef2ff] px-3 py-1 text-[#7c3aed]">STEP {currentStepIndex + 1} of {steps.length}</span>
+              <span>{steps[currentStepIndex]?.label}</span>
+            </div>
           </div>
-          <div className="relative">
+          <div className="relative hidden md:block">
             <img src="/assets/vendor/success.png" alt="Celebration" className="h-20 sm:h-32 w-auto absolute -top-12 sm:-top-20 -right-2 sm:-right-8 animate-[pulse-glow_4s_ease-in-out_infinite] img-transparent-fix" />
           </div>
         </div>
 
-        {/* Responsive Space-Optimized Step Navigation */}
-        {/* Responsive Space-Optimized Step Navigation */}
+        <div className="mt-6 rounded-3xl bg-slate-100/80 border border-slate-200 p-4">
+          <div className="flex items-center justify-between text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 mb-3">
+            <span>Onboarding progress</span>
+            <span>{Math.round(((currentStepIndex + 1) / steps.length) * 100)}%</span>
+          </div>
+          <div className="h-2 w-full rounded-full bg-white overflow-hidden">
+            <div className="h-full rounded-full bg-gradient-to-r from-[#7c3aed] via-[#a855f7] to-[#f472b6] transition-all" style={{ width: `${((currentStepIndex + 1) / steps.length) * 100}%` }} />
+          </div>
+        </div>
+
         <div className="mt-4 flex justify-between items-center w-full px-2 sm:px-4 max-w-full mx-auto">
           {steps.map((step, index) => (
             <div key={step.id} className={`flex items-center ${index < steps.length - 1 ? 'flex-1' : 'flex-none'}`}>
@@ -395,6 +386,103 @@ const VendorOnboarding = () => {
         </div>
 
         <div className="mt-3 flex-1">
+          {stepId === 'category' && (
+            <div className="space-y-4 max-w-2xl mx-auto">
+              <div className="rounded-3xl border border-[#ede9fe] p-6 bg-white/90 shadow-lg">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Main Category</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-900">Choose the category that best suits your business</h2>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2">
+                {categories.length > 0 ? (
+                  categories.map((cat) => {
+                    const iconMap = {
+                      'Wedding Planning': 'plan',
+                      'Decoration': 'decoration',
+                      'Photography & Media': 'camera',
+                      'Beauty & Fashion': 'makeup',
+                      'Catering & Food': 'cart',
+                      'Entertainment': 'party',
+                      'Traditional Services': 'lightbulb',
+                      'Invitations & Printing': 'invitation',
+                      'Travel & Hospitality': 'globe',
+                      'Event Setup & Rentals': 'venue',
+                      'Gifts & Shopping': 'bag',
+                      'Corporate Events': 'building'
+                    };
+                    const iconName = iconMap[cat.name] || 'star';
+
+                    return (
+                      <button
+                        key={cat._id}
+                        type="button"
+                        onClick={() => updateVendorState({ registration: { ...vendorState.registration, category: cat.name } })}
+                        className={`flex items-center gap-4 rounded-xl border p-3 text-left transition-all ${vendorState.registration.category === cat.name ? 'border-[#7c3aed] bg-[#eef2ff] shadow-md' : 'border-slate-200 bg-white hover:shadow-sm'}`}
+                      >
+                        <div className="flex-shrink-0 h-12 w-12 rounded-lg bg-white border border-[#f3e9ff] flex items-center justify-center">
+                          <Icon name={iconName} size="lg" color="#7c3aed" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-slate-900">{cat.name}</p>
+                        </div>
+                      </button>
+                    );
+                  })
+                ) : (
+                  <div className="col-span-2 rounded-3xl border border-dashed border-slate-300 p-8 text-center text-slate-500">Loading categories...</div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {stepId === 'subcategory' && (
+            <div className="space-y-4 max-w-2xl mx-auto">
+              <div className="rounded-3xl border border-[#ede9fe] p-6 bg-white/90 shadow-lg">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Subcategory</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-900">Select the option that best matches your business</h2>
+              </div>
+              <div className="grid gap-3 grid-cols-2">
+                {getSubcategories(vendorState.registration.category).map((item) => {
+                  const key = item || '';
+                  const iconFor = (text) => {
+                    const t = (text || '').toLowerCase();
+                    if (t.includes('photo') || t.includes('photographer') || t.includes('camera')) return 'camera';
+                    if (t.includes('video') || t.includes('videographer') || t.includes('stream')) return 'video';
+                    if (t.includes('makeup') || t.includes('bridal') || t.includes('beauty')) return 'makeup';
+                    if (t.includes('cater') || t.includes('food') || t.includes('cake')) return 'cart';
+                    if (t.includes('dj') || t.includes('band') || t.includes('music') || t.includes('entertain')) return 'party';
+                    if (t.includes('decor') || t.includes('stage') || t.includes('floral')) return 'decoration';
+                    if (t.includes('invitat') || t.includes('print')) return 'invitation';
+                    if (t.includes('travel') || t.includes('hospital') || t.includes('hotel')) return 'globe';
+                    if (t.includes('groom') || t.includes('wear') || t.includes('clothing')) return 'bag';
+                    if (t.includes('jewel') || t.includes('jewellery')) return 'rings';
+                    return 'star';
+                  };
+                  const iconName = iconFor(item);
+
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      onClick={() => {
+                        setSubCategory(item);
+                        updateVendorState({ registration: { ...vendorState.registration, subCategory: item } });
+                      }}
+                      className={`flex items-center gap-3 rounded-xl border p-3 text-left transition-all ${subCategory === item ? 'border-[#7c3aed] bg-[#eef2ff] shadow-md' : 'border-slate-200 bg-white hover:shadow-sm'}`}
+                    >
+                      <div className="flex-shrink-0 h-10 w-10 rounded-md bg-white border border-[#f3e9ff] flex items-center justify-center">
+                        <Icon name={iconName} size="md" color="#7c3aed" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-slate-900">{item}</p>
+                        <p className="mt-1 text-xs text-slate-500">{item} services and packages.</p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
           {stepId === 'business' && (
             <div className="space-y-4 max-w-2xl mx-auto">
               {/* 1. Description */}
@@ -525,19 +613,42 @@ const VendorOnboarding = () => {
 
           {stepId === 'services' && (
             <div className="space-y-4">
-              <div className="flex items-center justify-between bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#ede9fe]">
-                <div className="flex-1">
-                  <p className="text-xs sm:text-sm font-bold text-slate-900 uppercase tracking-wide drop-shadow-sm">Manage Services</p>
-                  <p className="text-[10px] sm:text-sm font-bold mt-1" style={{ color: '#475569' }}>Add your business offerings.</p>
-                </div>
-                <button
-                  type="button"
-                  className="vendor-cta rounded-2xl px-4 py-2.5 text-[10px] sm:text-xs font-bold tracking-wide shrink-0 ml-2"
-                  onClick={() => setShowServiceModal(true)}
-                >
-                  ➕ Add service
-                </button>
+              <div className="rounded-3xl border border-[#ede9fe] bg-white p-6 shadow-sm">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Select Services</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-900">Select all the services you provide</h2>
+                <p className="mt-2 text-sm text-slate-500">Pick your main offerings, then add additional details for each service.</p>
               </div>
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                {vendorState.services.length === 0 ? (
+                  <div className="col-span-2 rounded-3xl border border-dashed border-slate-300 p-10 text-center text-slate-500">
+                    <div className="mb-3 text-4xl">✨</div>
+                    <p className="font-bold text-slate-900">No services added yet</p>
+                    <p className="mt-2 text-sm">Add your first service to move ahead.</p>
+                  </div>
+                ) : vendorState.services.map((service) => (
+                  <div key={service.id} className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-bold text-slate-900">{service.name}</p>
+                        <p className="text-xs text-slate-500 mt-1">{service.category}</p>
+                      </div>
+                      <span className="rounded-full bg-[#eef2ff] px-3 py-1 text-[11px] font-semibold text-[#7c3aed]">Added</span>
+                    </div>
+                    <div className="mt-4 text-sm text-slate-600">
+                      {service.packages?.map((pkg) => pkg.name).join(', ')}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className="rounded-3xl bg-gradient-to-r from-[#7c3aed] to-[#d946ef] px-6 py-4 text-sm font-bold text-white shadow-xl transition-all hover:shadow-[#7c3aed]/30 active:scale-[0.98]"
+                onClick={() => setShowServiceModal(true)}
+              >
+                + Add a service
+              </button>
 
               {showServiceModal && (
                 <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4 overflow-y-auto" style={{
@@ -854,6 +965,97 @@ const VendorOnboarding = () => {
             </div>
           )}
 
+          {stepId === 'location' && (
+            <div className="space-y-6 max-w-2xl mx-auto">
+              <div className="rounded-3xl border border-[#ede9fe] p-6 bg-white/90 shadow-lg">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Location & Service Area</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-900">Where do you provide your services?</h2>
+              </div>
+              <div className="grid gap-4">
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Base location</label>
+                  <input
+                    className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
+                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                    value={vendorState.registration.city}
+                    onChange={(event) => updateVendorState({ registration: { ...vendorState.registration, city: event.target.value } })}
+                    placeholder="e.g. Hyderabad, Telangana"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Service areas</label>
+                  <input
+                    className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
+                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
+                    value={vendorState.businessDetails.serviceCities.join(', ')}
+                    onChange={(event) => {
+                      const values = event.target.value.split(',').map((val) => val.trim()).filter(Boolean);
+                      updateVendorState({ businessDetails: { ...vendorState.businessDetails, serviceCities: values } });
+                    }}
+                    placeholder="e.g. Hyderabad, Secunderabad, Ranga Reddy"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {stepId === 'review' && (
+            <div className="space-y-6 max-w-3xl mx-auto">
+              <div className="rounded-3xl border border-[#ede9fe] p-6 bg-white/90 shadow-lg">
+                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Review Your Details</p>
+                <h2 className="mt-3 text-2xl font-bold text-slate-900">Confirm your details before submit</h2>
+              </div>
+
+              <div className="grid gap-4">
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Category</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-900">{vendorState.registration.category || 'Not selected'}</p>
+                  <p className="mt-1 text-sm text-slate-500">{vendorState.registration.subCategory || subCategory || 'Select a subcategory'}</p>
+                </div>
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Services</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-900">{vendorState.services.length} service(s) added</p>
+                  {vendorState.services.slice(0, 3).map((service) => (
+                    <p key={service.id} className="mt-1 text-sm text-slate-500">• {service.name}</p>
+                  ))}
+                </div>
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Business</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-900">{vendorState.vendor?.businessName || vendorState.registration.businessName || 'Not provided'}</p>
+                  <p className="mt-2 text-sm text-slate-500">{vendorState.businessDetails.description || 'No business description added.'}</p>
+                </div>
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Location</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-900">{vendorState.registration.city || 'Not provided'}</p>
+                  <p className="mt-1 text-sm text-slate-500">{vendorState.businessDetails.serviceCities.join(', ') || 'No service areas added.'}</p>
+                </div>
+                <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <p className="text-xs font-bold uppercase tracking-[0.2em] text-slate-600">Portfolio & Pricing</p>
+                  <p className="mt-3 text-sm font-semibold text-slate-900">{vendorState.portfolio.length} portfolio item(s)</p>
+                  <p className="mt-1 text-sm text-slate-500">Pricing range: {vendorState.pricing.range || 'Not set'}</p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {stepId === 'submitted' && (
+            <div className="space-y-6 max-w-2xl mx-auto text-center">
+              <div className="rounded-[2.5rem] border border-[#ede9fe] p-10 bg-white/95 shadow-xl">
+                <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#eff6ff] text-4xl text-[#7c3aed]">✓</div>
+                <h2 className="text-3xl font-bold text-slate-900">Registration Submitted</h2>
+                <p className="mt-3 text-sm text-slate-500">Thank you for registering with us. Our team will review your details and get back to you soon.</p>
+              </div>
+              <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-sm font-bold text-slate-700">What&apos;s next?</p>
+                <ul className="mt-4 space-y-2 text-sm text-slate-500 list-disc list-inside">
+                  <li>Profile review in progress</li>
+                  <li>You will get a notification once approved</li>
+                  <li>Once approved, you can log in and receive bookings</li>
+                </ul>
+              </div>
+            </div>
+          )}
+
           {stepId === 'documents' && (
             <div className="grid gap-4 md:grid-cols-2">
               <div className="lg:col-span-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/85 backdrop-blur-md shadow-sm p-4 sm:p-6 rounded-3xl border border-[#ede9fe]">
@@ -1055,7 +1257,7 @@ const VendorOnboarding = () => {
             }}
             onClick={handleNext}
           >
-            {(currentStepIndex === steps.length - 1 ? 'Complete Setup ✨' : 'Continue to Next Step →')}
+            {stepId === 'review' ? 'Submit for Verification' : stepId === 'submitted' ? 'Go to Dashboard' : 'Continue to Next Step →'}
           </button>
         </div>
 

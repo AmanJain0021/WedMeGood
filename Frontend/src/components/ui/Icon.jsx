@@ -31,11 +31,37 @@ const Icon = ({
 
   const iconPaths = {
     // Navigation Icons
-    home: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="m2.25 12 8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-    ),
+        building: (
+          <>
+            <defs>
+              <linearGradient id="gBuild" x1="0" x2="1"><stop offset="0%" stopColor="#e6f0ff"/><stop offset="100%" stopColor="#d6f6ff"/></linearGradient>
+              <filter id="sBuild"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+            </defs>
+            <g filter="url(#sBuild)">
+              <rect x="4" y="6" width="6" height="12" rx="1" fill="url(#gBuild)" stroke="#dfeeff" strokeWidth="0.6" />
+              <rect x="11" y="8" width="6" height="10" rx="1" fill="#fff" stroke="#cfe8ff" strokeWidth="0.6" />
+              <path d="M6 10h2M6 13h2M12 10h2M12 13h2" stroke="#6a35ff" strokeWidth="0.6" strokeLinecap="round" />
+            </g>
+          </>
+        ),
     plan: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+      <>
+        <defs>
+          <linearGradient id="gPlan" x1="0" x2="1">
+            <stop offset="0%" stopColor="#ffd6e0" />
+            <stop offset="100%" stopColor="#e9d5ff" />
+          </linearGradient>
+          <filter id="sPlan">
+            <feDropShadow dx="0" dy="3" stdDeviation="4" floodColor="#000" floodOpacity="0.12" />
+          </filter>
+        </defs>
+        <g filter="url(#sPlan)">
+          <rect x="3" y="4" width="18" height="16" rx="4" fill="url(#gPlan)" stroke="#f0e7ff" strokeWidth="0.6" />
+          <rect x="6" y="7" width="6" height="2" rx="0.8" fill="#6a35ff" />
+          <rect x="6" y="10" width="10" height="2" rx="0.8" fill="#4c1d95" />
+          <path d="M15 14h-6v1.2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V14z" fill="#fff" opacity="0.9" />
+        </g>
+      </>
     ),
     vendors: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
@@ -58,7 +84,17 @@ const Icon = ({
       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
     ),
     party: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.362 5.214A8.252 8.252 0 0 1 12 21 8.25 8.25 0 0 1 6.038 7.047 8.287 8.287 0 0 0 9 9.601a8.983 8.983 0 0 1 3.361-6.867 8.21 8.21 0 0 0 3 2.48Z" />
+      <>
+        <defs>
+          <linearGradient id="gParty" x1="0" x2="1"><stop offset="0%" stopColor="#f3e8ff"/><stop offset="100%" stopColor="#ffd6f0"/></linearGradient>
+          <filter id="sParty"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sParty)">
+          <rect x="3" y="6" width="18" height="10" rx="3" fill="url(#gParty)" stroke="#f0e6ff" strokeWidth="0.6" />
+          <path d="M8 11c1.2-.8 3-1 4.5 0" stroke="#6a35ff" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+          <path d="M16 9.5l-2 1.5" stroke="#ff6b6b" strokeWidth="1.2" strokeLinecap="round" />
+        </g>
+      </>
     ),
     arrow: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
@@ -121,13 +157,41 @@ const Icon = ({
       <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" />
     ),
     camera: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+      <>
+        <defs>
+          <linearGradient id="gCam" x1="0" x2="1">
+            <stop offset="0%" stopColor="#fef3c7" />
+            <stop offset="100%" stopColor="#c7e9ff" />
+          </linearGradient>
+          <filter id="sCam" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" floodColor="#000" floodOpacity="0.12" />
+          </filter>
+        </defs>
+        <g filter="url(#sCam)">
+          <rect x="2" y="6" width="20" height="12" rx="3" fill="url(#gCam)" stroke="#d9e8ff" strokeWidth="0.8" />
+          <circle cx="12" cy="12" r="3.2" fill="#fff" stroke="#cbd5e1" strokeWidth="0.8" />
+          <circle cx="12" cy="12" r="1.6" fill="#6a35ff" />
+          <rect x="4.5" y="7.5" width="3" height="2" rx="0.6" fill="#6a35ff" />
+        </g>
+      </>
     ),
     palette: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
     ),
     decoration: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
+      <>
+        <defs>
+          <linearGradient id="gDeco" x1="0" x2="1">
+            <stop offset="0%" stopColor="#ffd9e6" />
+            <stop offset="100%" stopColor="#dff4ff" />
+          </linearGradient>
+          <filter id="sDeco"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12" /></filter>
+        </defs>
+        <g filter="url(#sDeco)">
+          <path d="M12 6c-2.5 0-4 1.75-4 4s1.5 4 4 4 4-1.75 4-4-1.5-4-4-4z" fill="url(#gDeco)" stroke="#f3c6e0" strokeWidth="0.6" />
+          <path d="M6 10c1-2 6-4 6-4s5 2 6 4" stroke="#6a35ff" strokeWidth="1" fill="none" />
+        </g>
+      </>
     ),
     building: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18m2.25-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
@@ -139,16 +203,45 @@ const Icon = ({
       <path strokeLinecap="round" strokeLinejoin="round" d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0 1 11.186 0Z" />
     ),
     lightbulb: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+      <>
+        <defs>
+          <linearGradient id="gBulb" x1="0" x2="1"><stop offset="0%" stopColor="#fff7cc"/><stop offset="100%" stopColor="#ffd08a"/></linearGradient>
+          <filter id="sBulb"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sBulb)">
+          <path d="M12 6c-2.2 0-4 1.8-4 4 0 1.3.8 2.4 1.9 3 .3.2.6.3.9.3h2.2c.3 0 .6-.1.9-.3A3.99 3.99 0 0 0 16 10c0-2.2-1.8-4-4-4z" fill="url(#gBulb)" stroke="#ffd88a" strokeWidth="0.6" />
+          <rect x="10" y="14" width="4" height="2" rx="0.6" fill="#d9d9d9" />
+        </g>
+      </>
     ),
     genie: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" />
     ),
     venue: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m2.25-18v18m13.5-18v18m2.25-18v18M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z" />
+      <>
+        <defs>
+          <linearGradient id="gVenue" x1="0" x2="1"><stop offset="0%" stopColor="#e6f7ff"/><stop offset="100%" stopColor="#f7e6ff"/></linearGradient>
+          <filter id="sVenue"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sVenue)">
+          <rect x="3" y="6" width="18" height="10" rx="3" fill="url(#gVenue)" stroke="#e9f0ff" strokeWidth="0.6" />
+          <path d="M6 12h12" stroke="#6a35ff" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M9 12v3" stroke="#6a35ff" strokeWidth="1.2" strokeLinecap="round" />
+        </g>
+      </>
     ),
     makeup: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 0 0-5.78 1.128 2.25 2.25 0 0 1-2.4 2.245 4.5 4.5 0 0 0 8.4-2.245c0-.399-.078-.78-.22-1.128Zm0 0a15.998 15.998 0 0 0 3.388-1.62m-5.043-.025a15.994 15.994 0 0 1 1.622-3.395m3.42 3.42a15.995 15.995 0 0 0 4.764-4.648l3.876-5.814a1.151 1.151 0 0 0-1.597-1.597L14.146 6.32a15.996 15.996 0 0 0-4.649 4.763m3.42 3.42a6.776 6.776 0 0 0-3.42-3.42" />
+      <>
+        <defs>
+          <linearGradient id="gMake" x1="0" x2="1"><stop offset="0%" stopColor="#ffd6d6"/><stop offset="100%" stopColor="#ffe6b3"/></linearGradient>
+          <filter id="sMake"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sMake)">
+          <rect x="3" y="6" width="18" height="12" rx="3" fill="url(#gMake)" stroke="#ffd1d1" strokeWidth="0.6" />
+          <path d="M8 9c1-1 6-1 8 0" stroke="#6a35ff" strokeWidth="1.4" strokeLinecap="round" fill="none" />
+          <circle cx="17" cy="15" r="1.6" fill="#fff" stroke="#ff8aa2" strokeWidth="0.6" />
+        </g>
+      </>
     ),
     warning: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
@@ -157,7 +250,17 @@ const Icon = ({
       <path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 0 1 3.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 0 0-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 0 0-7.5 0" />
     ),
     invitation: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+      <>
+        <defs>
+          <linearGradient id="gInv" x1="0" x2="1"><stop offset="0%" stopColor="#fff1f5"/><stop offset="100%" stopColor="#ffdede"/></linearGradient>
+          <filter id="sInv"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sInv)">
+          <rect x="3" y="6" width="18" height="12" rx="2.2" fill="url(#gInv)" stroke="#ffdede" strokeWidth="0.6" />
+          <path d="M6 9h12" stroke="#e11d48" strokeWidth="1.2" strokeLinecap="round" />
+          <path d="M12 12l2 1-2 1-2-1 2-1z" fill="#fff" stroke="#e11d48" strokeWidth="0.6" />
+        </g>
+      </>
     ),
     eye: (
       <path strokeLinecap="round" strokeLinejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.644C3.323 8.192 7.234 5.25 12 5.25c4.766 0 8.677 2.942 9.964 6.428.049.133.049.31 0 .443-1.287 3.483-5.198 6.427-9.964 6.427-4.766 0-8.677-2.942-9.964-6.427Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -175,10 +278,30 @@ const Icon = ({
       <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 .621-.504 1.125-1.125 1.125H4.875A1.125 1.125 0 0 1 3.75 18.4V14.15m16.5 0a3 3 0 0 0-3-3H6.75a3 3 0 0 0-3 3m16.5 0-1.591-1.591a2.25 2.25 0 0 0-1.591-.659H6.932c-.597 0-1.17.237-1.591.659L3.75 14.15M12 12.75h.008v.008H12v-.008Z" />
     ),
     cart: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+      <>
+        <defs>
+          <linearGradient id="gCart" x1="0" x2="1"><stop offset="0%" stopColor="#dffcf6"/><stop offset="100%" stopColor="#d8e6ff"/></linearGradient>
+          <filter id="sCart"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sCart)">
+          <rect x="3" y="6" width="14" height="8" rx="2" fill="url(#gCart)" stroke="#cfefff" strokeWidth="0.6" />
+          <circle cx="8" cy="16" r="1.4" fill="#fff" stroke="#6a35ff" strokeWidth="0.8" />
+          <circle cx="15" cy="16" r="1.4" fill="#fff" stroke="#6a35ff" strokeWidth="0.8" />
+          <path d="M5 8h12" stroke="#6a35ff" strokeWidth="1" strokeLinecap="round" />
+        </g>
+      </>
     ),
     bag: (
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" />
+      <>
+        <defs>
+          <linearGradient id="gBag" x1="0" x2="1"><stop offset="0%" stopColor="#fff0f0"/><stop offset="100%" stopColor="#ffdede"/></linearGradient>
+          <filter id="sBag"><feDropShadow dx="0" dy="3" stdDeviation="3" floodColor="#000" floodOpacity="0.12"/></filter>
+        </defs>
+        <g filter="url(#sBag)">
+          <rect x="5" y="7" width="10" height="8" rx="1.6" fill="url(#gBag)" stroke="#ffdede" strokeWidth="0.6" />
+          <path d="M8 7a2 2 0 014 0" stroke="#6a35ff" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+        </g>
+      </>
     ),
     whatsapp: (
       <g fill="currentColor" stroke="none">
