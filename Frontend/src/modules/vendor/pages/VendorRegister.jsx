@@ -6,6 +6,7 @@ import { vendorApi } from '../vendorApi';
 import { adminApi } from '../../admin/services/adminApi';
 
 // Bespoke, high-fidelity vector illustrations matching the target mockup exactly.
+// Bespoke, high-fidelity real photography categories details matching target mockup.
 const getCategoryMockupDetails = (catName) => {
   switch (catName) {
     case 'Wedding Planners':
@@ -13,184 +14,91 @@ const getCategoryMockupDetails = (catName) => {
       return {
         label: 'Wedding Planning',
         color: '#4F35C3',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="8" width="24" height="30" rx="3.5" stroke="#4F35C3" strokeWidth="2.5" strokeLinejoin="round" />
-            <path d="M17 8V6a2 2 0 012-2h6a2 2 0 012 2v2" stroke="#4F35C3" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="M17 16h10M17 22h10M17 28h6" stroke="#4F35C3" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="M13 16h.01M13 22h.01M13 28h.01" stroke="#4F35C3" strokeWidth="3.5" strokeLinecap="round" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=150&auto=format&fit=crop'
       };
     case 'Decorators':
     case 'Decoration':
       return {
         label: 'Decoration',
         color: '#10B981',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 36V18C8 11.373 13.373 6 20 6s12 5.373 12 12v18" stroke="#10B981" strokeWidth="3" strokeLinecap="round" />
-            <path d="M5 36h6M29 36h6" stroke="#10B981" strokeWidth="3" strokeLinecap="round" />
-            <circle cx="20" cy="6" r="3.5" fill="#EC4899" />
-            <circle cx="11" cy="15" r="3.5" fill="#EC4899" />
-            <circle cx="29" cy="15" r="3.5" fill="#EC4899" />
-            <path d="M8 24h3M29 24h3" stroke="#F43F5E" strokeWidth="2.5" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1519225495810-7517c2965a7d?q=80&w=150&auto=format&fit=crop'
       };
     case 'Photographers':
     case 'Photography & Media':
       return {
         label: 'Photography & Media',
         color: '#475569',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="12" width="30" height="20" rx="4" stroke="#334155" strokeWidth="3" strokeLinejoin="round" />
-            <path d="M15 12V9h14v3" stroke="#334155" strokeWidth="2.5" strokeLinejoin="round" />
-            <circle cx="22" cy="22" r="7.5" stroke="#334155" strokeWidth="3" fill="#F8FAFC" />
-            <circle cx="22" cy="22" r="3.5" fill="#334155" />
-            <rect x="10" y="9" width="3" height="3" rx="0.5" fill="#EF4444" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?q=80&w=150&auto=format&fit=crop'
       };
     case 'Makeup Artists':
     case 'Beauty & Fashion':
       return {
         label: 'Beauty & Fashion',
         color: '#D97706',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="9" y="18" width="8" height="18" rx="1.5" stroke="#D97706" strokeWidth="2.5" fill="#FEF3C7" />
-            <rect x="10" y="13" width="6" height="5" fill="#EF4444" rx="1" stroke="#EF4444" strokeWidth="1.5" />
-            <path d="M32 8l-4 4-15 15 3 3 15-15 4-4" stroke="#78350F" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="M31 9c1-1 3.5-2 5 0s1 4 0 5-4.5.5-5-5z" fill="#EC4899" />
-            <path d="M26 14l3 3" stroke="#FBBF24" strokeWidth="3" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?q=80&w=150&auto=format&fit=crop'
       };
     case 'Catering':
     case 'Catering & Food':
       return {
         label: 'Catering & Food',
         color: '#10B981',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 31h30c1.5 0 2 1 2 2s-.5 2-2 2H6c-1.5 0-2-1-2-2s.5-2 2-2z" fill="#FEF3C7" stroke="#D97706" strokeWidth="2.5" />
-            <path d="M8 31c0-8 6.5-13.5 14-13.5s14 5.5 14 13.5H8z" fill="#E6F4EA" stroke="#10B981" strokeWidth="3" strokeLinejoin="round" />
-            <circle cx="22" cy="14" r="3.5" fill="#D97706" stroke="#B45309" strokeWidth="1.5" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1555244162-803834f70033?q=80&w=150&auto=format&fit=crop'
       };
     case 'Choreographers':
     case 'Entertainment':
       return {
         label: 'Entertainment',
         color: '#4F35C3',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="28" r="5" stroke="#4F35C3" strokeWidth="2.5" fill="#EEF2FF" />
-            <circle cx="28" cy="24" r="5" stroke="#4F35C3" strokeWidth="2.5" fill="#EEF2FF" />
-            <path d="M17 28V10l16-3v17" stroke="#4F35C3" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M17 14l16-3V7L17 10v4z" fill="#4F35C3" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=150&auto=format&fit=crop'
       };
     case 'Mehendi Artists':
     case 'Traditional Services':
       return {
         label: 'Traditional Services',
         color: '#EA580C',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M6 22c0 8 7.5 12 16 12s16-4 16-12c0 0-4 3-16 3S6 22 6 22z" fill="#FFEFE2" stroke="#EA580C" strokeWidth="2.5" strokeLinejoin="round" />
-            <path d="M16 34c1 2.5 3 4 6 4s5-1.5 6-4" stroke="#EA580C" strokeWidth="2.5" strokeLinecap="round" />
-            <path d="M22 6c-3 5 0 11 0 11s3-6 0-11z" fill="#EF4444" stroke="#F59E0B" strokeWidth="2.5" strokeLinejoin="round" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1610030469983-98e550d6193c?q=80&w=150&auto=format&fit=crop'
       };
     case 'Wedding Invitations':
     case 'Invitations & Printing':
       return {
         label: 'Invitations & Printing',
         color: '#E11D48',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="10" width="30" height="22" rx="3" stroke="#F43F5E" strokeWidth="2.5" fill="#FFF5F5" />
-            <path d="M7 11l15 11 15-11" stroke="#F43F5E" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M22 22.5c-.5-.5-1.5-1.2-2.5-.7s-1 2 0 3l2.5 2.2 2.5-2.2c1-1 1-2.5 0-3s-2 .2-2.5.7z" fill="#EF4444" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?q=80&w=150&auto=format&fit=crop'
       };
     case 'Groom Wear':
     case 'Travel & Hospitality':
       return {
         label: 'Travel & Hospitality',
         color: '#2563EB',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="9" y="30" width="6" height="6" rx="1.5" fill="#1E293B" />
-            <rect x="29" y="30" width="6" height="6" rx="1.5" fill="#1E293B" />
-            <path d="M8 20h28v10a2 2 0 01-2 2H10a2 2 0 01-2-2V20z" fill="#EFF6FF" stroke="#2563EB" strokeWidth="2.5" />
-            <path d="M11 20l3-8h16l3 8H11z" fill="#EFF6FF" stroke="#2563EB" strokeWidth="2.5" strokeLinejoin="round" />
-            <circle cx="12" cy="25" r="2.5" fill="#FBBF24" />
-            <circle cx="32" cy="25" r="2.5" fill="#FBBF24" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=150&auto=format&fit=crop'
       };
     case 'Music & DJs':
     case 'Event Setup & Rentals':
       return {
         label: 'Event Setup & Rentals',
         color: '#6366F1',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22 6L6 20h32L22 6z" fill="#EEF2FF" stroke="#4F35C3" strokeWidth="2.5" strokeLinejoin="round" />
-            <path d="M22 6v14M14 13v7M30 13v7" stroke="#4F35C3" strokeWidth="2" />
-            <path d="M8 20v14M36 20v14" stroke="#4F35C3" strokeWidth="2.5" />
-            <path d="M22 6V3l4 1.5-4 1.5z" fill="#EC4899" />
-            <path d="M14 34v-8a8 8 0 0116 0v8" stroke="#4F35C3" strokeWidth="2.5" fill="#FFF" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=150&auto=format&fit=crop'
       };
     case 'Bridal Wear':
     case 'Gifts & Shopping':
       return {
         label: 'Gifts & Shopping',
         color: '#EF4444',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="8" y="14" width="28" height="22" rx="3" fill="#FEE2E2" stroke="#EF4444" strokeWidth="2.5" />
-            <path d="M22 14v22M8 25h28" stroke="#EF4444" strokeWidth="3" />
-            <path d="M22 14c-4-4-6-1-3 2s3-2 3-2z" fill="#FBBF24" stroke="#D97706" strokeWidth="2.5" />
-            <path d="M22 14c4-4 6-1 3 2s-3-2-3-2z" fill="#FBBF24" stroke="#D97706" strokeWidth="2.5" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=150&auto=format&fit=crop'
       };
     case 'Venues':
     case 'Corporate Events':
       return {
         label: 'Corporate Events',
         color: '#0284c7',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="7" y="12" width="12" height="26" rx="2" fill="#E0F2FE" stroke="#0284c7" strokeWidth="2.5" />
-            <rect x="21" y="6" width="16" height="32" rx="2.5" fill="#F0F9FF" stroke="#0284c7" strokeWidth="2.5" />
-            <path d="M11 16h4M11 21h4M11 26h4M11 31h4M25 10h8M25 15h8M25 20h8M25 25h8M25 30h8" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?q=80&w=150&auto=format&fit=crop'
       };
     case 'Jewellery':
     default:
       return {
         label: 'Jewellery',
         color: '#D97706',
-        icon: (
-          <svg className="w-8 h-8 flex-shrink-0" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="18" cy="26" r="10" stroke="#D97706" strokeWidth="3" fill="#FEF3C7" />
-            <circle cx="18" cy="16" r="3.5" stroke="#D97706" strokeWidth="2.5" fill="#E0F2FE" />
-            <circle cx="26" cy="22" r="10" stroke="#EC4899" strokeWidth="3" fill="#FCE7F3" />
-          </svg>
-        )
+        imageUrl: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=150&auto=format&fit=crop'
       };
   }
 };
@@ -422,12 +330,33 @@ const VendorRegister = () => {
   const progressPercent = Math.round((progressCount / 10) * 100);
 
   return (
-    <div className="w-full max-w-xl mx-auto py-1 px-1 font-sans">
+    <div className="w-full min-h-screen sm:min-h-0 sm:max-w-xl sm:mx-auto" style={{ fontFamily: "'Poppins', sans-serif" }}>
       {/* Super Compact Card wrapper */}
-      <div className="bg-white rounded-[28px] shadow-[0_12px_40px_rgba(124,58,237,0.08)] border border-slate-100 overflow-hidden flex flex-col transition-all duration-300">
+      <div className="bg-white min-h-screen sm:min-h-0 w-full rounded-none sm:rounded-[28px] shadow-none sm:shadow-[0_12px_40px_rgba(124,58,237,0.08)] border-0 sm:border border-slate-100 overflow-hidden flex flex-col transition-all duration-300">
         
+        {/* Logo inside card */}
+        <div className="flex flex-col items-center justify-center pt-3 pb-1 select-none">
+          <div className="pointer-events-auto flex items-center gap-3.5 cursor-pointer group" onClick={() => window.location.href = '/'}>
+            <div className="relative">
+              <img src="/assets/vendor/logo_theme.png" alt="Utsavo Logo" className="h-14 sm:h-16 w-auto rounded-xl shadow-md transition-all duration-300 group-hover:scale-105" />
+            </div>
+            <div className="flex flex-col justify-center">
+              <h1 className="text-2xl sm:text-3xl font-black italic tracking-tighter bg-clip-text text-transparent leading-none" style={{
+                fontFamily: "'Playfair Display', serif",
+                backgroundImage: 'linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6)'
+              }}>Utsavo</h1>
+              <div className="mt-1 flex items-center gap-1">
+                <div className="h-[1px] w-5 bg-gradient-to-r from-rose-700/40 to-transparent"></div>
+                <p className="text-[9px] sm:text-[10px] font-black uppercase tracking-[0.25em] text-rose-800/80 leading-none" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  Elite Wedding Network
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Clean Mockup Navigation Bar */}
-        <div className="flex items-center justify-between px-4 py-2 relative select-none">
+        <div className="flex items-center justify-between px-4 pt-1 pb-1 mt-0 relative select-none">
           <button 
             type="button"
             onClick={handleBackNavigation} 
@@ -438,12 +367,14 @@ const VendorRegister = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
             </svg>
           </button>
-          <h2 className="text-base sm:text-[17px] font-extrabold text-slate-900 tracking-tight">Vendor Registration</h2>
+          <h2 className="text-[15px] sm:text-[16px] text-slate-700 tracking-tight" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 500 }}>
+            Vendor Registration
+          </h2>
           <div className="w-8" />
         </div>
 
         {/* Mockup Connected Stepper Circles 1-2-3-4-5-7 */}
-        <div className="relative flex items-center justify-between w-full max-w-[270px] mx-auto my-2.5 px-1 select-none">
+        <div className="relative flex items-center justify-between w-full max-w-[270px] mx-auto my-1.5 px-1 select-none">
           {/* Horizontal Line behind */}
           <div className="absolute top-1/2 left-3 right-3 h-[1px] bg-slate-200 -translate-y-1/2 z-0" />
           
@@ -472,8 +403,8 @@ const VendorRegister = () => {
           {currentStep === 1 ? (
             <div className="flex flex-col h-full animate-in fade-in duration-300">
               {/* Titles Step 1 */}
-              <div className="text-center px-3 mb-2 select-none">
-                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight leading-tight">
+              <div className="text-center px-3 mb-1 select-none">
+                <h2 className="text-xl sm:text-2xl text-slate-800 tracking-tight leading-snug max-w-[280px] mx-auto" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600 }}>
                   Choose Your Main Category
                 </h2>
                 <p className="mt-0.5 text-[10.5px] sm:text-[11.5px] text-slate-400 max-w-[280px] mx-auto font-semibold leading-normal">
@@ -499,8 +430,13 @@ const VendorRegister = () => {
                             : 'border-slate-100 bg-white hover:border-slate-200'
                         }`}
                       >
-                        <div className="flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
-                          {details.icon}
+                        <div className="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 relative border border-slate-100 shadow-sm transition-transform duration-200 group-hover:scale-105">
+                          <img 
+                            src={details.imageUrl} 
+                            alt={details.label} 
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
                         </div>
                         <div className="min-w-0 flex-1">
                           <p className={`text-[10px] sm:text-[11.5px] font-bold leading-tight tracking-tight text-slate-800 transition-colors ${
@@ -541,16 +477,18 @@ const VendorRegister = () => {
               
               {/* Central circular category badge */}
               <div className="flex justify-center mb-3">
-                <div className="h-16 w-16 rounded-full bg-[#F0EFFC] flex items-center justify-center shadow-[0_4px_12px_rgba(79,53,195,0.06)] relative border border-violet-100/50">
-                  <div className="scale-110 flex items-center justify-center">
-                    {getCategoryMockupDetails(selectedCategory)?.icon}
-                  </div>
+                <div className="h-16 w-16 rounded-full overflow-hidden flex items-center justify-center shadow-md relative border border-violet-100/50">
+                  <img 
+                    src={getCategoryMockupDetails(selectedCategory)?.imageUrl} 
+                    alt={selectedCategory} 
+                    className="w-full h-full object-cover" 
+                  />
                 </div>
               </div>
 
               {/* Dynamic Header titles matching mockup */}
               <div className="text-center px-3 mb-4">
-                <h2 className="text-base sm:text-lg font-extrabold text-slate-900 tracking-tight leading-tight">
+                <h2 className="text-xl sm:text-2xl text-slate-800 tracking-tight leading-snug max-w-[280px] mx-auto" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600 }}>
                   {getCategoryMockupDetails(selectedCategory)?.label || selectedCategory}
                 </h2>
                 <p className="mt-0.5 text-xs sm:text-[13px] text-slate-500 font-semibold max-w-[320px] mx-auto leading-normal">
@@ -622,7 +560,7 @@ const VendorRegister = () => {
               
               {/* Title Step 3 */}
               <div className="text-center px-3 mb-1.5 select-none">
-                <h2 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight leading-tight">
+                <h2 className="text-lg sm:text-xl text-slate-800 tracking-tight leading-snug" style={{ fontFamily: "'Poppins', sans-serif", fontWeight: 600 }}>
                   Register Your Business
                 </h2>
                 <p className="mt-0.5 text-[9.5px] sm:text-[10px] text-slate-400 max-w-[280px] mx-auto font-semibold leading-normal">
@@ -648,8 +586,12 @@ const VendorRegister = () => {
               {/* Selected Main and Sub Category Info Pill */}
               <div className="rounded-xl border border-slate-100 p-1.5 bg-slate-50/50 flex items-center justify-between gap-2 shadow-sm">
                 <div className="flex items-center gap-2">
-                  <div className="flex items-center justify-center scale-75">
-                    {getCategoryMockupDetails(selectedCategory)?.icon}
+                  <div className="w-8 h-8 rounded-lg overflow-hidden flex-shrink-0 border border-slate-200/80 shadow-sm">
+                    <img 
+                      src={getCategoryMockupDetails(selectedCategory)?.imageUrl} 
+                      alt={selectedCategory} 
+                      className="w-full h-full object-cover" 
+                    />
                   </div>
                   <div>
                     <p className="text-[7.5px] font-bold uppercase tracking-wider text-slate-400">Selected Role</p>
