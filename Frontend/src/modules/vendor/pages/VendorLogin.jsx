@@ -34,50 +34,56 @@ const VendorLogin = () => {
   };
 
   return (
-    <div className="relative overflow-hidden py-8 px-2" style={{
-      background: 'transparent'
-    }}>
-      {/* Decorative blobs removed for clean white aesthetic */}
+    <div className="w-full min-h-[100dvh] sm:h-auto sm:max-w-xl sm:mx-auto flex flex-col" style={{ fontFamily: "'Poppins', sans-serif" }}>
+      {/* Super Compact Card wrapper */}
+      <div className="bg-white min-h-[100dvh] sm:min-h-0 sm:h-auto w-full rounded-none sm:rounded-[28px] shadow-none sm:shadow-[0_12px_40px_rgba(124,58,237,0.08)] border-0 sm:border border-slate-100 flex flex-col transition-all duration-300">
+        
+        {/* Subtle purple accent glow at top */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#4F35C3]/10 via-[#4F35C3]/40 to-[#4F35C3]/10" />
 
-
-      <div className="w-full max-w-md relative z-10 px-1">
-        <div className="rounded-3xl p-4 sm:p-8 shadow-[0_20px_60px_rgba(124, 58, 237, 0.4)] relative overflow-hidden" style={{
-          background: 'rgba(255, 255, 255, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '1px solid rgba(124, 58, 237, 0.1)'
-        }}>
-          {/* Top gradient accent */}
-          <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-[2rem]" style={{
-            background: 'linear-gradient(90deg, #7c3aed, #6d28d9, #a855f7, #7c3aed)',
-            backgroundSize: '200% 100%',
-            animation: 'gradient-shift 4s ease infinite'
-          }}></div>
-
-          <div className="text-center mb-2 mt-2">
-            <div className="inline-flex h-16 sm:h-24 w-auto items-center justify-center mb-2 transition-all duration-500 hover:scale-110">
-              <img src={loginImg} alt="Logo" className="h-full w-auto rounded-2xl" />
+        {/* Logo inside card */}
+        <div className="flex flex-col items-center justify-center pt-8 pb-5 select-none flex-shrink-0">
+          <div className="pointer-events-auto flex items-center gap-1.5 cursor-pointer group" onClick={() => window.location.href = '/'}>
+            <div className="relative">
+              <img src="/assets/vendor/logo_theme.png" alt="Utsavo Logo" className="h-8 sm:h-11 w-auto rounded-lg shadow-sm transition-all duration-300 group-hover:scale-105" />
             </div>
+            <div className="flex flex-col justify-center">
+              <h1 className="text-lg sm:text-2xl font-black italic tracking-tighter bg-clip-text text-transparent leading-none" style={{
+                fontFamily: "'Playfair Display', serif",
+                backgroundImage: 'linear-gradient(135deg, #7c3aed, #6d28d9, #5b21b6)'
+              }}>Utsavo</h1>
+              <div className="mt-0.5 flex items-center gap-0.5">
+                <div className="h-[1px] w-4 bg-gradient-to-r from-rose-700/40 to-transparent"></div>
+                <p className="text-[7px] sm:text-[8px] font-black uppercase tracking-[0.25em] text-rose-800/80 leading-none" style={{ fontFamily: "'Poppins', sans-serif" }}>
+                  Elite Wedding Network
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
 
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-1" style={{ color: '#7c3aed' }}>Vendor Portal</p>
-            <h2 className="text-xl sm:text-2xl font-bold text-slate-900 drop-shadow-sm">Welcome Back</h2>
-            <p className="text-xs sm:text-sm font-bold mt-1" style={{ color: '#475569' }}>Sign in to manage your wedding business.</p>
+        <div className="flex-1 flex flex-col px-6 sm:px-10 pb-8 relative z-10 items-center">
+          {/* Centered Traditional Wedding Couple Illustration */}
+          <div className="w-full flex justify-center mb-6 transition-transform duration-500 hover:scale-105">
+            <img src={loginImg} alt="Vendor Portal Illustration" className="h-28 sm:h-36 w-auto object-contain rounded-2xl" />
           </div>
 
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div className="space-y-2">
-              <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#94a3b8' }}>Email Address</label>
-              <div className="relative">
-                <span className="absolute left-4 top-3.5" style={{ color: '#cbd5e1' }}>
+          <div className="text-center mb-6 w-full">
+            <p className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#4F35C3] mb-1.5" style={{ fontFamily: "'Poppins', sans-serif" }}>Vendor Portal</p>
+            <h2 className="text-3xl sm:text-[34px] font-extrabold text-slate-800 font-['Outfit'] leading-tight" style={{ fontFamily: "'Playfair Display', serif" }}>Welcome Back</h2>
+            <p className="text-[11.5px] sm:text-[13px] font-semibold text-slate-500 mt-2.5">Sign in to manage your wedding business.</p>
+          </div>
+
+          <form onSubmit={handleLogin} className="w-full space-y-5">
+            <div className="space-y-1.5">
+              <label className="text-[10.5px] font-bold uppercase tracking-wider text-slate-500 block ml-1">Email Address</label>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#4F35C3]">
                   <Icon name="mail" size="sm" color="current" />
-                </span>
+                </div>
                 <input
                   type="email"
-                  className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all"
-                  style={{
-                    border: '1px solid rgba(124, 58, 237, 0.15)',
-                    background: 'rgba(253, 242, 248, 0.3)'
-                  }}
+                  className="w-full rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold border border-slate-200 bg-slate-50/20 focus:border-[#4F35C3] focus:bg-white focus:ring-2 focus:ring-[#4F35C3]/5 outline-none transition-all duration-150 placeholder-slate-400"
                   placeholder="vendor@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -85,22 +91,18 @@ const VendorLogin = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#94a3b8' }}>Password</label>
-                <button type="button" className="text-[11px] font-bold uppercase tracking-wider" style={{ color: '#7c3aed' }}>Forgot?</button>
+            <div className="space-y-1.5">
+              <div className="flex justify-between items-center px-1 mb-1.5">
+                <label className="text-[10.5px] font-bold uppercase tracking-wider text-slate-500">Password</label>
+                <button type="button" className="text-[10.5px] font-bold tracking-wide text-[#4F35C3] hover:text-[#3f2aa6] transition-colors">Forgot?</button>
               </div>
-              <div className="relative">
-                <span className="absolute left-4 top-3.5" style={{ color: '#cbd5e1' }}>
+              <div className="relative group">
+                <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-[#4F35C3]">
                   <Icon name="lock" size="sm" color="current" />
-                </span>
+                </div>
                 <input
                   type="password"
-                  className="w-full rounded-2xl pl-11 pr-4 py-3.5 text-sm font-semibold transition-all"
-                  style={{
-                    border: '1px solid rgba(124, 58, 237, 0.15)',
-                    background: 'rgba(253, 242, 248, 0.3)'
-                  }}
+                  className="w-full rounded-xl pl-10 pr-4 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold border border-slate-200 bg-slate-50/20 focus:border-[#4F35C3] focus:bg-white focus:ring-2 focus:ring-[#4F35C3]/5 outline-none transition-all duration-150 placeholder-slate-400"
                   placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -108,26 +110,23 @@ const VendorLogin = () => {
               </div>
             </div>
 
-            <button
-              type="submit"
-              className="vendor-cta w-full rounded-2xl py-3 font-bold text-base tracking-wide mt-1"
-            >
-              Sign In
+            <button type="submit" className="w-full mt-6 rounded-xl py-3 text-[13px] sm:text-sm font-extrabold text-white transition-all duration-200 bg-[#4F35C3] shadow-sm hover:shadow-[0_4px_16px_rgba(79,53,195,0.25)] hover:brightness-105 active:scale-[0.98] flex items-center justify-center gap-2">
+              Sign In ✨
             </button>
           </form>
 
-          <div className="mt-4 text-center">
-            <p className="text-sm font-bold" style={{ color: '#475569' }}>
+          <div className="mt-7 text-center">
+            <p className="text-[11px] sm:text-xs font-bold text-slate-500">
               Don't have a vendor account?
-              <Link to="/vendor/register" className="ml-1 font-bold underline decoration-rose-200" style={{ color: '#7c3aed' }}>Register Now</Link>
+              <Link to="/vendor/register" className="ml-1.5 text-[#4F35C3] hover:text-[#3f2aa6] font-extrabold hover:underline">Register Now</Link>
             </p>
           </div>
-        </div>
 
-        {/* Trust badges below */}
-        <div className="flex justify-center gap-6 mt-6">
-          <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#94a3b8' }}>&#128274; Secure Login</span>
-          <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: '#94a3b8' }}>&#9989; Trusted Platform</span>
+          {/* Trust badges below */}
+          <div className="flex justify-center gap-6 mt-8">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">🔒 Secure Login</span>
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center gap-1">✅ Trusted Platform</span>
+          </div>
         </div>
       </div>
     </div>

@@ -35,6 +35,10 @@ const vendorSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please provide a service category']
     },
+    subCategory: {
+        type: String,
+        default: ''
+    },
     password: {
         type: String,
         required: [true, 'Please provide a password'],

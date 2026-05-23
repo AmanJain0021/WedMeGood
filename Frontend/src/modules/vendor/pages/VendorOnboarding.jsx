@@ -10,9 +10,8 @@ const steps = [
   { id: 'subcategory', label: 'Choose Subcategory' },
   { id: 'services', label: 'Select Services' },
   { id: 'business', label: 'Business Details' },
-  { id: 'location', label: 'Location & Service Area' },
   { id: 'portfolio', label: 'Portfolio & Packages' },
-  { id: 'review', label: 'Review & Submit' },
+  { id: 'subscription', label: 'Business Subscription' },
   { id: 'submitted', label: 'Registration Submitted' }
 ];
 
@@ -217,9 +216,9 @@ const VendorOnboarding = () => {
         return vendorState.services.length > 0;
       case 'business':
         const { description, years, teamSize, languages } = vendorState.businessDetails;
-        return description && years && teamSize && languages.some(l => l.trim());
-      case 'location':
-        return !!vendorState.registration.city && vendorState.businessDetails.serviceCities.some(l => l.trim());
+        return description && years && teamSize && languages.some(l => l.trim()) && 
+               vendorState.businessDetails.serviceCities.some(l => l.trim()) && 
+               !!vendorState.registration.city;
       case 'portfolio':
         return vendorState.portfolio.length > 0;
       case 'review':
@@ -581,6 +580,23 @@ const VendorOnboarding = () => {
                         });
                       }}
                       placeholder="e.g. Hindi, English"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>
+                      Base location <span style={{ color: '#7c3aed' }}>*</span>
+                    </label>
+                    <input
+                      className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
+                      style={{
+                        border: '1px solid rgba(124, 58, 237, 0.15)',
+                        background: 'rgba(255, 255, 255, 0.95)'
+                      }}
+                      value={vendorState.registration.city}
+                      onChange={(event) => updateVendorState({
+                        registration: { ...vendorState.registration, city: event.target.value }
+                      })}
+                      placeholder="e.g. Hyderabad, Telangana"
                     />
                   </div>
                   <div className="space-y-1.5">
@@ -960,40 +976,6 @@ const VendorOnboarding = () => {
                       </div>
                     ))
                   )}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {stepId === 'location' && (
-            <div className="space-y-6 max-w-2xl mx-auto">
-              <div className="rounded-3xl border border-[#ede9fe] p-6 bg-white/90 shadow-lg">
-                <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#7c3aed]">Location & Service Area</p>
-                <h2 className="mt-3 text-2xl font-bold text-slate-900">Where do you provide your services?</h2>
-              </div>
-              <div className="grid gap-4">
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Base location</label>
-                  <input
-                    className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
-                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
-                    value={vendorState.registration.city}
-                    onChange={(event) => updateVendorState({ registration: { ...vendorState.registration, city: event.target.value } })}
-                    placeholder="e.g. Hyderabad, Telangana"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <label className="text-[11px] font-bold uppercase tracking-wider ml-1" style={{ color: '#1e293b' }}>Service areas</label>
-                  <input
-                    className="w-full rounded-2xl px-5 py-3.5 text-sm font-semibold transition-all focus:ring-2 focus:ring-rose-500/20"
-                    style={{ border: '1px solid rgba(124, 58, 237, 0.15)', background: 'rgba(255, 255, 255, 0.95)' }}
-                    value={vendorState.businessDetails.serviceCities.join(', ')}
-                    onChange={(event) => {
-                      const values = event.target.value.split(',').map((val) => val.trim()).filter(Boolean);
-                      updateVendorState({ businessDetails: { ...vendorState.businessDetails, serviceCities: values } });
-                    }}
-                    placeholder="e.g. Hyderabad, Secunderabad, Ranga Reddy"
-                  />
                 </div>
               </div>
             </div>

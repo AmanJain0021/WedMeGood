@@ -31,7 +31,7 @@ const Icon = ({
 
   const iconPaths = {
     // Navigation Icons
-        building: (
+        buildingPremium: (
           <>
             <defs>
               <linearGradient id="gBuild" x1="0" x2="1"><stop offset="0%" stopColor="#e6f0ff"/><stop offset="100%" stopColor="#d6f6ff"/></linearGradient>
