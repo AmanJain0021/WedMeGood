@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Icon from '../../../components/ui/Icon';
 import { vendorApi } from '../vendorApi';
 import { useVendorState } from '../useVendorState';
+import VendorSplashScreen from '../components/VendorSplashScreen';
 
 import loginImg from '../../../assets/login (2).png';
 
@@ -10,6 +11,7 @@ const VendorLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showSplash, setShowSplash] = useState(true);
 
   const { updateVendorState } = useVendorState();
 
@@ -32,6 +34,10 @@ const VendorLogin = () => {
       alert('Please enter your credentials');
     }
   };
+
+  if (showSplash) {
+    return <VendorSplashScreen onComplete={() => setShowSplash(false)} />;
+  }
 
   return (
     <div className="w-full min-h-[100dvh] sm:h-auto sm:max-w-xl sm:mx-auto flex flex-col" style={{ fontFamily: "'Poppins', sans-serif" }}>
